@@ -57,7 +57,7 @@
       "cfg" = "cd ~/.config/home-manager";
       c = "clear";
       switch = lib.mkDefault "home-manager switch";
-      wa = "whatsapp-for-linux";
+      wa = "xdg-open https://web.whatsapp.com/";
     };
   };
 
