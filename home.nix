@@ -18,6 +18,8 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "vscode"
     "google-chrome"
+    "discord"
+    "spotify"
   ];
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -26,6 +28,8 @@
     google-chrome
     git
     whatsapp-for-linux
+    discord
+    spotify
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -53,8 +57,12 @@
       "cfg" = "cd ~/.config/home-manager";
       c = "clear";
       switch = lib.mkDefault "home-manager switch";
+      wa = "whatsapp-for-linux";
     };
   };
+
+  programs.direnv.enable = true;
+  
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
