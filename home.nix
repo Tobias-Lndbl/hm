@@ -21,10 +21,11 @@
   ];
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
-    pkgs.vscode
-    pkgs.google-chrome
-    pkgs.git
+  home.packages = with pkgs; [
+    vscode
+    google-chrome
+    git
+    whatsapp-for-linux
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
