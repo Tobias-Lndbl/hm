@@ -44,6 +44,17 @@
     # '')
   ];
 
+  programs.bash = {
+  enable = true;
+  shellAliases = {
+      ".." = "cd ..";
+      "..." = ".. && ..";
+      "...." = "... && ..";
+      "cfg" = "cd ~/.config/home-manager";
+      c = "clear";
+      switch = lib.mkDefault "home-manager switch";
+    };
+  };
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
