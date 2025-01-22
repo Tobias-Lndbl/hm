@@ -30,6 +30,8 @@
     whatsapp-for-linux
     discord
     spotify
+    zulu23
+    vim
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
