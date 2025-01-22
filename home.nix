@@ -31,7 +31,6 @@
     discord
     spotify
     zulu23
-    vim
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -64,6 +63,15 @@
   };
 
   programs.direnv.enable = true;
+
+  programs.neovim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [ vim-airline ];
+    extraConfig = ''
+      set mouse=a
+    '';
+    vimAlias = true;
+  };
   
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
