@@ -1,6 +1,16 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
+  imports = [
+    ./programs
+    #./games
+  ];
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "tbsl";
@@ -15,7 +25,14 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+  nixpkgs = {
+    config = {
+     allowUnfree = true;
+     allowUnfreePredicate = (_: true);
+    };
+  };
+
+  /*nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "vscode"
     "google-chrome"
     "discord"
@@ -47,7 +64,7 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-  ];
+  ];*/
 
   programs.bash = {
   enable = true;
@@ -64,14 +81,14 @@
 
   programs.direnv.enable = true;
 
-  programs.neovim = {
+  /*programs.neovim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [ vim-airline ];
     extraConfig = ''
       set mouse=a
     '';
     vimAlias = true;
-  };
+  };*/
   
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -107,7 +124,4 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }
