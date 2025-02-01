@@ -7,7 +7,7 @@
     ./spotify.nix
     ./vscode.nix
     ./whatsapp-for-linux.nix
-    #./nvim
+    ./nvim
   ];
 
   programs = {
