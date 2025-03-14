@@ -73,9 +73,9 @@
       ".." = "cd ..";
       "..." = ".. && ..";
       "...." = "... && ..";
-      "cfg" = "cd ~/.config/home-manager";
+      "cfg" = "cd ~/.config/hm";
       c = "clear";
-      switch = lib.mkDefault "home-manager switch";
+      switch = lib.mkDefault "home-manager switch --flake ~/.config/hm";
       wa = "xdg-open https://web.whatsapp.com/";
     };
   };
