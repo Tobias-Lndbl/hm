@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./libresprite.nix
     ./discord.nix
     ./git.nix
     ./gnome-tweaks.nix
