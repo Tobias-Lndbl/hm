@@ -77,6 +77,7 @@
       c = "clear";
       switch = lib.mkDefault "home-manager switch --flake ~/.config/hm";
       wa = "xdg-open https://web.whatsapp.com/";
+      please = "sudo";
     };
   };
 
