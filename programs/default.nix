@@ -9,7 +9,7 @@
     ./spotify.nix
     ./unity.nix
     ./vscode.nix
-    ./whatsapp-for-linux.nix
+    #./whatsapp-for-linux.nix
     ./nvim
   ];
 

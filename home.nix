@@ -9,7 +9,7 @@
 {
   imports = [
     ./programs
-    #./games
+    ./games
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -76,8 +76,11 @@
       "cfg" = "cd ~/.config/hm";
       c = "clear";
       switch = lib.mkDefault "home-manager switch --flake ~/.config/hm";
-      wa = "xdg-open https://web.whatsapp.com/";
+      wa = "firefox --new-window https://web.whatsapp.com";
+      clstat = "firefox --new-window localhost:11987";
       please = "sudo";
+      nixreb_boot = "nixos-rebuild boot";
+      nixreb_switch = "nixos-rebuild switch";
     };
   };
 
