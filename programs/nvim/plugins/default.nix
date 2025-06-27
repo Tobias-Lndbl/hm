@@ -9,6 +9,7 @@
     ./undotree.nix
     ./telescope.nix
 #    ./wakatime.nix
+#    ./nvim-cmp.nix 
   ];
 
   programs.neovim.plugins = with pkgs.vimPlugins;

@@ -76,8 +76,9 @@
       "cfg" = "cd ~/.config/hm";
       c = "clear";
       switch = lib.mkDefault "home-manager switch --flake ~/.config/hm";
-      wa = "firefox --new-window https://web.whatsapp.com";
-      clstat = "firefox --new-window localhost:11987";
+      wa = "firefox https://web.whatsapp.com &";
+      clstat = "firefox localhost:11987 &";
+      ccl = "firefox localhost:11987 &";
       please = "sudo";
       nixreb_boot = "nixos-rebuild boot";
       nixreb_switch = "nixos-rebuild switch";
