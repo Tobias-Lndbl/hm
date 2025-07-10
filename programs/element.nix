@@ -2,6 +2,6 @@
 
 {
   home.packages = with pkgs; [
-    element-web 
+    element-desktop-wayland 
     ];
 }
