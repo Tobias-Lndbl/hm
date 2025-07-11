@@ -12,6 +12,7 @@
     ./unity.nix
     ./vscode.nix
     ./nvim
+    ./xpdf.nix
   ];
 
   programs = {
