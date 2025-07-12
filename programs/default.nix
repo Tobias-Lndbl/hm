@@ -7,7 +7,8 @@
     ./element.nix 
     ./git.nix
     ./gnome-tweaks.nix
-#    ./google-chrome.nix
+    ./google-chrome.nix
+    ./pandoc.nix
     ./spotify.nix
     ./unity.nix
     ./vscode.nix

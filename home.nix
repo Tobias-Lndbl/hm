@@ -30,6 +30,9 @@
     config = {
      allowUnfree = true;
      allowUnfreePredicate = (_: true);
+     permittedInsecurePackages = [
+        "xpdf-4.05"
+     ];
     };
   };
 
@@ -82,6 +85,7 @@
       please = "sudo";
       nixreb_boot = "nixos-rebuild boot";
       nixreb_switch = "nixos-rebuild switch";
+      element = "element-desktop";
     };
   };
 
