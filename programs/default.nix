@@ -10,7 +10,7 @@
     ./google-chrome.nix
     ./pandoc.nix
     ./spotify.nix
-    ./texlive.nix
+#    ./texlive.nix
     ./unity.nix
     ./vscode.nix
     ./nvim
