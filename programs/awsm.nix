@@ -2,6 +2,6 @@
 
 {
   home.packages = with pkgs; [
-    gnome-shell-extension-another-window-session-manager
+    gnomeExtensions.another-window-session-manager
   ];
 }
