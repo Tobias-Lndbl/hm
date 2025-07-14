@@ -3,11 +3,10 @@
 {
   imports = [
   ./copier.nix
-  ./espresso.nix
+  ./gemini-ai.nix
   ./hide-top-bar.nix
-  ./no-title-bar.nix
-  ./restart-to.nix
   ./tactile.nix
+  ./tiling-shell.nix
   ./zen.nix
   ];
 

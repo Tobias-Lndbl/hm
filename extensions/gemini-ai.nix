@@ -2,6 +2,6 @@
 
 {
   home.packages = with pkgs; [
-    gnomeExtensions.no-title-bar
+    gnomeExtensions.gemini-ai
   ];
 }
