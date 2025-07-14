@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./awsm.nix
     ./libresprite.nix
     ./discord.nix
     ./chromium.nix
