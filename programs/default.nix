@@ -1,17 +1,14 @@
 { ... }:
 {
   imports = [
-    ./awsm.nix
     ./libresprite.nix
     ./discord.nix
-    ./chromium.nix
     ./element.nix 
     ./git.nix
     ./gnome-tweaks.nix
     ./google-chrome.nix
     ./pandoc.nix
     ./spotify.nix
-#    ./texlive.nix
     ./unity.nix
     ./vscode.nix
     ./nvim
