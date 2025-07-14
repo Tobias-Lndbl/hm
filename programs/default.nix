@@ -12,6 +12,7 @@
     ./unity.nix
     ./vscode.nix
     ./nvim
+    ./wmctrl.nix
     ./xpdf.nix
   ];
 
