@@ -1,16 +1,16 @@
 {pkgs, config, ...}:
 let 
-#  switch_workspace = builtins.map (ws: "SUPER, ${ws}, workspace, ${ws}") config.workspaces;
+  switch_workspace = builtins.map (ws: "SUPER, ${ws}, workspace, ${ws}") config.workspaces;
 
-#  move_workspace = builtins.map (ws: "SUPER_SHIFT, ${ws}, movetoworkspace, ${ws}") config.workspaces;
+  move_workspace = builtins.map (ws: "SUPER_SHIFT, ${ws}, movetoworkspace, ${ws}") config.workspaces;
 
 in
 {
-    wayland.windowManager.hyprland = {
-      enable = true;
-      xwayland.enable = true;
-    };
-    programs.kitty.enable = true;
+  wayland.windowManager.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+  programs.kitty.enable = true;
 
   wayland.windowManager.hyprland.settings = {
       env = [
