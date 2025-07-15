@@ -48,7 +48,7 @@ in
 
       bind = [
         #App binds
-        "CTRL, k, exec, kitty"
+       # "CTRL, k, exec, kitty"
 
         # Move focus
         "SUPER, left, movefocus, l"
