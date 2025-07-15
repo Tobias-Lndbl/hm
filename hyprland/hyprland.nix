@@ -9,7 +9,7 @@ in
     wayland.windowManager.hyprland.enable = true;
     programs.kitty.enable = true;
 
-    wayland.windowManager.hyprland.settings = with config.colorScheme; {
+#    wayland.windowManager.hyprland.settings = with config.colorScheme; 
 #      exec-once = [
 #        "swaybg -i ${config.appearance.wallpaper}"
 #        "[workspace 9 silent; noanim; fullscreenstate, -1 2] firefox -p autostart --new-window https://calendar.google.com/calendar/u/0/r"
@@ -134,4 +134,4 @@ in
 #       ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
 #       ];
 #    };
-  }
+ } 
