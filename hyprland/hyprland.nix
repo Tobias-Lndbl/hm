@@ -1,8 +1,8 @@
 {pkgs, config, ...}:
 let 
-  switch_workspace = builtins.map (ws: "SUPER, ${ws}, workspace, ${ws}") config.workspaces;
+#  switch_workspace = builtins.map (ws: "SUPER, ${ws}, workspace, ${ws}") config.workspaces;
 
-  move_workspace = builtins.map (ws: "SUPER_SHIFT, ${ws}, movetoworkspace, ${ws}") config.workspaces;
+#  move_workspace = builtins.map (ws: "SUPER_SHIFT, ${ws}, movetoworkspace, ${ws}") config.workspaces;
 
 in
 {
@@ -89,7 +89,7 @@ in
         "SUPER_CTRL, l, moveintogroup, r"
         "SUPER_CTRL, k, moveintogroup, u"
         "SUPER_CTRL, j, moveintogroup, d"
-      ] ++ switch_workspace ++ move_workspace;
+      ]; # ++ switch_workspace ++ move_workspace;
 
       workspace = [
         "1,monitor:${config.monitors.center}"
