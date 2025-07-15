@@ -25,8 +25,19 @@
 
     in 
     rec {
+      packages = forAllSystems (
+        system: 
+        let 
+          pkgs = nixpkgs.legacyPackages.${system};
+        in 
+        import ./pkgs {inherit pkgs;}
+        );
+
+
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+
+      
         
 
 
