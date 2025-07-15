@@ -19,7 +19,7 @@ in
       ];
 
       monitor = [
-        "HDMI-A-2, 1920x1080@60.00000, 1920x0, 1, transform,2"
+        "HDMI-A-2, 1920x1080@60.00000, 1920x0, 1, transform,1"
         "DP-5, 1920x1080@143.9999, 0x0, 1"
       ];
       
@@ -35,7 +35,7 @@ in
 #      ];
 
       decoration = {
-        rounding = 5;
+        rounding = 25;
         blur = {
           enabled = true;
           size = 3;
