@@ -10,20 +10,36 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = 
+  {
+    self,
+    nixpkgs, 
+    home-manager, 
+    ... 
+  }@inputs:
     let
+      inherit (self) outputs;
+      forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux"];
+
+    in 
+    rec {
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      homeConfigurations."tbsl" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+        
 
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./home.nix ];
 
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-      };
+
+        homeConfigurations = {
+          "tbsl" = home-manager.lib.homeManagerConfiguration {
+              pkgs = nixpkgs.legacyPackages.x86_64-linux;
+              extraSpecialArgs = {
+                inherit inputs outputs;
+              };
+              modules = [
+                ./home.nix
+                ./hyprland/default.nix
+              ];
+          };
+        };
     };
 }
