@@ -17,6 +17,11 @@ in
        "IBVA_DRIVER_NAME,nvidia"
        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
       ];
+
+      monitor = {
+        "HDMI-A-2, 1920x1080@60.00000, 1920x0, 1, transform, 3"
+        "DP-5, 1920x1080@143.9999, 0x0, 1"
+      };
       
       input = {
         kb_layout = "de";
@@ -49,6 +54,8 @@ in
       bind = [
         #App binds
        # "CTRL, k, exec, kitty"
+        "CTRL, exec, kitty"
+        "SUPER_CTRL, f, exec firefox"
 
         # Move focus
         "SUPER, left, movefocus, l"
