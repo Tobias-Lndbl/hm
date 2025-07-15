@@ -47,6 +47,9 @@ in
       };
 
       bind = [
+        #App binds
+        "CTRL, k, exec, kitty"
+
         # Move focus
         "SUPER, left, movefocus, l"
         "SUPER, right, movefocus, r"
