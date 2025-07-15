@@ -35,7 +35,7 @@ in
 #      ];
 
       decoration = {
-        rounding = 25;
+        rounding = 5;
         blur = {
           enabled = true;
           size = 3;
