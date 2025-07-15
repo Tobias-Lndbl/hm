@@ -6,7 +6,10 @@ let
 
 in
 {
-    wayland.windowManager.hyprland.enable = true;
+    wayland.windowManager.hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
     programs.kitty.enable = true;
 
   wayland.windowManager.hyprland.settings = {
