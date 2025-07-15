@@ -48,10 +48,10 @@ in
 
       animations = {
         enabled = 1;
-        animation = [
-          "windows,1,7,default"
-          "workspaces,1,6,default"
-        ];
+       # animation = [
+       #   "windows,1,7,default"
+       #   "workspaces,1,6,default"
+       # ];
       };
 
       dwindle = {
@@ -71,7 +71,7 @@ in
         "SUPER, g, exec, MOZ_ENABLE_WAYLAND=1 firefox"
         "SUPER_SHIFT, Q, killactive"
         "SUPERALT, L, exec, swaylock -fel"
-       "SUPERALT, S, exec, swaylock -fel; sleep 1; systemctl suspend -i"
+        "SUPERALT, S, exec, swaylock -fel; sleep 1; systemctl suspend -i"
 
         # Move focus
         "SUPER, left, movefocus, l"
