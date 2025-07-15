@@ -56,6 +56,7 @@ in
        # "CTRL, k, exec, kitty"
        # "CTRL, exec, kitty"
        # "SUPER_CTRL, f, exec firefox"
+        "SUPER, a, exec, alacritty"
 
         # Move focus
         "SUPER, left, movefocus, l"
