@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./alacritty.nix
     ./libresprite.nix
     ./discord.nix
     ./element.nix 
