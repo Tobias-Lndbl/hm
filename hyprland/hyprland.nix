@@ -7,6 +7,7 @@ let
 in
 {
     wayland.windowManager.hyprland.enable = true;
+    programs.kitty.enable = true;
 
     wayland.windowManager.hyprland.settings = with config.colorScheme; {
       exec-once = [
