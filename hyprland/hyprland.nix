@@ -23,11 +23,11 @@ in
         follow_mouse = 1;
       };
 
-      exec-once = [
-        "[workspace 9 silent; noanim] discord"
-        "[workspace 9 silent; noanim] element"
-        "[workspace 9 silent; noanim] spotify"
-      ];
+#      exec-once = [
+#        "[workspace 9 silent; noanim] discord"
+#        "[workspace 9 silent; noanim] element"
+#        "[workspace 9 silent; noanim] spotify"
+#      ];
 
       decoration = {
         rounding = 5;
