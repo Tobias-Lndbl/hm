@@ -37,11 +37,21 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
 
-      
-        
+      # -----------------------------------------------
+      #                   nix-gt 
+      # -----------------------------------------------     
+      nixosConfigurations.nix-gt = nixpkgs.lib.nixosSystem  {
+        specialArgs = {
+          inherit inputs outputs;
+        };
+        modules = [
+          ./nixos/wm/hyprland.nix
+        ]; # ++ import ./modules/nixos;
+      };
 
-
-
+      # -----------------------------------------------
+      #                  home-config 
+      # -----------------------------------------------
         homeConfigurations = {
           "tbsl" = home-manager.lib.homeManagerConfiguration {
               pkgs = nixpkgs.legacyPackages.x86_64-linux;

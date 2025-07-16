@@ -52,11 +52,41 @@ in
       };
 
       bind = [
+        "SUPER, Return, killwindow,"
+
+
         #App binds
        # "CTRL, k, exec, kitty"
        # "CTRL, exec, kitty"
        # "SUPER_CTRL, f, exec firefox"
         "SUPER, a, exec, alacritty"
+
+        #Workspace binds
+        "SUPER_CTRL, 1, workspace, 1"
+        "SUPER_CTRL, 2, workspace, 2"
+        "SUPER_CTRL, 3, workspace, 3"
+        "SUPER_CTRL, 4, workspace, 4"
+        "SUPER_CTRL, 5, workspace, 5"
+        "SUPER_CTRL, 6, workspace, 6"
+        "SUPER_CTRL, 7, workspace, 7"
+        "SUPER_CTRL, 8, workspace, 8"
+        "SUPER_CTRL, 9, workspace, 9"
+
+        "SUPER_CTRL, h, workspace, -1"
+        "SUPER_CTRL, l, workspace, +1"
+
+        "SUPER_CTRL, q, movetoworkspace, 1"
+        "SUPER_CTRL, w, movetoworkspace, 2"
+        "SUPER_CTRL, e, movetoworkspace, 3"
+        "SUPER_CTRL, r, movetoworkspace, 4"
+        "SUPER_CTRL, t, movetoworkspace, 5"
+        "SUPER_CTRL, z, movetoworkspace, 6"
+        "SUPER_CTRL, u, movetoworkspace, 7"
+        "SUPER_CTRL, i, movetoworkspace, 8"
+        "SUPER_CTRL, o, movetoworkspace, 9"
+
+        "SUPER_CTRL, y, movetoworkspace, -1"
+        "SUPER_CTRL, x, movetoworkspace, +1"
 
         # Move focus
         "SUPER, left, movefocus, l"
@@ -87,16 +117,12 @@ in
 
         # Groups
         "SUPER_CTRL, g, togglegroup,"
-        "SUPER_CTRL, w, changegroupactive, f"
-        "SUPER_CTRL, e, moveoutofgroup,"
+        "SUPER_CTRL, a, changegroupactive, f"
+        "SUPER_CTRL, s, moveoutofgroup,"
         "SUPER_CTRL, left, moveintogroup, l"
         "SUPER_CTRL, right, moveintogroup, r"
         "SUPER_CTRL, up, moveintogroup, u"
         "SUPER_CTRL, down, moveintogroup, d"
-        "SUPER_CTRL, h, moveintogroup, l"
-        "SUPER_CTRL, l, moveintogroup, r"
-        "SUPER_CTRL, k, moveintogroup, u"
-        "SUPER_CTRL, j, moveintogroup, d"
       ];  #++ switch_workspace ++ move_workspace;
 
 #      workspace = [
