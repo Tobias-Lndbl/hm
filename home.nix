@@ -79,6 +79,7 @@
       "cfg" = "cd ~/.config/hm";
       "cdhypr" = "cd ~/.config/hypr";
       "cdhyprhm" = "cd ~/.config/hm/nixos/wm";
+      "ivm" = "vim";
       c = "clear";
       switch = lib.mkDefault "home-manager switch --flake ~/.config/hm";
       wa = "firefox https://web.whatsapp.com &";
