@@ -10,7 +10,6 @@
   imports = [
     ./programs
     ./games
-    ./extensions
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -90,15 +89,6 @@
 
   programs.direnv.enable = true;
 
-  /*programs.neovim = {
-    enable = true;
-    plugins = with pkgs.vimPlugins; [ vim-airline ];
-    extraConfig = ''
-      set mouse=a
-    '';
-    vimAlias = true;
-  };*/
-  
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {

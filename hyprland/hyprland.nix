@@ -1,10 +1,4 @@
 {pkgs, config, ...}:
-let 
-  switch_workspace = builtins.map (ws: "SUPER, ${ws}, workspace, ${ws}") config.workspaces;
-
-  move_workspace = builtins.map (ws: "SUPER_SHIFT, ${ws}, movetoworkspace, ${ws}") config.workspaces;
-
-in
 {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -13,6 +7,11 @@ in
   programs.kitty.enable = true;
 
   wayland.windowManager.hyprland.settings = {
+
+ #     source = [
+ #       "~/.config/hyprHM/hyprConfig.conf"
+ #];
+
       env = [
        "IBVA_DRIVER_NAME,nvidia"
        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
