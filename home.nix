@@ -49,6 +49,7 @@
   home.packages = with pkgs; [
     xdg-utils
     swaybg
+
   ];
 
   xdg.enable = true;
