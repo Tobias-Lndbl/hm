@@ -24,7 +24,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  home.stateVersion = "25.05"; # Please read the comment before changing.
 
   nixpkgs = {
     config = {
@@ -35,6 +35,8 @@
      ];
     };
   };
+
+  home.enableNixpkgsReleaseCheck = false;
 
 # #/* nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
 #    "vscode"
@@ -75,6 +77,8 @@
       "..." = ".. && ..";
       "...." = "... && ..";
       "cfg" = "cd ~/.config/hm";
+      "cdhypr" = "cd ~/.config/hypr";
+      "cdhyprhm" = "cd ~/.config/hm/nixos/wm";
       c = "clear";
       switch = lib.mkDefault "home-manager switch --flake ~/.config/hm";
       wa = "firefox https://web.whatsapp.com &";
