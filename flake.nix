@@ -42,14 +42,42 @@
         };
 
       # -----------------------------------------------
+      #                  amaterasu-config
+      # -----------------------------------------------
+        nixosConfigurations."amaterasu" = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./nixos/nix_conf/defaultConf.nix
+#have to    ./nixos/nix_conf/amaterasu/configuration.nix
+#add these  ./nixos/nix_conf/amaterasu/hardware-configuration.nix
+
+
+          ];
+        };
+        
+      # -----------------------------------------------
       #                  izanagi-config
       # -----------------------------------------------
         nixosConfigurations."izanagi" = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
-           # ./nixos/nix_conf/defaultConf.nix
+            ./nixos/nix_conf/defaultConf.nix
             ./nixos/nix_conf/izanagi/configuration.nix
             ./nixos/nix_conf/izanagi/hardware-configuration.nix
+
+
+          ];
+        };
+
+      # -----------------------------------------------
+      #                  izanagi-config
+      # -----------------------------------------------
+        nixosConfigurations."inari" = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./nixos/nix_conf/defaultConf.nix
+#have to    ./nixos/nix_conf/inari/configuration.nix
+#add these  ./nixos/nix_conf/inari/hardware-configuration.nix
 
 
           ];
