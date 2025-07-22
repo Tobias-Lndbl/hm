@@ -3,13 +3,11 @@
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = 
@@ -25,15 +23,6 @@
 
     in 
     rec {
-      packages = forAllSystems (
-        system: 
-        let 
-          pkgs = nixpkgs.legacyPackages.${system};
-        in 
-        import ./pkgs {inherit pkgs;}
-        );
-
-
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
 
@@ -50,6 +39,20 @@
                 ./home.nix
               ];
           };
+        };
+
+      # -----------------------------------------------
+      #                  izanagi-config
+      # -----------------------------------------------
+        nixosConfigurations."izanagi" = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+           # ./nixos/nix_conf/defaultConf.nix
+            ./nixos/nix_conf/izanagi/configuration.nix
+            ./nixos/nix_conf/izanagi/hardware-configuration.nix
+
+
+          ];
         };
     };
 }

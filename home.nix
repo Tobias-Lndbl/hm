@@ -36,7 +36,7 @@
     };
   };
 
-  home.enableNixpkgsReleaseCheck = false;
+  #home.enableNixpkgsReleaseCheck = false;
 
 # #/* nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
 #    "vscode"
