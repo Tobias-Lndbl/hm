@@ -69,10 +69,6 @@ hardware.nvidia = {
   programs.gamemode.enable = true;
 
 
-  nix.settings = {
-	experimental-features = "nix-command flakes";
-  };
-
   programs.coolercontrol.enable = true;
   programs.coolercontrol.nvidiaSupport = true;
 
