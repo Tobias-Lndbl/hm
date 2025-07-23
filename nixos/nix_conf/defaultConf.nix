@@ -40,29 +40,12 @@
   programs.hyprland = {
 	enable = true;
 
-	xwayland.enable = true;
-  };
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "de";
-    variant = "";
-  };
-
-  # Configure console keymap
-  console.keyMap = "de";
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    };
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
 
@@ -78,9 +61,16 @@
   users.users.tbsl = {
     isNormalUser = true;
     description = "tobias lindbuechl";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ 
+      "networkmanager"
+      "wheel" 
+      "audio"
+      "scanner"
+      "networkmanager"
+      "docker"
+      "dialout"
+      ];
     packages = with pkgs; [
-    #  thunderbird
     ];
   };
 
@@ -89,8 +79,6 @@
 
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
   kitty
   ];
 

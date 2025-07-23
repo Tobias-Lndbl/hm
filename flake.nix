@@ -48,8 +48,8 @@
           inherit system;
           modules = [
             ./nixos/nix_conf/defaultConf.nix
-#have to    ./nixos/nix_conf/amaterasu/configuration.nix
-#add these  ./nixos/nix_conf/amaterasu/hardware-configuration.nix
+            ./nixos/nix_conf/amaterasu/configuration.nix
+            ./nixos/nix_conf/amaterasu/hardware-configuration.nix
 
 
           ];
