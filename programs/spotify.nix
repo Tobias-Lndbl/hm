@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    spotify 
-  #  spotifywm
+  #  spotify 
+    spotifywm
   ];
 }
