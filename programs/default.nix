@@ -9,6 +9,7 @@
     ./google-chrome.nix
     ./libresprite.nix
     ./pandoc.nix
+    ./pavucontrol.nix
     ./spotify.nix
     ./unity.nix
     ./vscode.nix
