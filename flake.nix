@@ -8,6 +8,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    waybar.url = "github:Alexays/Waybar/master";
   };
 
   outputs = 
@@ -50,7 +51,7 @@
             ./nixos/nix_conf/defaultConf.nix
             ./nixos/nix_conf/amaterasu/configuration.nix
             ./nixos/nix_conf/amaterasu/hardware-configuration.nix
-
+            ./nixos/waybar/waybar.nix
 
           ];
         };

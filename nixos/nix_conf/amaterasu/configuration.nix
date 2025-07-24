@@ -72,6 +72,11 @@ hardware.nvidia = {
   programs.coolercontrol.enable = true;
   programs.coolercontrol.nvidiaSupport = true;
 
+#  hardware.bluetooth = {
+#    enable = true;
+#    powerOnBoot = true;
+#  };
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
