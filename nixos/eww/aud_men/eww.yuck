@@ -1,0 +1,42 @@
+(
+    defwindow audio_menu
+    :monitor 1
+    :exclusive "false"
+    :stacking "overlay"
+    :geometry
+    (geometry :anchor "center")
+    (audio_menu)
+)
+
+(
+    defwidget audio_menu []
+    (
+        box :class "parent" :space-evenly "false" :orientation "v"
+        (
+            box :class "header" :space-evenly "false"
+            (label :text "audio" :class "title")
+            (
+                button 
+                :class "exit" 
+                :onclick "eww open audio_menu --toggle --config ~/.config/hm/nixos/eww/aud_men"
+            )
+        )
+        (
+            box :cwaylandlass "body" :space-evenly "false" :orientation "v"
+            (
+                button 
+                :class "button"
+                :vexpand "false"
+                :onclick "pactl set-default-sink alsa_output.usb-Generic_USB_Audio-00.HiFi__Speaker__sink "
+                (label :text "speakers")
+            )
+            (
+                button 
+                :class "button"
+                :hexpand "false"
+                :onclick "pactl set-default-sink alsa_output.usb-Generic_USB_Audio-00.HiFi__Headphones__sink "
+                (label :text "headphones")
+            )
+        )
+    )
+)

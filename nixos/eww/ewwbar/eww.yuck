@@ -1,0 +1,37 @@
+(defwindow ewwwbar
+           :monitor '[2, 1, 0]'
+           :geometry (geometry :x "0%"
+                               :y "20px"
+                               :width "99%"
+                               :height "10px"
+                               :anchor "bottom center")
+           :stacking "overlay"
+           :reserve (struts :distance "0px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false
+           "ewwwwwwwbar"
+)
+
+(
+    defwidget eewwbar 
+    (
+        
+        box :class "parent" :space-evenly "false" :orientation "v"
+        (
+            box :class "header" :space-evenly "false"
+            (label :text "ewwwwwwbar" :class "title")
+        )
+        
+        box :cwaylandlass "body" :space-evenly "false" :orientation "v"
+        (
+            button
+            :class "button"
+            :vexpand "false"
+            :onclick "echo click"
+
+            (label :text "click")
+        )
+
+
+    )
+)

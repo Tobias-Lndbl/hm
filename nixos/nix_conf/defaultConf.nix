@@ -80,6 +80,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   kitty
+  pulseaudio
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

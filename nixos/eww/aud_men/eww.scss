@@ -1,0 +1,49 @@
+* { all: unset; }
+
+.parent {
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    border-radius: 25px;
+    border: 2px solid;
+    border-color: rgba($color: #707070, $alpha: 0.5);
+    padding: 8px;
+}
+
+.header {
+    font-weight: bold;
+    font-size: large;
+}
+
+.title {
+    margin-right: 50px;
+    margin-left: 8px;
+}
+
+.button {
+    margin-top: 8px;
+    background-color: rgba($color: #333, $alpha: 0.8);
+    border-radius: 15px;
+    padding: 8px;
+}
+
+.button:hover {
+    background-color: #222;
+}
+
+.button:active {
+    background-color: #111;
+}
+
+.exit {
+    border-radius: 5px;
+    border: 10px solid;
+    border-color: rgba($color: #707070, $alpha: 0.65); 
+
+}
+
+.exit:hover {
+    border-color: rgba($color: #f66, $alpha: 0.5);
+}
+
+.exit, .button {
+    transition: all 0.2s ease;
+}
