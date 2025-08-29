@@ -51,7 +51,6 @@
             ./nixos/nix_conf/defaultConf.nix
             ./nixos/nix_conf/amaterasu/configuration.nix
             ./nixos/nix_conf/amaterasu/hardware-configuration.nix
-            ./nixos/waybar/waybar.nix
 
           ];
         };
@@ -71,7 +70,7 @@
         };
 
       # -----------------------------------------------
-      #                  izanagi-config
+      #                  inari-config
       # -----------------------------------------------
         nixosConfigurations."inari" = nixpkgs.lib.nixosSystem {
           inherit system;

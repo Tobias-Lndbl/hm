@@ -1,37 +1,81 @@
-(defwindow ewwwbar
-           :monitor '[2, 1, 0]'
-           :geometry (geometry :x "0%"
-                               :y "20px"
-                               :width "99%"
-                               :height "10px"
-                               :anchor "bottom center")
-           :stacking "overlay"
-           :reserve (struts :distance "0px" :side "top")
-           :windowtype "dock"
-           :wm-ignore false
-           "ewwwwwwwbar"
+(defwidget barmenu_layout []
+  (centerbox :orientation "horizontal"
+    (left)
+    (middle)
+    (right)
+  )
 )
 
-(
-    defwidget eewwbar 
-    (
-        
-        box :class "parent" :space-evenly "false" :orientation "v"
-        (
-            box :class "header" :space-evenly "false"
-            (label :text "ewwwwwwbar" :class "title")
-        )
-        
-        box :cwaylandlass "body" :space-evenly "false" :orientation "v"
-        (
-            button
-            :class "button"
-            :vexpand "false"
-            :onclick "echo click"
-
-            (label :text "click")
-        )
-
-
+(defwidget left []
+  (box
+    :space-evenly false
+    :halign "start"
+    (_workspaces)
     )
 )
+
+(defwidget middle []
+  (box
+    :space-evenly false
+    :halign "center"
+    (label :text "center")
+  )
+)
+
+(defwidget right []
+  (box
+    :space-evenly false
+    :halign "end"
+    (label :text "right")
+  )
+)
+
+(defwidget _workspaces []
+  (box
+    :space-evenly true
+    (__workspace :nr 1 :exists ws_1)
+    (__workspace :nr 2 :exists ws_2)
+    (__workspace :nr 3 :exists ws_3)
+    (__workspace :nr 4 :exists ws_4)
+    (__workspace :nr 5 :exists ws_5)
+    (__workspace :nr 6 :exists ws_6)
+    (__workspace :nr 7 :exists ws_7)
+    (__workspace :nr 8 :exists ws_8)
+    (__workspace :nr 9 :exists ws_9)
+  )
+)
+
+(defwidget __workspace [ nr exists ]
+  (button :class "bar-item"
+          :onclick "hyprctl dispatch workspace ${nr}"
+
+  (label :text nr)
+    )
+)
+
+(defwindow bar 
+        :monitor '[2, 1, 0]'
+        :geometry (geometry
+                        :width "1900px"
+                        :height "40px"
+                        :anchor "bottom center")
+        :stacking "overlay"
+        :exclusive "true"
+        :focuseable "false"
+        :namespace "bar"
+        (barmenu_layout)
+)
+
+
+(defpoll ws_active :interval "1s" 'scripts/workspace-script.nix')
+(defpoll ws_all :interval "1s" 'scripts/workspace-exists-script.nix')
+
+(defvar ws_1 false)
+(defvar ws_2 false)
+(defvar ws_3 false)
+(defvar ws_4 false)
+(defvar ws_5 false)
+(defvar ws_6 false)
+(defvar ws_7 false)
+(defvar ws_8 false)
+(defvar ws_9 false)

@@ -77,10 +77,13 @@
   # Install firefox.
   programs.firefox.enable = true;
 
+  programs.chromium.enable = true;
+
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   kitty
   pulseaudio
+  google-chrome
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

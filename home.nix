@@ -6,6 +6,10 @@
 
 }:
 
+let
+  eww-workspace-script = import ./nixos/eww/ewwbar/scripts/workspace-script.nix { inherit pkgs; };
+  eww-workspace-exists-script = import ./nixos/eww/ewwbar/scripts/workspace-exists-script.nix {inherit pkgs; };
+in
 {
   imports = [
     ./programs
@@ -49,6 +53,8 @@
   home.packages = with pkgs; [
     xdg-utils
     swaybg
+    eww-workspace-script
+    eww-workspace-exists-script
 
   ];
 
