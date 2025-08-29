@@ -77,7 +77,6 @@
   # Install firefox.
   programs.firefox.enable = true;
 
-  programs.chromium.enable = true;
 
   # $ nix search wget
   environment.systemPackages = with pkgs; [

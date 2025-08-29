@@ -7,7 +7,6 @@
     ./eww.nix
     ./git.nix
     ./gnome-tweaks.nix
-    ./google-chrome.nix
     ./libresprite.nix
     ./pandoc.nix
     ./pavucontrol.nix

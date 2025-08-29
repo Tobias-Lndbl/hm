@@ -42,12 +42,6 @@ in
 
   #home.enableNixpkgsReleaseCheck = false;
 
-# #/* nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-#    "vscode"
-#    "google-chrome"
-#    "discord"
-#    "spotify"
-#  ];
 #  # The home.packages option allows you to install Nix packages into your
 #  # environment.
   home.packages = with pkgs; [
@@ -55,7 +49,6 @@ in
     swaybg
     eww-workspace-script
     eww-workspace-exists-script
-
   ];
 
   xdg.enable = true;
@@ -96,6 +89,7 @@ in
       nixreb_boot = "nixos-rebuild boot";
       nixreb_switch = "nixos-rebuild switch";
       element = "element-desktop";
+      google = "google-chrome-stable"; 
     };
   };
 
