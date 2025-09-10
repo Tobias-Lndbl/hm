@@ -90,6 +90,7 @@ in
       nixreb_switch = "nixos-rebuild switch";
       element = "element-desktop";
       google = "google-chrome-stable"; 
+      chrome = "google-chrome-stable";
     };
   };
 

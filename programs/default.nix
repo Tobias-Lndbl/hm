@@ -8,6 +8,7 @@
     ./git.nix
     ./gnome-tweaks.nix
     ./libresprite.nix
+    ./pamixer.nix
     ./pandoc.nix
     ./pavucontrol.nix
     ./rustup.nix

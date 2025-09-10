@@ -37,6 +37,19 @@
                 :onclick "pactl set-default-sink alsa_output.usb-Generic_USB_Audio-00.HiFi__Headphones__sink "
                 (label :text "headphones")
             )
+                scale
+                :class "scale"
+                :draw-value "true"
+                :value volume
+                :min 0
+                :max 100
+                :orientation "h"
+                :onchange pamixer --set-volume {}
+
         )
     )
+)
+
+(defpoll volume :interval "1s"
+                :pamixer --get-volume
 )
