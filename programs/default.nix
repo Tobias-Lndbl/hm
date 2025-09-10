@@ -12,6 +12,7 @@
     ./pavucontrol.nix
     ./rustup.nix
     ./spotify.nix
+    ./trilium.nix
     ./unity.nix
     ./vscode.nix
     ./nvim
