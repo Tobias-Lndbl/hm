@@ -9,7 +9,7 @@
 )
 
 (
-    defwidget audio_menu []
+    defwidget aud_menu []
     (
         box :class "parent" :space-evenly "false" :orientation "v"
         (
