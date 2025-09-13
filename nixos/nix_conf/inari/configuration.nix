@@ -52,8 +52,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    hyprlock
-    hypridle
   ];
 
   # Enable touchpad support (enabled default in most desktopManager).

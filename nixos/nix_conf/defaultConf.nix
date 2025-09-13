@@ -80,9 +80,11 @@
 
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  kitty
-  pulseaudio
-  google-chrome
+    kitty
+    pulseaudio
+    google-chrome
+    hyprlock
+    hypridle
   ];
 
   fonts.packages = with pkgs; [
