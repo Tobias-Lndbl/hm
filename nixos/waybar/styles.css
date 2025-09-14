@@ -83,7 +83,7 @@ button:hover {
 }
 
 #battery {
-    background-color: rgba(43, 57, 100, 0.6);
+    background-color: rgba(20,20,20,0.6);/*rgba(43, 57, 100, 0.6);*/
     color: #ffffff;
     border-radius: 10px;
     margin: 4px;
@@ -128,7 +128,7 @@ label:focus {
     min-width: 120px;
     border-radius: 3px;
     border: none;
-    background-color: rgba(10, 48, 59, 0.5);
+    background-color: rgba(20,20,20,0.5);/*rgba(10, 48, 59, 0.5);*/
 }
 
 #backlight-slider highlight {
@@ -140,7 +140,7 @@ label:focus {
 }
 
 #network {
-    background-color: rgba(10,48,59,0.8);
+    background-color: rgba(20,20,20,0.6);/*rgba(10,48,59,0.8);*/
     border-radius: 10px;
     margin: 4px;
 }
