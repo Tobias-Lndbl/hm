@@ -1,7 +1,7 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: RobotoMono;
-    font-size: 15;
+    font-size: 14;
 }
 
 window#waybar {
