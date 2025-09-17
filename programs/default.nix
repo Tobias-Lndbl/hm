@@ -8,10 +8,13 @@
     ./git.nix
     ./gnome-tweaks.nix
     ./libresprite.nix
+    ./nautilus.nix
     ./pamixer.nix
     ./pandoc.nix
     ./pavucontrol.nix
+    ./qview.nix
     ./rustup.nix
+    ./screenshot.nix
     ./spotify.nix
     ./trilium.nix
     ./unity.nix
