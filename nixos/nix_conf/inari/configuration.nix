@@ -53,8 +53,9 @@
 
   environment.systemPackages = with pkgs; [
     iio-hyprland
-    iio-sensor-proxy
   ];
+
+  hardware.sensor.iio.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
