@@ -52,8 +52,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    hyprlock
-    hypridle
+    inputs.iio-hyprland.packages.${pkgs.system}.default
   ];
 
   # Enable touchpad support (enabled default in most desktopManager).

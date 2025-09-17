@@ -83,6 +83,8 @@
   kitty
   pulseaudio
   google-chrome
+  hyprlock
+  hypridle
   ];
 
   fonts = { 
