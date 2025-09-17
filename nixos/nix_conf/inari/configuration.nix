@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs,... }:
 {
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -52,7 +52,8 @@
   };
 
   environment.systemPackages = with pkgs; [
-    inputs.iio-hyprland.packages.${pkgs.system}.default
+    iio-hyprland
+    iio-sensor-proxy
   ];
 
   # Enable touchpad support (enabled default in most desktopManager).
