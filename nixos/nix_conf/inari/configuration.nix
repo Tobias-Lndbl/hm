@@ -52,7 +52,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    iio-hyprland
   ];
 
   hardware.sensor.iio.enable = true;
