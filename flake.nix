@@ -9,6 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     waybar.url = "github:Alexays/Waybar/master";
+    iio-hyprland.url = "github:JeanSchoeller/iio-hyprland";
   };
 
   outputs = 
