@@ -87,19 +87,26 @@
     hypridle
   ];
 
-  fonts.packages = with pkgs; [
-    dejavu_fonts
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-emoji
-    liberation_ttf
-    fira-code
-    fira-code-symbols
-    mplus-outline-fonts.githubRelease
-    dina-font
-    proggyfonts 
-    font-awesome
-  ];
+  fonts = { 
+
+    packages = with pkgs; [
+      dejavu_fonts
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-emoji
+      liberation_ttf
+      fira-code
+      fira-code-symbols
+      mplus-outline-fonts.githubRelease
+      dina-font
+      proggyfonts 
+      font-awesome
+      roboto-mono
+      roboto
+      roboto-flex
+    ];
+  }; 
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
