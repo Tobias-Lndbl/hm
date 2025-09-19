@@ -1,7 +1,7 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: RobotoMono;
-    font-size: 14;
+    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
 }
 
 window#waybar {
@@ -58,6 +58,24 @@ button:hover {
 #battery {
     padding: 0 10px;
     color: #f1f1f1;
+}
+
+#custom-rotationT {
+    background-color: rgba(200, 200, 200, 0.08);
+    color: #f1f1f1;
+    border: none;
+    border-radius: 20px;
+    padding: 0 12px;
+    margin: 4px;
+}
+
+#custom-rotationF {
+    background-color: rgba(20,20,20,0.4);
+    color: #f1f1f1;
+    border: none;
+    border-radius: 20px;
+    padding: 0 12px;
+    margin: 4px;
 }
 
 #window,
@@ -128,7 +146,7 @@ label:focus {
     min-width: 120px;
     border-radius: 3px;
     border: none;
-    background-color: rgba(20,20,20,0.5);/*rgba(10, 48, 59, 0.5);*/
+    background-color: rgba(10, 48, 59, 0.5);
 }
 
 #backlight-slider highlight {
