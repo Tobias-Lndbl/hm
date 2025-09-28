@@ -1,12 +1,12 @@
 { ... }:
 {
   imports = [
-    ./alacritty.nix
+    ./bash.nix
+    ./blueman.nix
     ./discord.nix
     ./element.nix 
     ./eww.nix
     ./git.nix
-    ./gnome-tweaks.nix
     ./libresprite.nix
     ./nautilus.nix
     ./pamixer.nix
