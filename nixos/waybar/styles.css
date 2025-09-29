@@ -5,7 +5,7 @@
 }
 
 window#waybar {
-    background-color: rgba(10, 48, 59, 0.5);
+    background-color: rgba(241, 241, 241, 0.1);
     color: #f1f1f1;
     transition-property: background-color;
     transition-duration: .5s;
@@ -61,12 +61,16 @@ button:hover {
 }
 
 #custom-rotationT {
-    background-color: rgba(200, 200, 200, 0.08);
+    background-color: rgba(20,20,20,0.4); 
     color: #f1f1f1;
     border: none;
     border-radius: 20px;
     padding: 0 12px;
     margin: 4px;
+}
+
+#custom-rotationT :hover {
+    background-color: #f1f1f1;
 }
 
 #custom-rotationF {

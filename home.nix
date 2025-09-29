@@ -49,6 +49,8 @@ in
     swaybg
     eww-workspace-script
     eww-workspace-exists-script
+    sops
+    eduvpn-client
   ];
 
   xdg.enable = true;

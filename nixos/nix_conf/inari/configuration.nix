@@ -9,6 +9,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "inari"; # Define your hostname.
+  networking.networkmanager.plugins = with pkgs; [ networkmanager-openvpn ];
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
