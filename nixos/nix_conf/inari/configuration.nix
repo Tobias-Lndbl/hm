@@ -53,6 +53,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    brightnessctl
   ];
 
   hardware.sensor.iio.enable = true;

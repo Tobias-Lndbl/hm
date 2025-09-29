@@ -85,6 +85,7 @@
     google-chrome
     hyprlock
     hypridle
+    htop-vim
   ];
 
   fonts = { 
