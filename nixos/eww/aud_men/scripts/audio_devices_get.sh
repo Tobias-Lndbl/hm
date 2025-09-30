@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 pactl list short sinks | while read -r line
 do

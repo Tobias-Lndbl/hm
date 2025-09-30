@@ -18,7 +18,7 @@
   (box
     :space-evenly false
     :halign "center"
-    (label :text "center")
+    (label :text time)
   )
 )
 
@@ -56,8 +56,8 @@
 (defwindow bar 
         :monitor '[2, 1, 0]'
         :geometry (geometry
-                        :width "1900px"
-                        :height "40px"
+                        :width "100%"
+                        :height "3%"
                         :anchor "bottom center")
         :stacking "overlay"
         :exclusive "true"
@@ -67,8 +67,13 @@
 )
 
 
+
 (defpoll ws_active :interval "1s" 'scripts/workspace-script.nix')
 (defpoll ws_all :interval "1s" 'scripts/workspace-exists-script.nix')
+
+(defpoll time :interval "5s"
+  `date +'{"hour":"%H","min":"%M"}'`)
+)
 
 (defvar ws_1 false)
 (defvar ws_2 false)
