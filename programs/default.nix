@@ -21,7 +21,6 @@
     ./vscode.nix
     ./nvim
     ./wmctrl.nix
-    ./xpdf.nix
     ./zip.nix
   ];
 
