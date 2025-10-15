@@ -66,25 +66,6 @@ in
   xdg.enable = true;
   #    # # Adds the 'hello' command to your environment. It prints a friendly
 
-  # ~/.config/home-manager/home.nix
-
-  xdg.desktopEntries."trilium" = {
-    # Use the exact original name here
-    # Use the original binary name, adding the flags
-    exec = "trilium--enable-features=UseOzonePlatform --ozone-platform=wayland %U";
-
-    # Copy the necessary information from the original .desktop file:
-    name = "Trilium Notes";
-    genericName = "Note-Taking Application";
-    comment = "Build a personal knowledge base with Trilium Notes";
-    icon = "trilium"; # Or whatever the icon name is
-    terminal = false;
-    categories = [
-      "Office"
-      "Utility"
-    ];
-  };
-
   #    # # "Hello, world!" when run.
   #    # pkgs.hello
   #
