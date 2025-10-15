@@ -1,4 +1,5 @@
 {
+  outputs,
   config,
   pkgs,
   lib,
@@ -8,7 +9,9 @@
 
 let
   eww-workspace-script = import ./nixos/eww/ewwbar/scripts/workspace-script.nix { inherit pkgs; };
-  eww-workspace-exists-script = import ./nixos/eww/ewwbar/scripts/workspace-exists-script.nix {inherit pkgs; };
+  eww-workspace-exists-script = import ./nixos/eww/ewwbar/scripts/workspace-exists-script.nix {
+    inherit pkgs;
+  };
 in
 {
   imports = [
@@ -32,18 +35,21 @@ in
 
   nixpkgs = {
     config = {
-     allowUnfree = true;
-     allowUnfreePredicate = (_: true);
-     permittedInsecurePackages = [
+      allowUnfree = true;
+      allowUnfreePredicate = (_: true);
+      permittedInsecurePackages = [
         "xpdf-4.05"
-     ];
+      ];
     };
+    overlays = [
+      outputs.overlays.additions
+    ];
   };
 
   #home.enableNixpkgsReleaseCheck = false;
 
-#  # The home.packages option allows you to install Nix packages into your
-#  # environment.
+  #  # The home.packages option allows you to install Nix packages into your
+  #  # environment.
   home.packages = with pkgs; [
     xdg-utils
     swaybg
@@ -53,28 +59,51 @@ in
     eduvpn-client
   ];
 
-  xdg.enable = true;
-#    # # Adds the 'hello' command to your environment. It prints a friendly
+  home.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
 
-#    # # "Hello, world!" when run.
-#    # pkgs.hello
-#
-#    # # It is sometimes useful to fine-tune packages, for example, by applying
-#    # # overrides. You can do that directly here, just don't forget the
-#    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-#    # # fonts?
-#    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-#
-#    # # You can also create simple shell scripts directly inside your
-#    # # configuration. For example, this adds a command 'my-hello' to your
-#    # # environment:
-#    # (pkgs.writeShellScriptBin "my-hello" ''
-#    #   echo "Hello, ${config.home.username}!"
-#    # '')
+  xdg.enable = true;
+  #    # # Adds the 'hello' command to your environment. It prints a friendly
+
+  # ~/.config/home-manager/home.nix
+
+  xdg.desktopEntries."trilium-desktop" = {
+    # Use the exact original name here
+    # Use the original binary name, adding the flags
+    exec = "trilium-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland %U";
+
+    # Copy the necessary information from the original .desktop file:
+    name = "Trilium Notes";
+    genericName = "Note-Taking Application";
+    comment = "Build a personal knowledge base with Trilium Notes";
+    icon = "trilium-desktop"; # Or whatever the icon name is
+    terminal = false;
+    categories = [
+      "Office"
+      "Utility"
+    ];
+  };
+
+  #    # # "Hello, world!" when run.
+  #    # pkgs.hello
+  #
+  #    # # It is sometimes useful to fine-tune packages, for example, by applying
+  #    # # overrides. You can do that directly here, just don't forget the
+  #    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+  #    # # fonts?
+  #    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+  #
+  #    # # You can also create simple shell scripts directly inside your
+  #    # # configuration. For example, this adds a command 'my-hello' to your
+  #    # # environment:
+  #    # (pkgs.writeShellScriptBin "my-hello" ''
+  #    #   echo "Hello, ${config.home.username}!"
+  #    # '')
 
   programs.bash = {
-  enable = true;
-  shellAliases = {
+    enable = true;
+    shellAliases = {
       ".." = "cd ..";
       "..." = ".. && ..";
       "...." = "... && ..";
@@ -91,7 +120,7 @@ in
       nixreb_boot = "nixos-rebuild boot";
       nixreb_switch = "nixos-rebuild switch";
       element = "element-desktop";
-      google = "google-chrome-stable"; 
+      google = "google-chrome-stable";
       chrome = "google-chrome-stable";
     };
   };
@@ -134,7 +163,4 @@ in
   #
   #  /etc/profiles/per-user/tbsl/etc/profile.d/hm-session-vars.sh
   #
-  home.sessionVariables = {
-    # EDITOR = "emacs";
-  };
 }

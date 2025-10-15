@@ -11,76 +11,75 @@
     waybar.url = "github:Alexays/Waybar/master";
   };
 
-  outputs = 
-  {
-    self,
-    nixpkgs, 
-    home-manager, 
-    ... 
-  }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
     let
       inherit (self) outputs;
-      forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux"];
+      forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
 
-    in 
+    in
     rec {
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      overlays = import ./overlays { inherit inputs; };
 
       # -----------------------------------------------
-      #                  home-config 
+      #                  home-config
       # -----------------------------------------------
-        homeConfigurations = {
-          "tbsl" = home-manager.lib.homeManagerConfiguration {
-              pkgs = nixpkgs.legacyPackages.x86_64-linux;
-              extraSpecialArgs = {
-                inherit inputs outputs;
-              };
-              modules = [
-                ./home.nix
-              ];
+      homeConfigurations = {
+        "tbsl" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs;
           };
+          modules = [
+            ./home.nix
+          ];
         };
+      };
 
       # -----------------------------------------------
       #                  amaterasu-config
       # -----------------------------------------------
-        nixosConfigurations."amaterasu" = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./nixos/nix_conf/defaultConf.nix
-            ./nixos/nix_conf/amaterasu/configuration.nix
-            ./nixos/nix_conf/amaterasu/hardware-configuration.nix
+      nixosConfigurations."amaterasu" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./nixos/nix_conf/defaultConf.nix
+          ./nixos/nix_conf/amaterasu/configuration.nix
+          ./nixos/nix_conf/amaterasu/hardware-configuration.nix
 
-          ];
-        };
-        
+        ];
+      };
+
       # -----------------------------------------------
       #                  izanagi-config
       # -----------------------------------------------
-        nixosConfigurations."izanagi" = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./nixos/nix_conf/defaultConf.nix
-            ./nixos/nix_conf/izanagi/configuration.nix
-            ./nixos/nix_conf/izanagi/hardware-configuration.nix
+      nixosConfigurations."izanagi" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./nixos/nix_conf/defaultConf.nix
+          ./nixos/nix_conf/izanagi/configuration.nix
+          ./nixos/nix_conf/izanagi/hardware-configuration.nix
 
-
-          ];
-        };
+        ];
+      };
 
       # -----------------------------------------------
       #                  inari-config
       # -----------------------------------------------
-        nixosConfigurations."inari" = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./nixos/nix_conf/defaultConf.nix
-            ./nixos/nix_conf/inari/configuration.nix
-            ./nixos/nix_conf/inari/hardware-configuration.nix
+      nixosConfigurations."inari" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./nixos/nix_conf/defaultConf.nix
+          ./nixos/nix_conf/inari/configuration.nix
+          ./nixos/nix_conf/inari/hardware-configuration.nix
 
-
-          ];
-        };
+        ];
+      };
     };
 }
