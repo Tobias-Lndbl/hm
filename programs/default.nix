@@ -7,6 +7,7 @@
     ./element.nix 
     ./eww.nix
     ./git.nix
+    ./jetbrains.nix
     ./libresprite.nix
     ./nautilus.nix
     ./pamixer.nix
@@ -21,6 +22,7 @@
     ./vscode.nix
     ./nvim
     ./wmctrl.nix
+    ./xournalpp.nix
     ./zip.nix
   ];
 

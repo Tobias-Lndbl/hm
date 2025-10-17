@@ -86,6 +86,7 @@
     hyprlock
     hypridle
     htop-vim
+    alsa-plugins
   ];
 
   fonts = { 
