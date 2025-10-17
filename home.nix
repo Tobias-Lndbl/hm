@@ -47,6 +47,9 @@ in
   };
 
   #home.enableNixpkgsReleaseCheck = false;
+  home.sessionVariables = {
+    ELECTRON_OZONE_PLATFORM_HINT = "auto";
+  };
 
   #  # The home.packages option allows you to install Nix packages into your
   #  # environment.
@@ -58,10 +61,6 @@ in
     sops
     eduvpn-client
   ];
-
-  home.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-  };
 
   xdg.enable = true;
   #    # # Adds the 'hello' command to your environment. It prints a friendly
@@ -103,6 +102,7 @@ in
       element = "element-desktop";
       google = "google-chrome-stable";
       chrome = "google-chrome-stable";
+      trilium-web = "google-chrome-stable 10.0.10.10 --new-window";
     };
   };
 

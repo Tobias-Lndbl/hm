@@ -3,7 +3,7 @@
 {
   imports = [
     #./base16-nvim.nix # colorscheme
-    ./lsp.nix # language server + auto-completion
+    #./lsp.nix # language server + auto-completion
     ./treesitter.nix
     ./nvim-tree.nix
     ./undotree.nix

@@ -99,70 +99,70 @@
 
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
         local lsp_flags = { debounce_text_changes = 150, }
-        require('lspconfig')['pyright'].setup {
+        vim.lsp.config['pyright'].setup {
           on_attach = on_attach,
           flags = lsp_flags,
           capabilities = capabilities,
         }
-        require('lspconfig')['ts_ls'].setup {
-          on_attach = on_attach,
-          flags = lsp_flags,
-          capabilities = capabilities,
+      vim.lsp.config['ts_ls'].setup {
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
+      }
+      vim.lsp.config['rust_analyzer'].setup {
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
+        -- Server-specific settings...
+        settings = {
+          ["rust-analyzer"] = {}
         }
-        require('lspconfig')['rust_analyzer'].setup {
-          on_attach = on_attach,
-          flags = lsp_flags,
-          capabilities = capabilities,
-          -- Server-specific settings...
-          settings = {
-            ["rust-analyzer"] = {}
-          }
-        }
-        require('lspconfig')['lua_ls'].setup {
-          on_attach = on_attach,
-          flags = lsp_flags,
-          capabilities = capabilities,
-        }
-        require('lspconfig')['bashls'].setup {
-          on_attach = on_attach,
-          flags = lsp_flags,
-          capabilities = capabilities,
-        }
-        require('lspconfig')['clangd'].setup {
-          on_attach = on_attach,
-          flags = lsp_flags,
-          capabilities = capabilities,
-         cmd = {
-           "clangd",
-           "--all-scopes-completion",
-           "--recovery-ast",
-           "--clang-tidy",
-           "--background-index",
-           "-j=64",
-           "--log=verbose",
-           "--cross-file-rename",
-           "--suggest-missing-includes",
-           "--enable-config",
-          },
-        }
-        require('lspconfig')['nixd'].setup {
-          on_attach = on_attach,
-          flags = lsp_flags,
-          capabilities = capabilities,
-        }
-        require('lspconfig')['r_language_server'].setup {
-          on_attach = on_attach,
-          flags = lsp_flags,
-          capabilities = capabilities,
-        }
-        require('lspconfig')['texlab'].setup {
-          on_attach = on_attach,
-          flags = lsp_flags,
-          filetypes = { "tex", "lytex" },
-          capabilities = capabilities,
-        }
-        local pid = vim.fn.getpid()
-        require('lspconfig')['omnisharp'].setup {
+      }
+      vim.lsp.config['lua_ls'].setup {
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
+      }
+      vim.lsp.config['bashls'].setup {
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
+      }
+      vim.lsp.config['clangd'].setup {
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
+       cmd = {
+         "clangd",
+         "--all-scopes-completion",
+         "--recovery-ast",
+         "--clang-tidy",
+         "--background-index",
+         "-j=64",
+         "--log=verbose",
+         "--cross-file-rename",
+         "--suggest-missing-includes",
+         "--enable-config",
+        },
+      }
+      vim.lsp.config['nixd'].setup {
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
+      }
+      vim.lsp.config['r_language_server'].setup {
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
+      }
+      vim.lsp.config['texlab'].setup {
+        on_attach = on_attach,
+        flags = lsp_flags,
+        filetypes = { "tex", "lytex" },
+        capabilities = capabilities,
+      }
+      local pid = vim.fn.getpid()
+        vim.lsp.config['omnisharp'].setup {
           on_attach = on_attach,
           flags = lsp_flags,
           capabilities = capabilities,
