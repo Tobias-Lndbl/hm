@@ -77,6 +77,13 @@
   # Install firefox.
   programs.firefox.enable = true;
 
+    programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    zlib
+    # Add any missing dynamic libraries for unpackaged programs
+    # here, NOT in environment.systemPackages
+  ];
+
 
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -86,7 +93,6 @@
     hyprlock
     hypridle
     htop-vim
-    alsa-plugins
   ];
 
   fonts = { 

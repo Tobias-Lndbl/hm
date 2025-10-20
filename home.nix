@@ -17,6 +17,7 @@ in
   imports = [
     ./programs
     ./games
+    ./nixos/hyprland/wofi.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -61,6 +62,8 @@ in
     sops
     eduvpn-client
   ];
+
+  programs.wofi.enable = true;
 
   xdg.enable = true;
   #    # # Adds the 'hello' command to your environment. It prints a friendly
