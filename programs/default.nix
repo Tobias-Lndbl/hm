@@ -18,6 +18,7 @@
     ./screenshot.nix
     ./spotify.nix
     ./trilium.nix
+    ./TUM
     ./unity.nix
     ./vscode.nix
     ./nvim

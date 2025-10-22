@@ -61,6 +61,8 @@ in
     eww-workspace-exists-script
     sops
     eduvpn-client
+    python3
+    python313Packages.dbus-python
   ];
 
   programs.wofi.enable = true;
