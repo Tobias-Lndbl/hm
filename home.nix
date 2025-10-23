@@ -38,9 +38,6 @@ in
     config = {
       allowUnfree = true;
       allowUnfreePredicate = (_: true);
-      permittedInsecurePackages = [
-        "xpdf-4.05"
-      ];
     };
     overlays = [
       outputs.overlays.additions

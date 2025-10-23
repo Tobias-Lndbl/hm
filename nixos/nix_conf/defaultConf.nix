@@ -113,8 +113,19 @@
       roboto
       roboto-flex
     ];
+    fontDir.enable = true;
   }; 
 
+  console =  {
+    enable = true;
+    packages = with pkgs; [
+      roboto-mono
+      roboto
+      fira-code
+      dina-font
+      font-awesome
+    ];
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

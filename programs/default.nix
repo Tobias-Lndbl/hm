@@ -16,6 +16,7 @@
     ./qview.nix
     ./rustup.nix
     ./screenshot.nix
+    ./solaar.nix
     ./trilium.nix
     ./TUM
     ./unity.nix
