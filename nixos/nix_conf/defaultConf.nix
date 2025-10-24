@@ -145,6 +145,9 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  hardware.logitech.wireless.enable = true;
+
+
 
   nix.settings = {
     experimental-features = "nix-command flakes";
