@@ -96,6 +96,7 @@ in
       c = "clear";
       switch = lib.mkDefault "home-manager switch --flake ~/.config/hm";
       wa = "firefox https://web.whatsapp.com &";
+      "sdn" = "shutdown now" 
       clstat = "firefox localhost:11987 &";
       ccl = "firefox localhost:11987 &";
       please = "sudo";
