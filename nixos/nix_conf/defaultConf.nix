@@ -112,6 +112,7 @@
       roboto-mono
       roboto
       roboto-flex
+      nerd-fonts.caskaydia-mono
     ];
     fontDir.enable = true;
   }; 

@@ -11,6 +11,8 @@ let
   eww-workspace-script = import ./nixos/eww/ewwbar/scripts/workspace-script.nix { inherit pkgs; };
   eww-workspace-exists-script = import ./nixos/eww/ewwbar/scripts/workspace-exists-script.nix {
     inherit pkgs;
+
+
   };
 in
 {
@@ -60,6 +62,7 @@ in
     python3
     python313Packages.dbus-python
     btop
+    gbar
   ];
 
   programs.wofi.enable = true;
