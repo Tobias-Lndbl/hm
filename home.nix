@@ -29,7 +29,7 @@ in
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
+  # introduces backwards incompBEIT SEIT 20atible changes.
   #
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
@@ -62,7 +62,6 @@ in
     python3
     python313Packages.dbus-python
     btop
-    gbar
   ];
 
   programs.wofi.enable = true;

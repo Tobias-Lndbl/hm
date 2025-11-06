@@ -56,7 +56,9 @@
 
   environment.systemPackages = with pkgs; [
     brightnessctl
+    wirelesstools
   ];
+
 
   hardware.sensor.iio.enable = true;
 
