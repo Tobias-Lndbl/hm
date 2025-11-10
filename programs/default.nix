@@ -8,7 +8,7 @@
     ./jetbrains.nix
     ./libresprite.nix
     ./nautilus.nix
-    ./neofetch.nix
+    ./fastfetch.nix
     ./nvim
     ./pamixer.nix
     ./pandoc.nix
