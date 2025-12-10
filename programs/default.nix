@@ -9,6 +9,7 @@
     ./libresprite.nix
     ./nautilus.nix
     ./fastfetch.nix
+    ./feishin.nix
     ./nvim
     ./pamixer.nix
     ./pandoc.nix
@@ -18,6 +19,7 @@
     ./screenshot.nix
     ./solaar.nix
     ./trilium.nix
+    ./thunderbird.nix
     ./TUM
     ./unity.nix
     ./vscode.nix

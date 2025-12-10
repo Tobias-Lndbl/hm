@@ -110,6 +110,11 @@ in
       trilium-web = "google-chrome-stable 10.0.10.10 --new-window";
     };
   };
+  
+  #programs.ssh."eos" = {
+  #  hostname = "10.10.0.1";
+  #  user = "tbsl";
+  #};
 
   programs.direnv.enable = true;
 

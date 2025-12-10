@@ -39,7 +39,7 @@
           };
           modules = [
             ./home.nix
-          ];
+          ] ++import ./modules/hm;
         };
       };
 

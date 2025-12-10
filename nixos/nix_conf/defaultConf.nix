@@ -74,6 +74,11 @@
     ];
   };
 
+  security.pki.certificateFiles = [
+    ./eos.pem
+  ];
+
+
   # Install firefox.
   programs.firefox.enable = true;
 
