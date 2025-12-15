@@ -116,7 +116,7 @@ in
       EnumerateGroupForwardKeys = mkOption {
         description = "Enumerate Input Method Group Forward";
         type = listOf str;
-        default = [ "Super+space" ];
+        default = [ "Super+Control+i" ];
         example = [ ];
       };
       EnumerateGroupBackwardKeys = mkOption {

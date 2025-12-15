@@ -5,7 +5,7 @@
     ./blueman.nix
     ./eww.nix
     ./git.nix
-    ./fcitx5.nix
+#    ./fcitx5.nix
     ./jetbrains.nix
     ./libresprite.nix
     ./nautilus.nix
