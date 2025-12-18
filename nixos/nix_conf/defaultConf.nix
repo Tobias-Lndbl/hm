@@ -37,10 +37,6 @@
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = false;
 
-  programs.hyprland = {
-	enable = true;
-  };
-
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -58,6 +54,27 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+
+
+  programs = {
+    
+    hyprland.enable = true;
+    firefox.enable = true;
+
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        zlib
+
+        # Add any missing dynamic libraries for unpackaged programs
+        # here, NOT in environment.systemPackages
+      ];
+    };
+
+  };
+
+  hardware.logitech.wireless.enable = true;
+
   users.users.tbsl = {
     isNormalUser = true;
     description = "tobias lindbuechl";
@@ -78,18 +95,6 @@
     ./eos.pem
   ];
 
-
-  # Install firefox.
-  programs.firefox.enable = true;
-
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    zlib
-    # Add any missing dynamic libraries for unpackaged programs
-    # here, NOT in environment.systemPackages
-  ];
-
-
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     kitty
@@ -100,8 +105,8 @@
     htop-vim
   ];
 
-  fonts = { 
 
+  fonts = { 
     packages = with pkgs; [
       dejavu_fonts
       noto-fonts
@@ -119,8 +124,10 @@
       roboto-flex
       nerd-fonts.caskaydia-mono
     ];
+
     fontDir.enable = true;
   }; 
+
 
   console =  {
     enable = true;
@@ -161,7 +168,6 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-  hardware.logitech.wireless.enable = true;
 
 
 
