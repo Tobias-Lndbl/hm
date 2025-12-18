@@ -108,6 +108,7 @@ in
       google = "google-chrome-stable";
       chrome = "google-chrome-stable";
       trilium-web = "google-chrome-stable 10.0.10.10 --new-window";
+      ff = "fastfetch";
     };
   };
   
