@@ -16,6 +16,12 @@
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
+  security.pki.certificateFiles = [
+    ./eos.pem
+  ];
+
+  security.rtkit.enable = true;
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -31,8 +37,15 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  #services.xserver.xkb.layout = "de";
+  services.xserver = {
+    enable = true;
+    xkb = {
+      layout = "de";
+      variant = "";
+    };
+  };
+
+  console.keyMap = "de";
 
   i18n.inputMethod = {
     enable = true;
@@ -48,14 +61,19 @@
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = false;
 
+
+  services.pulseaudio.enable = false;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    };
+  };
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
+
+  services.logind.powerKey = "suspend";
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -65,14 +83,6 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-
-  environment.variables = {
-    #XMODIFIERS = "";
-    # Some users also need to unset these:
-    # GTK_IM_MODULE = "";
-    # QT_IM_MODULE = "";
-  };
-
 
   programs = {
     
@@ -109,18 +119,18 @@
     ];
   };
 
-  security.pki.certificateFiles = [
-    ./eos.pem
-  ];
 
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     kitty
+
     pulseaudio
-    google-chrome
+
     hyprlock
     hypridle
     htop-vim
+
+    brightnessctl
   ];
 
 
@@ -158,8 +168,6 @@
     ];
   };
 
-
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -178,8 +186,6 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-
-
 
   nix.settings = {
     experimental-features = "nix-command flakes";

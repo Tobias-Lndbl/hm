@@ -64,6 +64,8 @@ hardware.nvidia = {
 #    };
   };
 
+  #services.logind.powerKey = "suspend";
+
   services.xserver = {
     videoDrivers = [ "nvidia" ];
   };
@@ -73,8 +75,6 @@ hardware.nvidia = {
 
   programs.coolercontrol.enable = true;
   #programs.coolercontrol.nvidiaSupport = true;
-
-
 
   hardware.bluetooth = {
     enable = true;
