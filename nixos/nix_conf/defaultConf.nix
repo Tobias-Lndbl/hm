@@ -32,6 +32,17 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  #services.xserver.xkb.layout = "de";
+
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      fcitx5-mozc
+      fcitx5-gtk
+    ];
+  };
+
 
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
@@ -54,6 +65,13 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+
+  environment.variables = {
+    #XMODIFIERS = "";
+    # Some users also need to unset these:
+    # GTK_IM_MODULE = "";
+    # QT_IM_MODULE = "";
+  };
 
 
   programs = {
@@ -141,14 +159,6 @@
   };
 
 
-  i18n.inputMethod = {
-    enable = true;
-    type = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-mozc
-      fcitx5-gtk
-    ];
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
