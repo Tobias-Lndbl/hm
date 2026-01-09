@@ -19,6 +19,7 @@
     ./rustup.nix
     ./screenshot.nix
     ./solaar.nix
+    ./tor.nix
     ./trilium.nix
     ./thunderbird.nix
     ./TUM

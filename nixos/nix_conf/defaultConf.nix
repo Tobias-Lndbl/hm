@@ -99,9 +99,12 @@
       ];
     };
 
+
   };
 
   hardware.logitech.wireless.enable = true;
+
+  hardware.i2c.enable = true;
 
   users.users.tbsl = {
     isNormalUser = true;
@@ -131,6 +134,7 @@
     htop-vim
 
     brightnessctl
+    ddcutil
   ];
 
 
