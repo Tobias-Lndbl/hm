@@ -109,6 +109,8 @@ in
       chrome = "google-chrome-stable";
       trilium-web = "google-chrome-stable 10.0.10.10 --new-window";
       ff = "fastfetch";
+      "tv_enable" = "hyprctl keyword monitor 'DP-6,enable'";
+      "hrel" = "hyprctl reload";
     };
   };
   
