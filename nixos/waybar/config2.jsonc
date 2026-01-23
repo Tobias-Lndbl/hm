@@ -13,7 +13,7 @@
     "margin-right": 5,
 
     "hyprland/workspaces": {
-        "format": ""
+        "format": "{name}"
     },
 
     "hyprland/window":{

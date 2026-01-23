@@ -12,13 +12,28 @@
     efi.canTouchEfiVariables = true;
     grub = {
       enable = true;
-      devices = ["nodev"];
+      device = "nodev";
       efiSupport = true;
       useOSProber = true;
+
+      #theme = pkgs.stdenv.mkDerivation {
+      #  pname = "sekiro-grub-theme";
+      #  version = "1.0";
+      #  src = pkgs.fetchFromGitHub {
+      #    owner = "AbijithBalaji";
+      #    repo = "sekiro_grub_theme";
+      # Full commit hash to avoid 404
+      #    rev = "66f7f287310034a78107779f7435f30863071871"; 
+      # This is the correct SRI hash for this repo
+      #    hash = "sha256-uXwDjb0+ViQvdesG5gefC5zFAiFs/FfDfeI5t7vP+Qc=";
+      #  };
+      #  installPhase = ''
+      #    mkdir -p $out
+      #    cp -r Sekiro/* $out
+      #  '';
+      #};
     };
   };
-  #boot.loader.systemd-boot.enable = true;
-  #boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "inari"; # Define your hostname.
   networking.networkmanager.plugins = with pkgs; [ networkmanager-openvpn ];
