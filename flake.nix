@@ -4,14 +4,16 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     stylix.url = "github:nix-community/stylix";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
+
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    waybar.url = "github:Alexays/Waybar/master";
   };
 
   outputs =
@@ -19,6 +21,7 @@
       self,
       nixpkgs,
       home-manager,
+      stylix,
       ...
     }@inputs:
     let
@@ -42,6 +45,7 @@
           };
           modules = [
             ./home.nix
+	    stylix.homeModules.stylix
           ];
         };
       };

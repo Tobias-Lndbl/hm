@@ -8,18 +8,11 @@
 
 }:
 
-let
-  eww-workspace-script = import ./nixos/eww/ewwbar/scripts/workspace-script.nix { inherit pkgs; };
-  eww-workspace-exists-script = import ./nixos/eww/ewwbar/scripts/workspace-exists-script.nix {
-    inherit pkgs;
-  };
-in
 {
   imports = [
     ./programs
     ./games
-    ./nixos/hyprland/wofi.nix
-    inputs.stylix.homeModules.stylix
+    ./nixos/hyprland
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -46,6 +39,8 @@ in
     ];
   };
 
+  xdg.enable = true;
+
   #home.enableNixpkgsReleaseCheck = false;
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -56,56 +51,11 @@ in
   home.packages = with pkgs; [
     xdg-utils
     swaybg
-    eww-workspace-script
-    eww-workspace-exists-script
     sops
     python3
     python313Packages.dbus-python
     btop
   ];
-
-  programs.wofi.enable = true;
-  stylix.enable = true;
-  stylix.image = ./nixos/wp/gruvbox-dark-blue.png; # Stylix REQUIRES an image to start
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
-  stylix.targets.hyprpanel.enable = true;
-  stylix.targets.gnome.enable = false;
-
-  programs.hyprpanel = {
-    enable = true;
-
-    settings = {
-      bar.launcher.icon = "󱄅";
-      bar.layouts = {
-        "0" = {
-          left = [ "dashboard" "workspaces" ];
-          middle = [ "clock" ];
-          right = [ "volume" "network" "systray" ];
-        };
-      };
-      theme.bar.transparent = true;
-      theme.font.name = "JetBrainsMono Nerd Font";
-    };
-  };
-
-  xdg.enable = true;
-  #    # # Adds the 'hello' command to your environment. It prints a friendly
-
-  #    # # "Hello, world!" when run.
-  #    # pkgs.hello
-  #
-  #    # # It is sometimes useful to fine-tune packages, for example, by applying
-  #    # # overrides. You can do that directly here, just don't forget the
-  #    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-  #    # # fonts?
-  #    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-  #
-  #    # # You can also create simple shell scripts directly inside your
-  #    # # configuration. For example, this adds a command 'my-hello' to your
-  #    # # environment:
-  #    # (pkgs.writeShellScriptBin "my-hello" ''
-  #    #   echo "Hello, ${config.home.username}!"
-  #    # '')
 
   programs.bash = {
     enable = true;
@@ -136,17 +86,7 @@ in
     };
   };
   
-  #programs.ssh."eos" = {
-  #  hostname = "10.10.0.1";
-  #  user = "tbsl";
-  #};
-
   programs.direnv.enable = true;
-
-  programs.waybar = {
-    enable = true;
-    package = pkgs.waybar;
-  };
 
   i18n.inputMethod.fcitx5.settings.inputMethod = {
     GroupOrder."0" = "Default";
@@ -158,8 +98,7 @@ in
     "Groups/0/Items/0".Name = "keyboard-jp";
     "Groups/0/Items/1".Name = "mozc";
   }; 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
+
   home.file = {
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a

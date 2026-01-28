@@ -17,7 +17,7 @@
     ./pavucontrol.nix
     ./qview.nix
     ./rustup.nix
-    ./screenshot.nix
+#    ./screenshot.nix
     ./solaar.nix
     ./tor.nix
     ./trilium.nix
