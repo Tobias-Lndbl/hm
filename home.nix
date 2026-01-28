@@ -1,5 +1,6 @@
 {
   outputs,
+  inputs,
   config,
   pkgs,
   lib,
@@ -11,8 +12,6 @@ let
   eww-workspace-script = import ./nixos/eww/ewwbar/scripts/workspace-script.nix { inherit pkgs; };
   eww-workspace-exists-script = import ./nixos/eww/ewwbar/scripts/workspace-exists-script.nix {
     inherit pkgs;
-
-
   };
 in
 {
@@ -20,6 +19,7 @@ in
     ./programs
     ./games
     ./nixos/hyprland/wofi.nix
+    inputs.stylix.homeModules.stylix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -65,6 +65,28 @@ in
   ];
 
   programs.wofi.enable = true;
+  stylix.enable = true;
+  stylix.image = ./nixos/wp/gruvbox-dark-blue.png; # Stylix REQUIRES an image to start
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+  stylix.targets.hyprpanel.enable = true;
+  stylix.targets.gnome.enable = false;
+
+  programs.hyprpanel = {
+    enable = true;
+
+    settings = {
+      bar.launcher.icon = "󱄅";
+      bar.layouts = {
+        "0" = {
+          left = [ "dashboard" "workspaces" ];
+          middle = [ "clock" ];
+          right = [ "volume" "network" "systray" ];
+        };
+      };
+      theme.bar.transparent = true;
+      theme.font.name = "JetBrainsMono Nerd Font";
+    };
+  };
 
   xdg.enable = true;
   #    # # Adds the 'hello' command to your environment. It prints a friendly
