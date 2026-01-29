@@ -18,7 +18,7 @@
     # Options: "stretch", "fill", "fit", "center", "tile"
     imageScalingMode = "fill";
 
-    autoEnable = true;
+#    autoEnable = true;
     
     targets = {
       hyprland.enable = true;

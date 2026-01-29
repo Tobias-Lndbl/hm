@@ -9,6 +9,7 @@
     ./jetbrains.nix
     ./libresprite.nix
     ./nautilus.nix
+    ./nvim
     ./fastfetch.nix
     ./feishin.nix
     ./nvim
