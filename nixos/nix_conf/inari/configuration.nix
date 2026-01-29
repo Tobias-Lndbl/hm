@@ -85,10 +85,13 @@
     #brightnessctl
     wirelesstools
     jdk
+    rot8
   ];
 
 
   hardware.sensor.iio.enable = true;
+
+  services.upower.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;

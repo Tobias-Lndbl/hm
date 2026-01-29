@@ -1,9 +1,6 @@
 { pkgs, config, ... }:
 
 {
-  stylix.targets.wofi.enable = false;
-  stylix.targets.wofi.colors.enable = false;
-
   programs.wofi = {
     enable = true;
     settings = {

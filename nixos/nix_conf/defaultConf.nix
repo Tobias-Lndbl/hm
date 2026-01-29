@@ -125,11 +125,10 @@
 
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    kitty
-
     pulseaudio
 
     #hyprlock
+    hyprpaper
     hypridle
     htop-vim
 

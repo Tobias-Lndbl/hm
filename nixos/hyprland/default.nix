@@ -1,25 +1,30 @@
 {
   pkgs,
   config,
+  lib,
+  osConfig,
   ...
 }:
+
 {
   imports = [
-#    ./hyprland.nix
     ./wofi.nix
     ./stylix.nix
     ./grim.nix
   ];
 
-  stylix.targets.hyprland.enable = true;
-  stylix.targets.hyprpanel.enable = true;
+  programs.hyprlock.enable = true;
 
   programs.hyprpanel = {
     enable = true;
     settings = {
       bar.bluetooth.label = false;
       bar.clock.format = "%a %b %d %H:%M:%S";
-      bar.layouts."1" = {
+      bar.dashboard.icon = "󱄅";
+
+      notifications.panel.anchor = "bottom right";
+
+      bar.layouts = {
         left = [
           "dashboard"
           "workspaces"
@@ -33,25 +38,8 @@
           "network"
           "clock"
           "systray"
-          #(if config.appearance.hasBattery then "battery" else "")
           "notifications"
-        ];
-      };
-      bar.layouts."0" = {
-        left = [
-          "dashboard"
-          "workspaces"
-          "windowtitle"
-        ];
-        middle = [
-          "media"
-        ];
-        right = [
-          "volume"
-          "clock"
-          #(if config.appearance.hasBattery then "battery" else "")
-          "notifications"
-        ];
+        ] ++ (if (builtins.getEnv "HOSTNAME" == "inari") then ["battery"] else []);
       };
 
       theme = {
@@ -68,8 +56,6 @@
     #hyprctl-rotate
   ];
 
-  programs.hyprlock.enable = true;
-  stylix.targets.hyprlock.colors.enable = true;
 
   programs.bash.bashrcExtra = ''
     ccat() {
@@ -88,5 +74,27 @@
     SDL_VIDEODRIVER = "wayland";
     XDG_SESSION_TYPE = "wayland";
     NIXOS_OZONE_WL = "1";
+    GDK_BACKEND = "wayland";
+    GDK_DPI_SCALE = "1";
+  };
+
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      ipc = "on";
+      splash = false;
+      preload = [ "${config.stylix.image}" ];
+      
+      # NEW SYNTAX: Uses a list of strings formatted for the new parser
+      wallpaper = [
+        "eDP-1, ${config.stylix.image}"
+      ];
+    };
+  };
+
+  stylix.cursor = {
+    name = "phinger-cursors-light";
+    package = pkgs.phinger-cursors;
+    size = 28;
   };
 }
