@@ -57,7 +57,7 @@
       "...." = "... && ..";
       "cfg" = "cd ~/.config/hm";
       "cdhypr" = "cd ~/.config/hypr";
-      "cdhyprhm" = "cd ~/.config/hm/nixos/wm";
+      "cdhyprhm" = "cd ~/.config/hm/nixos/hyprland";
       "ivm" = "vim";
       c = "clear";
       switch = lib.mkDefault "home-manager switch --flake ~/.config/hm";
