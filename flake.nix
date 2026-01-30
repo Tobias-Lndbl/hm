@@ -9,18 +9,15 @@
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    hm.url = "github:nix-community/home-manager";
+    hm.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
     {
       self,
       nixpkgs,
-      home-manager,
+      hm,
       stylix,
       ...
     }@inputs:
@@ -38,14 +35,14 @@
       #                  home-config
       # -----------------------------------------------
       homeConfigurations = {
-        "tbsl" = home-manager.lib.homeManagerConfiguration {
+        "tbsl" = hm.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = {
             inherit inputs outputs;
           };
           modules = [
             ./home.nix
-	    stylix.homeModules.stylix
+	          stylix.homeModules.stylix
           ];
         };
       };
@@ -85,7 +82,6 @@
           ./nixos/nix_conf/defaultConf.nix
           ./nixos/nix_conf/inari/configuration.nix
           ./nixos/nix_conf/inari/hardware-configuration.nix
-
         ];
       };
     };
