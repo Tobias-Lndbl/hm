@@ -61,6 +61,7 @@
       "ivm" = "vim";
       c = "clear";
       switch = lib.mkDefault "home-manager switch --flake ~/.config/hm";
+      nswitch = lib.mkDefault "sudo nixos-rebuild switch --flake ~/.config/hm";
       wa = "firefox https://web.whatsapp.com &";
       "sdn" = "shutdown now";
       clstat = "firefox localhost:11987 &";
@@ -92,5 +93,4 @@
   }; 
 
   home.file = {};
-
 }

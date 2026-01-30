@@ -1,7 +1,7 @@
 {
   pkgs,
   config,
-  inputs,
+  lib,
   ...
 }:
 
@@ -21,6 +21,7 @@
       bar.clock.format = "%a %b %d %H:%M:%S";
       bar.dashboard.icon = "󱄅";
       general.scaling_priority = "gdk";
+      wallpaper.enable = false;
 
       bar.layouts = {
         left = [
@@ -37,7 +38,7 @@
           "clock"
           "systray"
           "notifications"
-        ] ++ (if (builtins.getEnv "HOSTNAME" == "inari") then ["battery"] else []);
+        ];
       };
 
       theme = {
@@ -83,7 +84,7 @@
       
       # NEW SYNTAX: Uses a list of strings formatted for the new parser
       wallpaper = [
-        "eDP-1, ${config.stylix.image}"
+        ", ${config.stylix.image}"
       ];
     };
   };
