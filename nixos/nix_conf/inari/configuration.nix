@@ -82,10 +82,11 @@
   };
 
   environment.systemPackages = with pkgs; [
-    #brightnessctl
     wirelesstools
     jdk
-    rot8
+    iio-sensor-proxy
+    iio-hyprland
+    jq
   ];
 
 

@@ -21,8 +21,7 @@
       bar.bluetooth.label = false;
       bar.clock.format = "%a %b %d %H:%M:%S";
       bar.dashboard.icon = "󱄅";
-
-      notifications.panel.anchor = "bottom right";
+      general.scaling_priority = "gdk";
 
       bar.layouts = {
         left = [
@@ -44,7 +43,7 @@
 
       theme = {
         #font.size = config.appearance.fontSize;
-	font.size = 12;
+	      font.size = 12;
         bar.transparent = true;
         bar.location = "bottom";
       };
@@ -53,7 +52,6 @@
 
   home.packages = with pkgs; [
     wl-clipboard
-    #hyprctl-rotate
   ];
 
 
@@ -75,7 +73,6 @@
     XDG_SESSION_TYPE = "wayland";
     NIXOS_OZONE_WL = "1";
     GDK_BACKEND = "wayland";
-    GDK_DPI_SCALE = "1";
   };
 
   services.hyprpaper = {
