@@ -43,7 +43,7 @@
           modules = [
             ./home.nix
 	          stylix.homeModules.stylix
-          ];
+          ] ++ import ./modules/hm;
         };
       };
 

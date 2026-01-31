@@ -17,11 +17,12 @@
   programs.hyprpanel = {
     enable = true;
     settings = {
-      bar.bluetooth.label = false;
       bar.clock.format = "%a %b %d %H:%M:%S";
       bar.dashboard.icon = "󱄅";
       general.scaling_priority = "gdk";
       wallpaper.enable = false;
+      bar.battery.hidden = true;
+      bar.battery.enable = false;
 
       bar.layouts = {
         left = [
@@ -37,6 +38,7 @@
           "network"
           "clock"
           "systray"
+          (if config.appearance.hasBattery then "battery" else "")
           "notifications"
         ];
       };

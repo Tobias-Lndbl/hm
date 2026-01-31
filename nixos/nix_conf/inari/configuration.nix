@@ -94,6 +94,7 @@
 
   services.upower.enable = true;
 
+  config.appearance.hasBattery = true;
   # Enable touchpad support (enabled default in most desktopManager).
   #services.xserver.libinput.enable = true;
 
