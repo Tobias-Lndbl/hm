@@ -16,15 +16,16 @@
 
   programs.hyprpanel = {
     enable = true;
+
+
     settings = {
       bar.clock.format = "%a %b %d %H:%M:%S";
-      bar.dashboard.icon = "󱄅";
-      general.scaling_priority = "gdk";
+      scalingPriority = "both";
       wallpaper.enable = false;
-      bar.battery.hidden = true;
-      bar.battery.enable = false;
 
-      bar.layouts = {
+      bar.launcher.autoDetectIcon = true;
+
+      bar.layouts."*" = {
         left = [
           "dashboard"
           "workspaces"
@@ -38,6 +39,7 @@
           "network"
           "clock"
           "systray"
+          "battery"
           (if config.appearance.hasBattery then "battery" else "")
           "notifications"
         ];

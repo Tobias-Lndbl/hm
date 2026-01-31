@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./anki.nix
     ./bash.nix
     ./blueman.nix
     ./eww.nix
