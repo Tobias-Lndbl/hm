@@ -17,7 +17,6 @@
   programs.hyprpanel = {
     enable = true;
 
-
     settings = {
       bar.clock.format = "%a %b %d %H:%M:%S";
       scalingPriority = "both";
@@ -36,18 +35,18 @@
         ];
         right = [
           "volume"
+          "battery"
+          (if config.appearance.hasBattery then "battery" else "")
           "network"
           "clock"
           "systray"
-          "battery"
-          (if config.appearance.hasBattery then "battery" else "")
           "notifications"
         ];
       };
 
       theme = {
         #font.size = config.appearance.fontSize;
-	      font.size = 12;
+        font.size = 12;
         bar.transparent = true;
         bar.location = "bottom";
       };
@@ -57,7 +56,6 @@
   home.packages = with pkgs; [
     wl-clipboard
   ];
-
 
   programs.bash.bashrcExtra = ''
     ccat() {
@@ -85,7 +83,7 @@
       ipc = "on";
       splash = false;
       preload = [ "${config.stylix.image}" ];
-      
+
       # NEW SYNTAX: Uses a list of strings formatted for the new parser
       wallpaper = [
         ", ${config.stylix.image}"
