@@ -18,30 +18,37 @@
     enable = true;
 
     settings = {
-      bar.clock.format = "%a %b %d %H:%M:%S";
+
       scalingPriority = "both";
       wallpaper.enable = false;
 
-      bar.launcher.autoDetectIcon = true;
+      bar = {
+        launcher.autoDetectIcon = true;
+        clock.format = "%H:%M:%S";
 
-      bar.layouts."*" = {
-        left = [
-          "dashboard"
-          "workspaces"
-          "windowtitle"
-        ];
-        middle = [
-          "media"
-        ];
-        right = [
-          "volume"
-          "battery"
-          (if config.appearance.hasBattery then "battery" else "")
-          "network"
-          "clock"
-          "systray"
-          "notifications"
-        ];
+        workspaces.show_numbered = true;
+        workspaces.numbered_active_indicator = "highlight";
+
+        layouts."*" = {
+          left = [
+            "dashboard"
+            "workspaces"
+            "windowtitle"
+          ];
+          middle = [
+            "media"
+          ];
+          right = [
+            "volume"
+            "battery"
+            "bluetooth"
+            #(if config.appearance.hasBattery then "battery" else "")
+            "network"
+            "clock"
+            "systray"
+            "notifications"
+          ];
+        };
       };
 
       theme = {
@@ -83,8 +90,6 @@
       ipc = "on";
       splash = false;
       preload = [ "${config.stylix.image}" ];
-
-      # NEW SYNTAX: Uses a list of strings formatted for the new parser
       wallpaper = [
         ", ${config.stylix.image}"
       ];
