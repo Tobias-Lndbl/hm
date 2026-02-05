@@ -18,9 +18,18 @@
     enable = true;
 
     settings = {
-
       scalingPriority = "both";
       wallpaper.enable = false;
+
+    menus = {
+        clock.weather.unit = "metric";
+        clock.weather.enable = true;
+        clock.weather.location = "Germering";
+
+        clock.time.military = true;
+        clock.time.hideSeconds = false;
+
+    };
 
       bar = {
         launcher.autoDetectIcon = true;
@@ -28,6 +37,8 @@
 
         workspaces.show_numbered = true;
         workspaces.numbered_active_indicator = "highlight";
+
+
 
         layouts."*" = {
           left = [
