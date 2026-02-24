@@ -4,6 +4,7 @@
     ./anki.nix
     ./bash.nix
     ./blueman.nix
+    ./discord.nix
     ./eww.nix
     ./git.nix
 #    ./fcitx5.nix
@@ -23,7 +24,6 @@
     ./solaar.nix
     ./tor.nix
     ./trilium.nix
-    ./thunderbird.nix
     ./TUM
     ./unity.nix
     ./vscode.nix

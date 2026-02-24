@@ -104,6 +104,15 @@ hardware.nvidia = {
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };  
 
+  services.pipewire.extraConfig.pipewire."99-force-surround" = {
+  "context.modules" = [
+    {
+      name = "libpipewire-module-spa-device-factory";
+      args = { };
+    }
+  ];
+};
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
