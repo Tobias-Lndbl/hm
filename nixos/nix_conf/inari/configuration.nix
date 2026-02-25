@@ -41,7 +41,6 @@
       jq
     ];
 
-
     hardware.sensor.iio.enable = true;
 
     services.upower.enable = true;
