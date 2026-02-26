@@ -5,6 +5,7 @@
     ./bash.nix
     ./blueman.nix
     ./discord.nix
+    ./easyeffects.nix
     ./eww.nix
     ./git.nix
 #    ./fcitx5.nix
