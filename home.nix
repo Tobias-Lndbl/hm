@@ -24,9 +24,25 @@
     config = {
       allowUnfree = true;
       allowUnfreePredicate = (_: true);
+      permittedInsecurePackages = [
+        "electron-37.10.3"
+      ];
     };
     overlays = [
       outputs.overlays.additions
+
+      (final: prev: {
+      anki = prev.anki.overrideAttrs (oldAttrs: {
+        # Add the missing Qt6 WebChannel library
+        buildInputs = (oldAttrs.buildInputs or [ ]) ++ [
+          prev.qt6.qtwebchannel
+        ];
+
+        # PRO TIP: If the build still fails during the "checkPhase", 
+        # uncomment the line below to skip the tests entirely.
+        # doCheck = false;
+      });
+    })
     ];
   };
 
