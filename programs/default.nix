@@ -24,6 +24,7 @@
     ./rustup.nix
 #    ./screenshot.nix
     ./solaar.nix
+    ./wvkbd.nix
     ./tor.nix
     ./trilium.nix
     ./TUM
