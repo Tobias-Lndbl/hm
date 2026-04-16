@@ -11,6 +11,11 @@
 
     hm.url = "github:nix-community/home-manager";
     hm.inputs.nixpkgs.follows = "nixpkgs";
+
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -52,6 +57,10 @@
       # -----------------------------------------------
       nixosConfigurations."amaterasu" = nixpkgs.lib.nixosSystem {
         inherit system;
+
+        specialArgs = {
+          inherit inputs outputs;
+        };
         modules = [
           ./nixos/nix_conf/defaultConf.nix
           ./nixos/nix_conf/amaterasu/configuration.nix
