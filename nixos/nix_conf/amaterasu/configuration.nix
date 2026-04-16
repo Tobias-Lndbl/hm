@@ -104,13 +104,18 @@ hardware.nvidia = {
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };  
 
-  services.pipewire.extraConfig.pipewire."99-force-surround" = {
-  "context.modules" = [
-    {
-      name = "libpipewire-module-spa-device-factory";
-      args = { };
+  environment.systemPackages = with pkgs; [
+  alsa-plugins
+];
+
+# Explicitly link the A52 encoder so PipeWire/ALSA can use it
+environment.etc = {
+  "alsa/conf.d/60-a52-encoder.conf".source = "${pkgs.alsa-plugins}/etc/alsa/conf.d/60-a52-encoder.conf";
+  "alsa/conf.d/59-a52-lib.conf".text = ''
+    pcm_type.a52 {
+      lib "${pkgs.alsa-plugins}/lib/alsa-lib/libasound_module_pcm_a52.so"
     }
-  ];
+  '';
 };
 
   # Some programs need SUID wrappers, can be configured further or are
