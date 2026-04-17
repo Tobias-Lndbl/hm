@@ -118,8 +118,8 @@
       "docker"
       "dialout"
       ];
-    packages = with pkgs; [
-    ];
+    #packages = with pkgs; [
+    #];
   };
 
 
