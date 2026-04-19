@@ -36,6 +36,7 @@
       pkgs.nixfmt
       lua-language-server
       texlab
+      clang-tools
     ];
   };
 
