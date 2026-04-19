@@ -74,6 +74,10 @@
       # -----------------------------------------------
       nixosConfigurations."izanagi" = nixpkgs.lib.nixosSystem {
         inherit system;
+
+        specialArgs = {
+          inherit inputs outputs;
+        };
         modules = [
           ./nixos/nix_conf/defaultConf.nix
           ./nixos/nix_conf/izanagi/configuration.nix
@@ -87,6 +91,10 @@
       # -----------------------------------------------
       nixosConfigurations."inari" = nixpkgs.lib.nixosSystem {
         inherit system;
+
+        specialArgs = {
+          inherit inputs outputs;
+        };
         modules = [
           ./nixos/nix_conf/defaultConf.nix
           ./nixos/nix_conf/inari/configuration.nix
