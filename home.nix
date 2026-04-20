@@ -30,9 +30,9 @@
     ];
   };
 
-  nixpkgs.config.permittedInsecurePackages = [
-                "electron-37.10.3"
-              ];
+  #nixpkgs.config.permittedInsecurePackages = [
+   #             "electron-37.10.3"
+    #          ];
 
 
   programs.kitty.enable = true;

@@ -31,7 +31,7 @@
     '';
 
     extraPackages = with pkgs; [
-      nodePackages.bash-language-server
+      bash-language-server
       nixd
       pkgs.nixfmt
       lua-language-server
