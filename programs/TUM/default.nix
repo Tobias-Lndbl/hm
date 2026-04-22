@@ -1,8 +1,9 @@
 { ... }:
 {
   imports = [
+    ./digital.nix
     ./eduvpn-client.nix
     ./qtrvsim.nix
-    ./digital.nix
+    ./utop.nix
   ];
 }
