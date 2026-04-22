@@ -2,5 +2,6 @@
 {
   home.packages = with pkgs; [
     ocamlPackages.utop
+    dune
   ];
 }
