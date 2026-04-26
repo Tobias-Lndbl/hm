@@ -16,6 +16,7 @@
     ./libresprite.nix
     ./nautilus.nix
     ./gnucash.nix
+    ./gnumake.nix
     ./nextcloud-client.nix
     ./nvim
     ./pamixer.nix
