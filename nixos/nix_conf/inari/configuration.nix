@@ -37,6 +37,7 @@
     iio-sensor-proxy
     iio-hyprland
     jq
+    batmon
   ];
   
   hardware.sensor.iio.enable = true;
