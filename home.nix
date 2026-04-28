@@ -13,6 +13,7 @@
     ./programs
     ./games
     ./nixos/hyprland
+    ./desktop
   ];
 
   home.username = "tbsl";
@@ -30,16 +31,10 @@
     ];
   };
 
-  #nixpkgs.config.permittedInsecurePackages = [
-   #             "electron-37.10.3"
-    #          ];
-
-
   programs.kitty.enable = true;
 
   xdg.enable = true;
 
-  #home.enableNixpkgsReleaseCheck = false;
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   };

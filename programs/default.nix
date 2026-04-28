@@ -1,15 +1,14 @@
 { ... }:
 {
   imports = [
-    #./alsa.nix
     ./anki.nix
     ./bash.nix
     ./blueman.nix
     ./discord.nix
     ./easyeffects.nix
+    ./element.nix
     ./eww.nix
     ./fastfetch.nix
-#    ./fcitx5.nix
     ./feishin.nix
     ./git.nix
     ./jetbrains.nix
@@ -24,9 +23,7 @@
     ./pavucontrol.nix
     ./qview.nix
     ./rustup.nix
-#    ./screenshot.nix
     ./solaar.nix
-    ./wvkbd.nix
     ./tor.nix
 #    ./trilium.nix
     ./TUM
