@@ -68,6 +68,7 @@
     powerManagement.enable = false;
     gsp.enable = config.hardware.nvidia.open;
     nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
     #    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
     #      version = "570.124.04";
     #      sha256_64bit = "sha256-G3hqS3Ei18QhbFiuQAdoik93jBlsFI2RkWOBXuENU8Q=";
