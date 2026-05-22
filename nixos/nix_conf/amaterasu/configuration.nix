@@ -5,13 +5,12 @@
 { config, pkgs, ... }:
 {
 
-
   # Bootloader.
   boot.loader = {
     efi.canTouchEfiVariables = true;
     grub = {
       enable = true;
-      devices = ["nodev"];
+      devices = [ "nodev" ];
       efiSupport = true;
       useOSProber = true;
       theme = pkgs.stdenv.mkDerivation {
@@ -20,9 +19,9 @@
         src = pkgs.fetchFromGitHub {
           owner = "AbijithBalaji";
           repo = "sekiro_grub_theme";
-      # Full commit hash to avoid 404
-          rev = "66f7f287310034a78107779f7435f30863071871"; 
-      # This is the correct SRI hash for this repo
+          # Full commit hash to avoid 404
+          rev = "66f7f287310034a78107779f7435f30863071871";
+          # This is the correct SRI hash for this repo
           hash = "sha256-uXwDjb0+ViQvdesG5gefC5zFAiFs/FfDfeI5t7vP+Qc=";
         };
         installPhase = ''
@@ -33,8 +32,8 @@
     };
   };
   networking.hostName = "amaterasu"; # Define your hostname.
-  networking.networkmanager.plugins = with pkgs; [networkmanager-openvpn];
- # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.plugins = with pkgs; [ networkmanager-openvpn ];
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -44,12 +43,12 @@
   networking.networkmanager.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.extraModulePackages = with config.boot.kernelPackages; [ 
-  	nct6687d 
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    nct6687d
   ];
   boot.kernelModules = [ "nct6687" ];
 
-    boot = {
+  boot = {
     kernelParams = [
       # To allow cooler control
       "nvidia.NVreg_RestrictProfilingToAdminUsers=0"
@@ -63,21 +62,20 @@
     ];
   };
 
-
-hardware.nvidia = {
+  hardware.nvidia = {
     modesetting.enable = true;
     open = true;
     powerManagement.enable = false;
     gsp.enable = config.hardware.nvidia.open;
     nvidiaSettings = true;
-#    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-#      version = "570.124.04";
-#      sha256_64bit = "sha256-G3hqS3Ei18QhbFiuQAdoik93jBlsFI2RkWOBXuENU8Q=";
-#      openSha256 = "sha256-KCGUyu/XtmgcBqJ8NLw/iXlaqB9/exg51KFx0Ta5ip0=";
-#      settingsSha256 = "sha256-LNL0J/sYHD8vagkV1w8tb52gMtzj/F0QmJTV1cMaso8=";
-#      persistencedSha256 = "";
-#      usePersistenced = true;
-#    };
+    #    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    #      version = "570.124.04";
+    #      sha256_64bit = "sha256-G3hqS3Ei18QhbFiuQAdoik93jBlsFI2RkWOBXuENU8Q=";
+    #      openSha256 = "sha256-KCGUyu/XtmgcBqJ8NLw/iXlaqB9/exg51KFx0Ta5ip0=";
+    #      settingsSha256 = "sha256-LNL0J/sYHD8vagkV1w8tb52gMtzj/F0QmJTV1cMaso8=";
+    #      persistencedSha256 = "";
+    #      usePersistenced = true;
+    #    };
   };
 
   #services.logind.powerKey = "suspend";
@@ -88,35 +86,40 @@ hardware.nvidia = {
 
   programs.gamemode.enable = true;
 
-
   programs.coolercontrol.enable = true;
   #programs.coolercontrol.nvidiaSupport = true;
 
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
- };
+  };
+
+  #lg steering wheel:
+  hardware.new-lg4ff.enable = true;
+  services.udev.packages = with pkgs; [ oversteer ];
 
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };  
+  };
 
   environment.systemPackages = with pkgs; [
-  alsa-plugins
-];
+    alsa-plugins
+    oversteer
+  ];
 
-# Explicitly link the A52 encoder so PipeWire/ALSA can use it
-environment.etc = {
-  "alsa/conf.d/60-a52-encoder.conf".source = "${pkgs.alsa-plugins}/etc/alsa/conf.d/60-a52-encoder.conf";
-  "alsa/conf.d/59-a52-lib.conf".text = ''
-    pcm_type.a52 {
-      lib "${pkgs.alsa-plugins}/lib/alsa-lib/libasound_module_pcm_a52.so"
-    }
-  '';
-};
+  # Explicitly link the A52 encoder so PipeWire/ALSA can use it
+  environment.etc = {
+    "alsa/conf.d/60-a52-encoder.conf".source =
+      "${pkgs.alsa-plugins}/etc/alsa/conf.d/60-a52-encoder.conf";
+    "alsa/conf.d/59-a52-lib.conf".text = ''
+      pcm_type.a52 {
+        lib "${pkgs.alsa-plugins}/lib/alsa-lib/libasound_module_pcm_a52.so"
+      }
+    '';
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

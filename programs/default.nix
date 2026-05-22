@@ -18,6 +18,7 @@
     ./gnumake.nix
     ./nextcloud-client.nix
     ./nvim
+    ./obs.nix
     ./pamixer.nix
     ./pandoc.nix
     ./pavucontrol.nix
