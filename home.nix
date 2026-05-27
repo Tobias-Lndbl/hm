@@ -61,7 +61,6 @@
       c = "clear";
       switch = lib.mkDefault "home-manager switch --flake ~/.config/hm";
       nswitch = lib.mkDefault "sudo nixos-rebuild switch --flake ~/.config/hm";
-      wa = "firefox https://web.whatsapp.com &";
       "sdn" = "shutdown now";
       clstat = "firefox localhost:11987 &";
       ccl = "firefox localhost:11987 &";
@@ -69,9 +68,6 @@
       nixreb_boot = "nixos-rebuild boot";
       nixreb_switch = "nixos-rebuild switch";
       element = "element-desktop";
-      google = "google-chrome-stable";
-      chrome = "google-chrome-stable";
-      trilium-web = "google-chrome-stable 10.0.10.10 --new-window";
       ff = "fastfetch";
       "hrel" = "hyprctl reload";
       "tv_disable" = "hyprctl keyword monitor 'DP-6,disable'";

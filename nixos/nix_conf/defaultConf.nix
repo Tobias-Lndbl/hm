@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -56,11 +61,9 @@
     ];
   };
 
-
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = false;
-
 
   services.pulseaudio.enable = false;
 
@@ -70,22 +73,27 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+  # If you want to use JACK applications, uncomment this
+  #jack.enable = true;
 
   services.logind.settings.Login.HandlePowerKey = "suspend";
 
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+  # use the example session manager (no others are packaged yet so this is enabled by default,
+  # no need to redefine it in your config for now)
+  #media-session.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
+  networking.firewall = {
+    logReversePathDrops = true;
+    checkReversePath = false;
+  };
+
   programs = {
-    
+
     hyprland.enable = true;
     firefox.enable = true;
 
@@ -99,29 +107,43 @@
       ];
     };
 
-
   };
 
   hardware.logitech.wireless.enable = true;
 
   hardware.i2c.enable = true;
 
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      cups-filters
+      cups-browsed
+    ];
+  };
+
+  services.ipp-usb.enable = true;
+
   users.users.tbsl = {
     isNormalUser = true;
     description = "tobias lindbuechl";
-    extraGroups = [ 
+    extraGroups = [
       "networkmanager"
-      "wheel" 
+      "wheel"
       "audio"
       "scanner"
       "networkmanager"
       "docker"
       "dialout"
-      ];
+    ];
     #packages = with pkgs; [
     #];
   };
-
 
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -138,8 +160,7 @@
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
-
-  fonts = { 
+  fonts = {
     packages = with pkgs; [
       dejavu_fonts
       noto-fonts
@@ -150,7 +171,7 @@
       fira-code-symbols
       mplus-outline-fonts.githubRelease
       dina-font
-      proggyfonts 
+      proggyfonts
       font-awesome
       roboto-mono
       roboto
@@ -159,10 +180,9 @@
     ];
 
     fontDir.enable = true;
-  }; 
+  };
 
-
-  console =  {
+  console = {
     enable = true;
     packages = with pkgs; [
       roboto-mono
