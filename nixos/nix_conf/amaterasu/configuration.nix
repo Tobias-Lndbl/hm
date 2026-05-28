@@ -68,10 +68,6 @@
     powerManagement.enable = false;
     gsp.enable = config.hardware.nvidia.open;
     nvidiaSettings = true;
-<<<<<<< HEAD
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
-=======
->>>>>>> a067798 (did some things)
     #    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
     #      version = "570.124.04";
     #      sha256_64bit = "sha256-G3hqS3Ei18QhbFiuQAdoik93jBlsFI2RkWOBXuENU8Q=";
@@ -97,13 +93,10 @@
     enable = true;
     powerOnBoot = true;
   };
-<<<<<<< HEAD
 
   #lg steering wheel:
   hardware.new-lg4ff.enable = true;
   services.udev.packages = with pkgs; [ oversteer ];
-=======
->>>>>>> a067798 (did some things)
 
   programs.steam = {
     enable = true;
@@ -114,10 +107,7 @@
 
   environment.systemPackages = with pkgs; [
     alsa-plugins
-<<<<<<< HEAD
     oversteer
-=======
->>>>>>> a067798 (did some things)
   ];
 
   # Explicitly link the A52 encoder so PipeWire/ALSA can use it

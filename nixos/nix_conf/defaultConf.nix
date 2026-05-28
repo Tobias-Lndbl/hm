@@ -62,8 +62,18 @@
   };
 
   # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
+
+  services.displayManager.plasma-login-manager.enable = false;
+
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "sddm-astronaut-theme";
+    extraPackages = [ pkgs.sddm-astronaut ];
+  };
+
+
   services.desktopManager.gnome.enable = false;
+  services.displayManager.gdm.enable = false;
 
   services.pulseaudio.enable = false;
 
@@ -158,6 +168,7 @@
     ddcutil
 
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    sddm-astronaut
   ];
 
   fonts = {
