@@ -63,7 +63,6 @@
 
   # Enable the GNOME Desktop Environment.
 
-  services.displayManager.plasma-login-manager.enable = false;
 
   services.displayManager.sddm = {
     enable = true;
@@ -72,6 +71,7 @@
   };
 
 
+  services.displayManager.plasma-login-manager.enable = false;
   services.desktopManager.gnome.enable = false;
   services.displayManager.gdm.enable = false;
 
