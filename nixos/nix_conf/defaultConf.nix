@@ -100,6 +100,7 @@
   networking.firewall = {
     logReversePathDrops = true;
     checkReversePath = false;
+    allowedUDPPorts = [ 51820 ];
   };
 
   programs = {
