@@ -12,6 +12,10 @@
 {
   nixpkgs.config.allowUnfree = true;
 
+  systemd.services.firewall = {
+    enable = true; # This explicitly disables the service
+  };
+
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -63,13 +67,11 @@
 
   # Enable the GNOME Desktop Environment.
 
-
   services.displayManager.sddm = {
     enable = true;
     theme = "sddm-astronaut-theme";
     extraPackages = [ pkgs.sddm-astronaut ];
   };
-
 
   services.displayManager.plasma-login-manager.enable = false;
   services.desktopManager.gnome.enable = false;
@@ -100,7 +102,7 @@
   networking.firewall = {
     logReversePathDrops = true;
     checkReversePath = false;
-    allowedUDPPorts = [ 51820 ];
+    allowedUDPPorts = [ 52193 ];
   };
 
   programs = {

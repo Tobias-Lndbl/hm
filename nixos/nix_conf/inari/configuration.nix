@@ -2,7 +2,12 @@
 # your system.
 # Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ config, pkgs, inputs,... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   # Bootloader.
@@ -23,7 +28,9 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  
+
+  networking.networkmanager.wifi.powersave = false;
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -40,7 +47,7 @@
     jq
     batmon
   ];
-  
+
   hardware.sensor.iio.enable = true;
   services.upower.enable = true;
 

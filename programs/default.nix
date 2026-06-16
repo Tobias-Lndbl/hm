@@ -30,10 +30,10 @@
     ./TUM
     ./unity.nix
     ./vscode.nix
+    ./wireguard.nix
     ./wmctrl.nix
     ./xournalpp.nix
     ./zip.nix
-
   ];
 
   programs = {

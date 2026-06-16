@@ -35,10 +35,14 @@
     };
   };
 
-  networking.firewall.checkReversePath = false;
   networking.firewall = {
     # if packets are still dropped, they will show up in dmesg
+    #enable = true;
     logReversePathDrops = true;
+    #checkReversePath = false;
+    #allowedUDPPorts = [ 51820 52193 35923 ];
+    #package = pkgs.iptables; # Forces iptables
+
     # wireguard trips rpfilter up
     extraCommands = ''
       ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 52193 -j RETURN
