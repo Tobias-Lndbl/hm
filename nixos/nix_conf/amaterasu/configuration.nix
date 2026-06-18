@@ -42,7 +42,7 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  boot.kernelPackages = pkgs.lenuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModulePackages = with config.boot.kernelPackages; [
     nct6687d
   ];
