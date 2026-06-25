@@ -35,6 +35,8 @@
 
   xdg.enable = true;
 
+  wayland.windowManager.hyprland.configType = "hyprlang";
+
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   };

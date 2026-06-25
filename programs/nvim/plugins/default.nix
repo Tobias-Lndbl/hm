@@ -11,6 +11,11 @@
     ./jdtls-nvim.nix
   ];
 
+  programs.neovim = {
+    withRuby = true;
+    withPython3 = true;
+  };
+
   programs.neovim.plugins = with pkgs.vimPlugins; [
     delimitMate
     vim-css-color
