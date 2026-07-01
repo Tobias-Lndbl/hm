@@ -163,6 +163,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     pulseaudio
+    dnsutils
 
     #hyprlock
     hyprpaper
