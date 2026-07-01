@@ -83,7 +83,7 @@
           ./nixos/nix_conf/defaultConf.nix
           ./nixos/nix_conf/izanagi/configuration.nix
           ./nixos/nix_conf/izanagi/hardware-configuration.nix
-#          ./nixos/wireguard/wireguard.nix
+          ./nixos/wireguard/wireguard.nix
 
         ];
       };
@@ -101,7 +101,7 @@
           ./nixos/nix_conf/defaultConf.nix
           ./nixos/nix_conf/inari/configuration.nix
           ./nixos/nix_conf/inari/hardware-configuration.nix
-#          ./nixos/wireguard/wireguard.nix
+          ./nixos/wireguard/wireguard.nix
 
         ];
       };

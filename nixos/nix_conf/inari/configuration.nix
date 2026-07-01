@@ -24,11 +24,10 @@
 
   networking.hostName = "inari"; # Define your hostname.
   networking.networkmanager.plugins = with pkgs; [ networkmanager-openvpn ];
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking
   networking.networkmanager.enable = true;
-
+  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.wifi.powersave = false;
 
   # Enable CUPS to print documents.

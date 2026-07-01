@@ -36,6 +36,8 @@
     };
   };
 
+  networking.firewall.allowedUDPPorts = [ 53351 5351 48736 52193 ];
+
   networking.firewall.checkReversePath = false;
   networking.firewall.logReversePathDrops = true;
 }
