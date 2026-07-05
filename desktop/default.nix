@@ -3,5 +3,6 @@
   imports = [
     ./elementum.nix
     ./element.nix
+    ./unmute.nix
   ];
 }
