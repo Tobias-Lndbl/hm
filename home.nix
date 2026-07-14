@@ -73,6 +73,8 @@
       ff = "fastfetch";
       "hrel" = "hyprctl reload";
       "tv_disable" = "hyprctl keyword monitor 'DP-6,disable'";
+      "pu" = "nmcli connection up pyroeis";
+      "pd" = "nmcli connection down pyroeis";
     };
   };
   

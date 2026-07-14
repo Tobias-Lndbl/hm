@@ -8,7 +8,6 @@
     stylix.url = "github:nix-community/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
-
     hm.url = "github:nix-community/home-manager";
     hm.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -47,8 +46,9 @@
           };
           modules = [
             ./home.nix
-	          stylix.homeModules.stylix
-          ] ++ import ./modules/hm;
+            stylix.homeModules.stylix
+          ]
+          ++ import ./modules/hm;
         };
       };
 
