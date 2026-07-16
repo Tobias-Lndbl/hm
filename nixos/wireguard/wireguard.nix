@@ -10,6 +10,13 @@
   networking.nftables.enable = true;
   services.dnsmasq = {
     enable = true;
+
+    settings = {
+      bind-interfaces = true;
+      except-interface = "lo";
+      interface = "pyroeis";
+    };
+
     resolveLocalQueries = true;
     settings = {
       server = [
@@ -36,7 +43,12 @@
     };
   };
 
-  networking.firewall.allowedUDPPorts = [ 53351 5351 48736 52193 ];
+  networking.firewall.allowedUDPPorts = [
+    53351
+    5351
+    48736
+    52193
+  ];
 
   networking.firewall.checkReversePath = false;
   networking.firewall.logReversePathDrops = true;
