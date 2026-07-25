@@ -5,5 +5,7 @@
     ./eduvpn-client.nix
     ./qtrvsim.nix
     ./utop.nix
+
+    ./eist.nix
   ];
 }

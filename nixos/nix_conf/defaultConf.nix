@@ -175,6 +175,9 @@
 
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     sddm-astronaut
+
+    man-pages
+    man-pages-posix
   ];
 
   fonts = {
@@ -209,6 +212,9 @@
       font-awesome
     ];
   };
+
+  documentation.dev.enable = true;
+  documentation.man.enable = true;
 
   nix.settings = {
     experimental-features = "nix-command flakes";
