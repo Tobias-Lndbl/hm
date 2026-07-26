@@ -63,11 +63,12 @@
   };
 
   hardware.nvidia = {
-    modesetting.enable = true;
     open = true;
-    powerManagement.enable = false;
+    modesetting.enable = true;
     gsp.enable = config.hardware.nvidia.open;
     nvidiaSettings = true;
+    powerManagement.enable = true;
+    powerManagement.finegrained = false;
     #    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
     #      version = "570.124.04";
     #      sha256_64bit = "sha256-G3hqS3Ei18QhbFiuQAdoik93jBlsFI2RkWOBXuENU8Q=";
@@ -76,6 +77,12 @@
     #      persistencedSha256 = "";
     #      usePersistenced = true;
     #    };
+  };
+
+  environment.sessionVariables = {
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    LIBVA_DRIVER_NAME = "nvidia";
   };
 
   #services.logind.powerKey = "suspend";
