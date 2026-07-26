@@ -10,6 +10,13 @@
 }:
 
 {
+###########################
+# TODO: remove after eist #
+###########################
+virtualisation.docker.enable = true;
+users.users.tbsl.extraGroups = [ "docker" ];
+
+
   # Bootloader.
   boot.loader = {
     efi.canTouchEfiVariables = true;
@@ -27,8 +34,8 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.wifi.powersave = false;
+  networking.networkmanager.wifi.macAddress = "preserve";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
