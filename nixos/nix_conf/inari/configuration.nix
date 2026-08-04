@@ -10,14 +10,13 @@
 }:
 
 {
-###########################
-# TODO: remove after eist #
-###########################
-virtualisation.docker.enable = true;
-users.users.tbsl.extraGroups = [ "docker" ];
+  ##############################
+  # add for eist retake        #
+  ##############################
+  #virtualisation.docker.enable = true;
+  #users.users.tbsl.extraGroups = [ "docker" ];
 
-
-  # Bootloader.
+  ##BOOTLOADER##
   boot.loader = {
     efi.canTouchEfiVariables = true;
     grub = {
@@ -30,14 +29,18 @@ users.users.tbsl.extraGroups = [ "docker" ];
   };
 
   networking.hostName = "inari"; # Define your hostname.
-  networking.networkmanager.plugins = with pkgs; [ networkmanager-openvpn ];
 
-  # Enable networking
-  networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.powersave = false;
-  networking.networkmanager.wifi.macAddress = "preserve";
+  ##NETWORKING##
+  networking = {
+    networkmanager.plugins = with pkgs; [ networkmanager-openvpn ];
 
-  # Enable CUPS to print documents.
+    networkmanager.enable = true;
+    networkmanager.wifi.powersave = false;
+    networkmanager.wifi.macAddress = "preserve";
+    enableIPv6 = false;
+
+  };
+
   services.printing.enable = true;
 
   hardware.bluetooth = {
@@ -56,9 +59,6 @@ users.users.tbsl.extraGroups = [ "docker" ];
 
   hardware.sensor.iio.enable = true;
   services.upower.enable = true;
-
-  # Assuming this is a custom option you declared in another file
-  #appearance.hasBattery = true;
 
   system.stateVersion = "25.05"; # Did you read the comment?
 }

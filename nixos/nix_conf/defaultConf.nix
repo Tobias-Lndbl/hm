@@ -12,17 +12,7 @@
 {
   nixpkgs.config.allowUnfree = true;
 
-  systemd.services.firewall = {
-    enable = true; # This explicitly disables the service
-  };
 
-  services.resolved.enable = true;
-
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -101,14 +91,27 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
+##NETWORKING##
   networking.firewall = {
+    enable = true;
     logReversePathDrops = true;
     checkReversePath = false;
     allowedUDPPorts = [ 52193 ];
   };
 
-  programs = {
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  services.resolved.enable = false;
+
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.rp_filter" = 0;
+    "net.ipv4.conf.default.rp_filter" = 2;
+  };
+##
+
+
+##PROGRAMS##
+  programs = {
     hyprland.enable = true;
     firefox.enable = true;
 
@@ -121,8 +124,8 @@
         # here, NOT in environment.systemPackages
       ];
     };
-
   };
+##
 
   hardware.logitech.wireless.enable = true;
 

@@ -11,12 +11,6 @@
   services.dnsmasq = {
     enable = true;
 
-    settings = {
-      bind-interfaces = true;
-      except-interface = "lo";
-      interface = "pyroeis";
-    };
-
     resolveLocalQueries = true;
     settings = {
       server = [
