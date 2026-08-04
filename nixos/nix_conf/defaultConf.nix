@@ -112,7 +112,11 @@
 
 ##PROGRAMS##
   programs = {
-    hyprland.enable = true;
+    hyprland = {
+      enable = true;
+      withUWSM = true;
+    };
+
     firefox.enable = true;
 
     nix-ld = {
