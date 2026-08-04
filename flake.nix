@@ -5,14 +5,16 @@
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    stylix.url = "github:nix-community/stylix";
-    stylix.inputs.nixpkgs.follows = "nixpkgs";
-
     hm.url = "github:nix-community/home-manager";
     hm.inputs.nixpkgs.follows = "nixpkgs";
 
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -22,7 +24,7 @@
       self,
       nixpkgs,
       hm,
-      stylix,
+      caelestia-shell,
       ...
     }@inputs:
     let
@@ -46,7 +48,7 @@
           };
           modules = [
             ./home.nix
-            stylix.homeModules.stylix
+            caelestia-shell.homeManagerModules.default
           ]
           ++ import ./modules/hm;
         };

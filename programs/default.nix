@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./anki.nix
+#    ./anki.nix
     ./bash.nix
     ./blueman.nix
     ./discord.nix
