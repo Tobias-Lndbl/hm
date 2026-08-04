@@ -53,7 +53,7 @@
 
   programs.caelestia = {
     enable = true;
-    settings.paths.wallpaperDir = "${config.xdg.userDirs.pictures}/wallpaper";
+    settings = builtins.fromJSON (builtins.readFile ./caelestia_settings.json);
     systemd = {
       enable = true;
       target = "graphical-session.target";

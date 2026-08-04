@@ -1,0 +1,85 @@
+{
+    "appearance": {
+        "transparency": {
+            "enabled": true
+        }
+    },
+    "bar": {
+        "activeWindow": {
+            "compact": true,
+            "inverted": false,
+            "showOnHover": false
+        },
+        "persistent": true,
+        "popouts": {
+            "activeWindow": false
+        },
+        "showOnHover": false,
+        "statusIcons": [
+            {
+                "enabled": true,
+                "id": "lockStatus"
+            },
+            {
+                "enabled": true,
+                "id": "network"
+            },
+            {
+                "enabled": true,
+                "id": "bluetooth"
+            },
+            {
+                "enabled": false,
+                "id": "battery"
+            }
+        ],
+        "workspaces": {
+            "activeTrail": false,
+            "occupiedBg": false,
+            "perMonitorWorkspaces": true,
+            "showWindows": true
+        }
+    },
+    "dashboard": {
+        "dragThreshold": 50
+    },
+    "general": {
+        "apps": {
+            "explorer": [
+                "nautilus",
+                "--new-window"
+            ],
+            "terminal": [
+                "kitty"
+            ]
+        }
+    },
+    "launcher": {
+        "enableDangerousActions": false,
+        "useFuzzy": {
+            "apps": true,
+            "schemes": false,
+            "variants": false,
+            "wallpapers": false
+        },
+        "vimKeybinds": true
+    },
+    "paths": {
+        "wallpaperDir": "~/Pictures/.caelestia"
+    },
+    "services": {
+        "audioIncrement": 0.05,
+        "brightnessIncrement": 0.05,
+        "gpuType": ""
+    },
+    "sidebar": {
+        "dragThreshold": 45,
+        "enabled": true
+    },
+    "utilities": {
+        "toasts": {
+            "nowPlaying": true,
+            "vpnChanged": false
+        }
+    }
+}
