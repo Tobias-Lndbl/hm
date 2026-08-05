@@ -12,7 +12,7 @@
       "enableGtk": true,
       "enableQt": true,
       "enableWarp": true,
-      "enableChromium": true,
+      "enableChromium": false,
       "enableZed": true,
       "enableCava": true,
       "iconTheme": "Papirus-Dark",
