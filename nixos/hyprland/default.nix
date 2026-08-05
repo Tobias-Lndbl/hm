@@ -8,7 +8,7 @@
 {
   imports = [
     ./grim.nix
-    ./caelestial.nix
+    ./caelestia/caelestia.nix
   ];
 
   programs.hyprlock.enable = true;

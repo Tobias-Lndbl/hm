@@ -8,17 +8,28 @@
         "activeWindow": {
             "compact": true,
             "inverted": false,
-            "showOnHover": false
+            "showOnHover": true
+        },
+        "clock": {
+            "background": false,
+            "showDate": true,
+            "showIcon": false
         },
         "persistent": true,
         "popouts": {
-            "activeWindow": false
+            "activeWindow": false,
+            "statusIcons": true,
+            "tray": true
+        },
+        "scrollActions": {
+            "brightness": false,
+            "workspaces": false
         },
         "showOnHover": false,
         "statusIcons": [
             {
                 "enabled": true,
-                "id": "lockStatus"
+                "id": "audio"
             },
             {
                 "enabled": true,
@@ -29,16 +40,28 @@
                 "id": "bluetooth"
             },
             {
-                "enabled": false,
+                "enabled": true,
                 "id": "battery"
             }
         ],
+        "tray": {
+            "background": true,
+            "compact": true,
+            "hiddenIcons": [
+            ],
+            "recolour": true
+        },
         "workspaces": {
             "activeTrail": false,
             "occupiedBg": false,
             "perMonitorWorkspaces": true,
             "showWindows": true
         }
+    },
+    "border": {
+        "rounding": 18,
+        "smoothing": 20,
+        "thickness": 10
     },
     "dashboard": {
         "dragThreshold": 50
@@ -51,6 +74,31 @@
             ],
             "terminal": [
                 "kitty"
+            ]
+        },
+        "idle": {
+            "inhibitWhenAudio": false,
+            "inhibitWhenCharging": false,
+            "lockBeforeSleep": true,
+            "timeouts": [
+                {
+                    "idleAction": "lock",
+                    "inhibitWhenAudio": false,
+                    "inhibitWhenCharging": false,
+                    "respectInhibitors": true,
+                    "timeout": 180
+                },
+                {
+                    "idleAction": "dpms off",
+                    "returnAction": "dpms on",
+                    "timeout": 300
+                },
+                {
+                    "idleAction": [
+                        "suspendThenHibernate"
+                    ],
+                    "timeout": 600
+                }
             ]
         }
     },
@@ -70,7 +118,11 @@
     "services": {
         "audioIncrement": 0.05,
         "brightnessIncrement": 0.05,
-        "gpuType": ""
+        "defaultPlayer": "Feishin",
+        "gpuType": "",
+        "maxVolume": 1,
+        "smartScheme": true,
+        "visualiserBars": 64
     },
     "sidebar": {
         "dragThreshold": 45,
@@ -78,7 +130,7 @@
     },
     "utilities": {
         "toasts": {
-            "nowPlaying": true,
+            "nowPlaying": false,
             "vpnChanged": false
         }
     }

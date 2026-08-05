@@ -31,7 +31,12 @@
     ];
   };
 
-  programs.kitty.enable = true;
+  programs.kitty = {
+    enable = true;
+    extraConfig = ''
+      include ~/.local/state/caelestia/theme/kitty.conf
+    '';
+  };
 
   xdg.enable = true;
 
@@ -82,7 +87,7 @@
       "pd" = "nmcli connection down pyroeis";
     };
   };
-  
+
   programs.direnv.enable = true;
 
   i18n.inputMethod.fcitx5.settings.inputMethod = {
@@ -94,7 +99,7 @@
     };
     "Groups/0/Items/0".Name = "keyboard-jp";
     "Groups/0/Items/1".Name = "mozc";
-  }; 
+  };
 
-  home.file = {};
+  home.file = { };
 }
