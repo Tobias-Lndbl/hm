@@ -44,7 +44,7 @@
     name = "Neovim";
     genericName = "Text Editor";
     comment = "Edit text files";
-    exec = "alacritty --command nvim %F";
+    exec = "kitty nvim %F";
     mimeType = [
       "text/english"
       "text/plain"

@@ -76,6 +76,7 @@
       "ivm" = "vim";
       c = "clear";
       switch = lib.mkDefault "home-manager switch --flake ~/.config/hm#tbsl@\$(hostname)";
+      bswitch = lib.mkDefault "home-manager switch -b backup --flake ~/.config/hm#tbsl@\$(hostname)";
       nswitch = lib.mkDefault "sudo nixos-rebuild switch --flake ~/.config/hm#\$(hostname)";
       "sdn" = "shutdown now";
       clstat = "firefox localhost:11987 &";
