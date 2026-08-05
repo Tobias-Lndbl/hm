@@ -7,8 +7,8 @@
 
 {
   imports = [
-    ./grim.nix
     ./caelestia/caelestia.nix
+    ./hyprland.nix
   ];
 
   programs.hyprlock.enable = true;

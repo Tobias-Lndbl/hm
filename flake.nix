@@ -29,19 +29,10 @@
     }@inputs:
     let
       inherit (self) outputs;
-      forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
-
-    in
-    rec {
+      
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-      overlays = import ./overlays { inherit inputs; };
 
-      # -----------------------------------------------
-      #                  home-config
-      # -----------------------------------------------
-      homeConfigurations = {
-        "tbsl" = hm.lib.homeManagerConfiguration {
+      mkHome = extraModules: hm.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = {
             inherit inputs outputs;
@@ -50,8 +41,24 @@
             ./home.nix
             caelestia-shell.homeManagerModules.default
           ]
-          ++ import ./modules/hm;
+          ++ (import ./modules/hm) ++ extraModules;
         };
+
+
+    in
+    rec {
+      inherit system;
+      pkgs = nixpkgs.legacyPackages.${system};
+      overlays = import ./overlays { inherit inputs; };
+
+      # -----------------------------------------------
+      #                  home-config
+      # -----------------------------------------------
+      homeConfigurations = {
+        "tbsl@amaterasu" = mkHome [ ./nixos/hyprland/amaterasu_hyprland.nix ];
+        "tbsl@izanagi" = mkHome [ ];
+        "tbsl@inari" = mkHome [ ];
+        "tbsl" = mkHome [ ];
       };
 
       # -----------------------------------------------

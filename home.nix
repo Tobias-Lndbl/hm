@@ -53,6 +53,9 @@
 
   home.packages = with pkgs; [
     xdg-utils
+
+    grimblast
+
     swaybg
     sops
     python3
@@ -67,12 +70,11 @@
       "..." = ".. && ..";
       "...." = "... && ..";
       "cfg" = "cd ~/.config/hm";
-      "cdhypr" = "cd ~/.config/hypr";
-      "cdhyprhm" = "cd ~/.config/hm/nixos/hyprland";
+      "cdhypr" = "cd ~/.config/hm/nixos/hyprland";
       "ivm" = "vim";
       c = "clear";
-      switch = lib.mkDefault "home-manager switch --flake ~/.config/hm";
-      nswitch = lib.mkDefault "sudo nixos-rebuild switch --flake ~/.config/hm";
+      switch = lib.mkDefault "home-manager switch --flake ~/.config/hm#tbsl@\$(hostname)";
+      nswitch = lib.mkDefault "sudo nixos-rebuild switch --flake ~/.config/hm#\$(hostname)";
       "sdn" = "shutdown now";
       clstat = "firefox localhost:11987 &";
       ccl = "firefox localhost:11987 &";
