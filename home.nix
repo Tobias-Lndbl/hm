@@ -46,6 +46,7 @@
   };
 
   wayland.windowManager.hyprland.configType = "hyprlang";
+  wayland.windowManager.hyprland.systemd.enable = false;
 
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
