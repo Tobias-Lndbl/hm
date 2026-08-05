@@ -43,6 +43,7 @@
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
+    setSessionVariables = false;
   };
 
   wayland.windowManager.hyprland.configType = "hyprlang";
