@@ -46,7 +46,7 @@
     setSessionVariables = false;
   };
 
-  wayland.windowManager.hyprland.configType = "hyprlang";
+  wayland.windowManager.hyprland.configType = "lua";
   wayland.windowManager.hyprland.systemd.enable = false;
 
   home.sessionVariables = {

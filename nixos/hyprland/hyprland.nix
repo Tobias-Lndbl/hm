@@ -9,221 +9,209 @@
   wayland.windowManager.hyprland = {
     enable = true;
 
-    # Optional: You had this in your home config[cite: 1]
-    # configType = "hyprlang";
+    settings = { };
 
-    settings = {
-      # -----------------------------------------------------
-      # VARIABLES
-      # -----------------------------------------------------
-      "$terminal" = "kitty";
-      "$fileManager" = "nautilus";
-      "$browser" = "zen";
-      "$browser-new-window" = "zen --blank-window";
-      "$browser-private-window" = "zen --private-window";
-      "$nextcloud" = "[fullscreenstate -1, 2] firefox https://nextcloud.lndbl.de  --new-window";
-      "$matrix" = "https://matrix.tum.de/#/home";
-      "$music" = "feishin";
-      "$calendar" = "https://nextcloud.home/apps/calendar";
-      "$mail" = "https://nextcloud.home/apps/mail";
-      "$japanese" = "fcitx5 --enable mozc";
-      "$trilium" = "trilium";
-      "$xournalpp" = "xournalpp ~/Templates/xournalpp_template.xopp";
-      "$menu" = "caelestia:launcher";
-      "$mainMod" = "SUPER";
-
-      # -----------------------------------------------------
-      # AUTOSTART & ENVIRONMENT
-      # -----------------------------------------------------
-      exec-once = [
-        "$japanese"
-      ];
-
-      env = [
-        "QT_QPA_PLATFORMTHEME,qt6ct"
-      ];
-
-      # -----------------------------------------------------
-      # LOOK AND FEEL
-      # -----------------------------------------------------
-      general = {
-        gaps_in = 2.5;
-        gaps_out = 5;
-        border_size = 2;
-        resize_on_border = false;
-        allow_tearing = false;
-        layout = "dwindle";
-      };
-
-      decoration = {
-        rounding = 15;
-        active_opacity = 1.0;
-        inactive_opacity = 1.0;
-
-        shadow.enabled = false;
-
-        blur = {
-          enabled = true;
-          size = 5;
-          passes = 2;
-          vibrancy = 0.5;
-        };
-      };
-
-      animations = {
-        enabled = false;
-        bezier = [
-          "easeOutQuint,0.23,1,0.32,1"
-          "easeInOutCubic,0.65,0.05,0.36,1"
-          "linear,0,0,1,1"
-          "almostLinear,0.5,0.5,0.75,1.0"
-          "quick,0.15,0,0.1,1"
-        ];
-        animation = [
-          "global, 1, 10, default"
-          "border, 1, 5.39, easeOutQuint"
-          "windows, 1, 4.79, easeOutQuint"
-          "windowsIn, 1, 4.1, easeOutQuint, popin 87%"
-          "windowsOut, 1, 1.49, linear, popin 87%"
-          "fadeIn, 1, 1.73, almostLinear"
-          "fadeOut, 1, 1.46, almostLinear"
-          "fade, 3, 3.03, quick"
-          "layers, 1, 3.81, easeOutQuint"
-          "layersIn, 1, 4, easeOutQuint, fade"
-          "layersOut, 1, 1.5, linear, fade"
-          "fadeLayersIn, 1, 1.79, almostLinear"
-          "fadeLayersOut, 1, 1.39, almostLinear"
-          "workspaces, 1, 1.94, almostLinear, fade"
-          "workspacesIn, 1, 1.21, almostLinear, fade"
-          "workspacesOut, 1, 1.94, almostLinear, fade"
-        ];
-      };
-
-      dwindle.preserve_split = true;
-      master.new_status = "master";
-
-      misc = {
-        force_default_wallpaper = 0;
-        disable_hyprland_logo = true;
-      };
-
-      ecosystem.no_update_news = true;
-      "allow_session_lock_restore" = true;
-
-      # -----------------------------------------------------
-      # INPUT
-      # -----------------------------------------------------
-      input = {
-        kb_layout = "de";
-        follow_mouse = 1;
-        sensitivity = 0;
-        touchpad.natural_scroll = false;
-      };
-
-      device = {
-        name = "epic-mouse-v1";
-        sensitivity = -0.5;
-      };
-
-      # -----------------------------------------------------
-      # KEYBINDINGS
-      # -----------------------------------------------------
-      bind = [
-        "$mainMod, C, killactive"
-        "$mainMod, V, togglefloating"
-        "$mainMod, P, pseudo"
-        "$mainMod, X, layoutmsg, togglesplit"
-        "$mainMod, F, fullscreen"
-        "$mainMod SHIFT, F, fullscreenstate, -1, 2"
-        "$mainMod, SPACE, global, $menu"
-        "$mainMod, Q, exec, $terminal"
-        "$mainMod CONTROL, N, exec, $fileManager"
-        "$mainMod, B, exec, $browser"
-        "$mainMod, N, exec, $browser-new-window"
-        "$mainMod, M, exec, $browser-private-window"
-        "$mainMod, Y, exec, $xournalpp"
-        "$mainMod, T, exec, $trilium"
-        "$mainMod CONTROL, K, exec, $nextcloud"
-        "$mainMod CONTROL, S, exec, grimblast save area ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
-
-        # Resize
-        "$mainMod ALT, h, resizeactive, -100 0"
-        "$mainMod ALT, l, resizeactive, 100 0"
-        "$mainMod ALT, j, resizeactive, 0 100"
-        "$mainMod ALT, k, resizeactive, 0 -100"
-
-        # Move Focus
-        "$mainMod, h, movefocus, l"
-        "$mainMod, l, movefocus, r"
-        "$mainMod, k, movefocus, u"
-        "$mainMod, j, movefocus, d"
-
-        # Switch workspaces with mainMod + [0-9]
-        "$mainMod, 1, workspace, 1"
-        "$mainMod, 2, workspace, 2"
-        "$mainMod, 3, workspace, 3"
-        "$mainMod, 4, workspace, 4"
-        "$mainMod, 5, workspace, 5"
-        "$mainMod, 6, workspace, 6"
-        "$mainMod, 7, workspace, 7"
-        "$mainMod, 8, workspace, 8"
-        "$mainMod, 9, workspace, 9"
-        "$mainMod, 0, workspace, 10"
-
-        # Move active window to a workspace with mainMod + SHIFT + [0-9]
-        "$mainMod SHIFT, 1, movetoworkspace, 1"
-        "$mainMod SHIFT, 2, movetoworkspace, 2"
-        "$mainMod SHIFT, 3, movetoworkspace, 3"
-        "$mainMod SHIFT, 4, movetoworkspace, 4"
-        "$mainMod SHIFT, 5, movetoworkspace, 5"
-        "$mainMod SHIFT, 6, movetoworkspace, 6"
-        "$mainMod SHIFT, 7, movetoworkspace, 7"
-        "$mainMod SHIFT, 8, movetoworkspace, 8"
-        "$mainMod SHIFT, 9, movetoworkspace, 9"
-        "$mainMod SHIFT, 0, movetoworkspace, 10"
-
-        # Move window within workspace
-        "$mainMod SHIFT, h, movewindow, l"
-        "$mainMod SHIFT, l, movewindow, r"
-        "$mainMod SHIFT, k, movewindow, u"
-        "$mainMod SHIFT, j, movewindow, d"
-
-        # Scratchpad
-        "$mainMod, S, togglespecialworkspace, magic"
-        "$mainMod SHIFT, S, movetoworkspace, special:magic"
-
-        # Mouse Workspace Scrolling
-        "$mainMod, mouse_down, workspace, e+1"
-        "$mainMod, mouse_up, workspace, e-1"
-      ];
-
-      bindm = [
-        "$mainMod, mouse:272, movewindow"
-        "$mainMod, mouse:273, resizewindow"
-      ];
-
-      bindel = [
-        ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-        ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ",XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
-        ",XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
-      ];
-
-      bindl = [
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPause, exec, playerctl play-pause"
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioPrev, exec, playerctl previous"
-      ];
-    };
-
-    # For niche blocks like xwayland that might behave unusually in strict Nix mapping
     extraConfig = ''
-      xwayland {
-        force_zero_scaling = true
-      }
+      ------------------------------------------------------
+      -- PROGRAMS / VARIABLES
+      ------------------------------------------------------
+      local terminal = "kitty"
+      local fileManager = "nautilus"
+      local browser = "zen"
+      local browserNewWindow = "zen --blank-window"
+      local browserPrivateWindow = "zen --private-window"
+      local nextcloud = "firefox https://nextcloud.lndbl.de --new-window"
+      local matrix = "https://matrix.tum.de/#/home"
+      local music = "feishin"
+      local calendar = "https://nextcloud.home/apps/calendar"
+      local mail = "https://nextcloud.home/apps/mail"
+      local japanese = "fcitx5 --enable mozc"
+      local trilium = "trilium"
+      local xournalpp = "xournalpp ~/Templates/xournalpp_template.xopp"
+      local menu = "caelestia:launcher"
+      local mainMod = "SUPER"
+
+      ------------------------------------------------------
+      -- AUTOSTART
+      ------------------------------------------------------
+      hl.on("hyprland.start", function()
+        hl.exec_cmd(japanese)
+      end)
+
+      ------------------------------------------------------
+      -- ENVIRONMENT
+      ------------------------------------------------------
+      hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+
+      ------------------------------------------------------
+      -- LOOK AND FEEL
+      ------------------------------------------------------
+      hl.config({
+        general = {
+          gaps_in = 2.5,
+          gaps_out = 5,
+          border_size = 2,
+          resize_on_border = false,
+          allow_tearing = false,
+          layout = "dwindle",
+        },
+        decoration = {
+          rounding = 15,
+          active_opacity = 1.0,
+          inactive_opacity = 1.0,
+          shadow = { enabled = false },
+          blur = {
+            enabled = true,
+            size = 5,
+            passes = 2,
+            vibrancy = 0.5,
+          },
+        },
+        animations = {
+          enabled = true,
+        },
+        dwindle = { preserve_split = true },
+        master = { new_status = "master" },
+        misc = {
+          force_default_wallpaper = 0,
+          disable_hyprland_logo = true,
+          allow_session_lock_restore = true,
+        },
+        ecosystem = { no_update_news = true },
+      })
+
+      -- Bezier curves + animation timings (only matter once animations.enabled = true)
+      hl.curve("easeOutQuint", { type = "bezier", points = { {0.23, 1}, {0.32, 1} } })
+      hl.curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1} } })
+      hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
+      hl.curve("almostLinear", { type = "bezier", points = { {0.5, 0.5}, {0.75, 1} } })
+      hl.curve("quick", { type = "bezier", points = { {0.15, 0}, {0.1, 1} } })
+
+      hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
+      hl.animation({ leaf = "border", enabled = true, speed = 5.39, bezier = "easeOutQuint" })
+      hl.animation({ leaf = "windows", enabled = true, speed = 4.79, bezier = "easeOutQuint" })
+      hl.animation({ leaf = "windowsIn", enabled = true, speed = 4.1, bezier = "easeOutQuint", style = "popin 87%" })
+      hl.animation({ leaf = "windowsOut", enabled = true, speed = 1.49, bezier = "linear", style = "popin 87%" })
+      hl.animation({ leaf = "fadeIn", enabled = true, speed = 1.73, bezier = "almostLinear" })
+      hl.animation({ leaf = "fadeOut", enabled = true, speed = 1.46, bezier = "almostLinear" })
+      hl.animation({ leaf = "fade", enabled = true, speed = 3.03, bezier = "quick" })
+      hl.animation({ leaf = "layers", enabled = true, speed = 3.81, bezier = "easeOutQuint" })
+      hl.animation({ leaf = "layersIn", enabled = true, speed = 4, bezier = "easeOutQuint", style = "fade" })
+      hl.animation({ leaf = "layersOut", enabled = true, speed = 1.5, bezier = "linear", style = "fade" })
+      hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 1.79, bezier = "almostLinear" })
+      hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.39, bezier = "almostLinear" })
+      hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
+      hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
+      hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
+
+      ------------------------------------------------------
+      -- INPUT
+      ------------------------------------------------------
+      hl.config({
+        input = {
+          kb_layout = "de",
+          follow_mouse = 1,
+          sensitivity = 0,
+          touchpad = { natural_scroll = false },
+        },
+      })
+
+      hl.device({
+        name = "epic-mouse-v1",
+        sensitivity = -0.5,
+      })
+
+      ------------------------------------------------------
+      -- XWAYLAND
+      -- VERIFY: this table shape is a best guess (not shown in the official
+      -- example config) -- check the wiki once you're testing on 0.55+.
+      ------------------------------------------------------
+      hl.config({
+        xwayland = {
+          force_zero_scaling = true,
+        },
+      })
+
+      ------------------------------------------------------
+      -- KEYBINDINGS
+      ------------------------------------------------------
+      hl.bind(mainMod .. " + C", hl.dsp.window.close())
+      hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
+      hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+      hl.bind(mainMod .. " + X", hl.dsp.layout("togglesplit"))
+
+      hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+      -- Closest match to the original "fullscreenstate -1, 2" bind (client-side
+      -- maximize without full compositor fullscreen); adjust mode if this
+      -- doesn't feel right once you're testing.
+      hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
+
+      hl.bind(mainMod .. " + SPACE", hl.dsp.global(menu))
+
+      hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
+      hl.bind(mainMod .. " + CTRL + N", hl.dsp.exec_cmd(fileManager))
+      hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
+      hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(browserNewWindow))
+      hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(browserPrivateWindow))
+      hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd(xournalpp))
+      hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(trilium))
+      -- NOTE: dropped the original "[fullscreenstate -1, 2]" exec-rule tag on
+      -- $nextcloud. There's no exec-time bracket syntax in Lua, but window_rule
+      -- does have a `fullscreen_state` effect field -- add something like:
+      --   hl.window_rule({ name = "nextcloud-fs", match = { class = "firefox", title = "Nextcloud" }, fullscreen_state = "-1 2" })
+      -- once you know the actual window class/title (check with `hyprctl clients`).
+      hl.bind(mainMod .. " + CTRL + K", hl.dsp.exec_cmd(nextcloud))
+      hl.bind(mainMod .. " + CTRL + S", hl.dsp.exec_cmd("grimblast save area ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"))
+
+      -- Resize
+      hl.bind(mainMod .. " + ALT + h", hl.dsp.window.resize({ x = -100, y = 0 }))
+      hl.bind(mainMod .. " + ALT + l", hl.dsp.window.resize({ x = 100, y = 0 }))
+      hl.bind(mainMod .. " + ALT + j", hl.dsp.window.resize({ x = 0, y = 100 }))
+      hl.bind(mainMod .. " + ALT + k", hl.dsp.window.resize({ x = 0, y = -100 }))
+
+      -- Move focus
+      hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
+      hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
+      hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
+      hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
+
+      -- Switch workspaces / move window to workspace with mainMod (+ SHIFT) + [0-9]
+      for i = 1, 10 do
+        local key = i % 10 -- 10 maps to key 0
+        hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+        hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+      end
+
+      -- Move window within workspace
+      hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.move({ direction = "left" }))
+      hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.move({ direction = "right" }))
+      hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.move({ direction = "up" }))
+      hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.move({ direction = "down" }))
+
+      -- Scratchpad
+      hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
+      hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+
+      -- Mouse workspace scrolling
+      hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+      hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+
+      -- Move/resize windows by dragging
+      hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+      hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+      -- Multimedia keys
+      hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
+      hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
+      hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true, repeating = true })
+      hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true, repeating = true })
+      hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
+      hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
+
+      hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+      hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+      hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+      hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
     '';
   };
 }
