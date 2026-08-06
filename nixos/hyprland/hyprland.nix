@@ -9,6 +9,9 @@
   wayland.windowManager.hyprland = {
     enable = true;
 
+    # With configType = "lua" the settings-attrset backend is unreliable for
+    # $variables and dispatcher strings (nix-community/home-manager#9468), so
+    # we write the actual hyprland.lua by hand here instead.
     settings = { };
 
     extraConfig = ''
@@ -54,6 +57,10 @@
           resize_on_border = false,
           allow_tearing = false,
           layout = "dwindle",
+          col = {
+            active_border = { colors = { "rgba(cba6f7ee)", "rgba(89b4faee)" }, angle = 45 },
+            inactive_border = "rgba(595959aa)",
+          },
         },
         decoration = {
           rounding = 15,
@@ -80,29 +87,38 @@
         ecosystem = { no_update_news = true },
       })
 
-      -- Bezier curves + animation timings (only matter once animations.enabled = true)
+      -- Bezier curves (used for fades/layers/borders -- snappy, no overshoot)
       hl.curve("easeOutQuint", { type = "bezier", points = { {0.23, 1}, {0.32, 1} } })
       hl.curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1} } })
       hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
       hl.curve("almostLinear", { type = "bezier", points = { {0.5, 0.5}, {0.75, 1} } })
       hl.curve("quick", { type = "bezier", points = { {0.15, 0}, {0.1, 1} } })
 
+      -- Spring curves (used for windows -- gives a bit of bounce/overshoot)
+      hl.curve("windowSpring", { type = "spring", mass = 0.8, stiffness = 170, dampening = 18 })
+      hl.curve("snappySpring", { type = "spring", mass = 0.7, stiffness = 220, dampening = 20 })
+
       hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
-      hl.animation({ leaf = "border", enabled = true, speed = 5.39, bezier = "easeOutQuint" })
-      hl.animation({ leaf = "windows", enabled = true, speed = 4.79, bezier = "easeOutQuint" })
-      hl.animation({ leaf = "windowsIn", enabled = true, speed = 4.1, bezier = "easeOutQuint", style = "popin 87%" })
-      hl.animation({ leaf = "windowsOut", enabled = true, speed = 1.49, bezier = "linear", style = "popin 87%" })
-      hl.animation({ leaf = "fadeIn", enabled = true, speed = 1.73, bezier = "almostLinear" })
-      hl.animation({ leaf = "fadeOut", enabled = true, speed = 1.46, bezier = "almostLinear" })
-      hl.animation({ leaf = "fade", enabled = true, speed = 3.03, bezier = "quick" })
-      hl.animation({ leaf = "layers", enabled = true, speed = 3.81, bezier = "easeOutQuint" })
+      hl.animation({ leaf = "border", enabled = true, speed = 10, bezier = "easeOutQuint" })
+      hl.animation({ leaf = "windows", enabled = true, speed = 10, spring = "windowSpring" })
+      hl.animation({ leaf = "windowsIn", enabled = true, speed = 4.1, spring = "snappySpring", style = "popin 80%" })
+      hl.animation({ leaf = "windowsOut", enabled = true, speed = 4.8, bezier = "easeInOutCubic", style = "popin 80%" })
+      hl.animation({ leaf = "fadeIn", enabled = true, speed = 4.73, bezier = "almostLinear" })
+      hl.animation({ leaf = "fadeOut", enabled = true, speed = 4.46, bezier = "almostLinear" })
+      hl.animation({ leaf = "fade", enabled = true, speed = 8.03, bezier = "quick" })
+      hl.animation({ leaf = "layers", enabled = true, speed = 8.81, bezier = "easeOutQuint" })
       hl.animation({ leaf = "layersIn", enabled = true, speed = 4, bezier = "easeOutQuint", style = "fade" })
-      hl.animation({ leaf = "layersOut", enabled = true, speed = 1.5, bezier = "linear", style = "fade" })
-      hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 1.79, bezier = "almostLinear" })
-      hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.39, bezier = "almostLinear" })
-      hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
-      hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
-      hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
+      hl.animation({ leaf = "layersOut", enabled = true, speed = 4.5, bezier = "linear", style = "fade" })
+      hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 4.79, bezier = "almostLinear" })
+      hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 4.39, bezier = "almostLinear" })
+      hl.animation({ leaf = "workspaces", enabled = true, speed = 5.4, spring = "snappySpring", style = "slidefade 15%" })
+      hl.animation({ leaf = "workspacesIn", enabled = true, speed = 4.6, bezier = "easeOutQuint", style = "fade" })
+      hl.animation({ leaf = "workspacesOut", enabled = true, speed = 4.6, bezier = "easeOutQuint", style = "fade" })
+
+      -- VERIFY: "borderangle" isn't in the confirmed leaf list, but existed in
+      -- classic hyprlang for a continuously-rotating gradient border. Worth
+      -- trying -- if Hyprland rejects the leaf name, just drop this block.
+      hl.animation({ leaf = "borderangle", enabled = true, speed = 40, bezier = "linear", style = "loop" })
 
       ------------------------------------------------------
       -- INPUT
@@ -121,11 +137,6 @@
         sensitivity = -0.5,
       })
 
-      ------------------------------------------------------
-      -- XWAYLAND
-      -- VERIFY: this table shape is a best guess (not shown in the official
-      -- example config) -- check the wiki once you're testing on 0.55+.
-      ------------------------------------------------------
       hl.config({
         xwayland = {
           force_zero_scaling = true,
@@ -133,17 +144,46 @@
       })
 
       ------------------------------------------------------
+      -- CAELESTIA DYNAMIC BORDER COLORS
+      --
+      -- caelestia-cli has a `theme.enableHypr` toggle in ~/.config/caelestia/cli.json
+      -- that generates a colors file for Hyprland whenever you run
+      -- `caelestia scheme set` / change your wallpaper. Find where it currently
+      -- writes that file with:
+      --   caelestia scheme set -n dynamic
+      --   find ~/.cache/caelestia ~/.local/state/caelestia ~/.config/caelestia -newer /tmp -type f 2>/dev/null
+      -- (their own hyprland config moved to Lua recently too, so the output is
+      -- probably a small .lua file returning a colors table, not a .conf you'd
+      -- source -- but confirm the shape once you find it.)
+      --
+      -- Once you know the path, something like this will pick up new colors on
+      -- every `hyprctl reload` without you needing to edit this file again:
+      --
+      -- local ok, caelestiaColors = pcall(require, "caelestia-colors")
+      -- if ok and caelestiaColors then
+      --   hl.config({
+      --     general = {
+      --       ["col.active_border"] = caelestiaColors.active or "rgba(cba6f7ee) rgba(89b4faee) 45deg",
+      --       ["col.inactive_border"] = caelestiaColors.inactive or "rgba(595959aa)",
+      --     },
+      --   })
+      -- end
+      --
+      -- If caelestia's own postHook/theme step already runs `hyprctl reload`
+      -- after generating the file, this just works automatically on scheme
+      -- change -- no extra plumbing needed on your end beyond the require above.
+      ------------------------------------------------------
+
+      ------------------------------------------------------
       -- KEYBINDINGS
       ------------------------------------------------------
+
       hl.bind(mainMod .. " + C", hl.dsp.window.close())
       hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
       hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
       hl.bind(mainMod .. " + X", hl.dsp.layout("togglesplit"))
 
       hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
-      -- Closest match to the original "fullscreenstate -1, 2" bind (client-side
-      -- maximize without full compositor fullscreen); adjust mode if this
-      -- doesn't feel right once you're testing.
       hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 
       hl.bind(mainMod .. " + SPACE", hl.dsp.global(menu))
@@ -155,19 +195,14 @@
       hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(browserPrivateWindow))
       hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd(xournalpp))
       hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(trilium))
-      -- NOTE: dropped the original "[fullscreenstate -1, 2]" exec-rule tag on
-      -- $nextcloud. There's no exec-time bracket syntax in Lua, but window_rule
-      -- does have a `fullscreen_state` effect field -- add something like:
-      --   hl.window_rule({ name = "nextcloud-fs", match = { class = "firefox", title = "Nextcloud" }, fullscreen_state = "-1 2" })
-      -- once you know the actual window class/title (check with `hyprctl clients`).
       hl.bind(mainMod .. " + CTRL + K", hl.dsp.exec_cmd(nextcloud))
       hl.bind(mainMod .. " + CTRL + S", hl.dsp.exec_cmd("grimblast save area ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"))
 
       -- Resize
-      hl.bind(mainMod .. " + ALT + h", hl.dsp.window.resize({ x = -100, y = 0 }))
-      hl.bind(mainMod .. " + ALT + l", hl.dsp.window.resize({ x = 100, y = 0 }))
-      hl.bind(mainMod .. " + ALT + j", hl.dsp.window.resize({ x = 0, y = 100 }))
-      hl.bind(mainMod .. " + ALT + k", hl.dsp.window.resize({ x = 0, y = -100 }))
+      hl.bind(mainMod .. " + ALT + h", hl.dsp.window.resize({ x = -100, y = 0, relative = true }))
+      hl.bind(mainMod .. " + ALT + l", hl.dsp.window.resize({ x = 100, y = 0, relative = true }))
+      hl.bind(mainMod .. " + ALT + j", hl.dsp.window.resize({ x = 0, y = 100, relative = true  }))
+      hl.bind(mainMod .. " + ALT + k", hl.dsp.window.resize({ x = 0, y = -100, relative = true  }))
 
       -- Move focus
       hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
