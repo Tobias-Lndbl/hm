@@ -2,6 +2,7 @@
     "theme": {
       "enableTerm": true,
       "enableHypr": true,
+      "enableNvim": true,
       "enableDiscord": true,
       "enableSpicetify": true,
       "enablePandora": true,
@@ -18,6 +19,6 @@
       "iconTheme": "Papirus-Dark",
       "iconThemeLight": "Papirus-Light",
       "iconThemeDark": "Papirus-Dark",
-      "postHook": "pkill -USR1 kitty || true"
+      "postHook": "pkill -USR1 kitty; hyprctl reload || true"
     }
   }

@@ -63,7 +63,7 @@
           },
         },
         decoration = {
-          rounding = 15,
+          rounding = 10,
           active_opacity = 1.0,
           inactive_opacity = 1.0,
           shadow = { enabled = false },
@@ -115,9 +115,7 @@
       hl.animation({ leaf = "workspacesIn", enabled = true, speed = 4.6, bezier = "easeOutQuint", style = "fade" })
       hl.animation({ leaf = "workspacesOut", enabled = true, speed = 4.6, bezier = "easeOutQuint", style = "fade" })
 
-      -- VERIFY: "borderangle" isn't in the confirmed leaf list, but existed in
-      -- classic hyprlang for a continuously-rotating gradient border. Worth
-      -- trying -- if Hyprland rejects the leaf name, just drop this block.
+      -- Border animation
       hl.animation({ leaf = "borderangle", enabled = true, speed = 40, bezier = "linear", style = "loop" })
 
       ------------------------------------------------------
@@ -143,31 +141,23 @@
         },
       })
 
-      ------------------------------------------------------
-      -- CAELESTIA DYNAMIC BORDER COLORS
-      --
-      -- caelestia-cli has a `theme.enableHypr` toggle in ~/.config/caelestia/cli.json
-      -- that generates a colors file for Hyprland whenever you run
-      -- `caelestia scheme set` / change your wallpaper. Find where it currently
-      -- writes that file with:
-      --   caelestia scheme set -n dynamic
-      --   find ~/.cache/caelestia ~/.local/state/caelestia ~/.config/caelestia -newer /tmp -type f 2>/dev/null
-      -- (their own hyprland config moved to Lua recently too, so the output is
-      -- probably a small .lua file returning a colors table, not a .conf you'd
-      -- source -- but confirm the shape once you find it.)
-      --
-      -- Once you know the path, something like this will pick up new colors on
-      -- every `hyprctl reload` without you needing to edit this file again:
-      --
-      -- local ok, caelestiaColors = pcall(require, "caelestia-colors")
-      -- if ok and caelestiaColors then
-      --   hl.config({
-      --     general = {
-      --       ["col.active_border"] = caelestiaColors.active or "rgba(cba6f7ee) rgba(89b4faee) 45deg",
-      --       ["col.inactive_border"] = caelestiaColors.inactive or "rgba(595959aa)",
-      --     },
-      --   })
-      -- end
+      local bordercolor_filepath = os.getenv("HOME") .. "/.local/state/caelestia/theme/caelestia-colors.lua"
+      local ok, caelestiaColors = pcall(dofile, bordercolor_filepath)
+
+      if ok and type(caelestiaColors) == "table" then
+        hl.config({
+          general = {
+            col = {
+              active_border = {
+                colors = caelestiaColors.active_colors or { "rgba(cba6f7ee)", "rgba(89b4faee)" },
+                angle = caelestiaColors.active_angle or 45
+              },
+              inactive_border = caelestiaColors.inactive or "rgba(595959aa)"
+            }
+          },
+        })
+      end
+
       --
       -- If caelestia's own postHook/theme step already runs `hyprctl reload`
       -- after generating the file, this just works automatically on scheme
