@@ -58,8 +58,8 @@
       # -----------------------------------------------
       homeConfigurations = {
         "tbsl@amaterasu" = mkHome [ ./nixos/hyprland/amaterasu_hyprland.nix ];
-        "tbsl@izanagi" = mkHome [ ];
-        "tbsl@inari" = mkHome [ ./nixos/hyprland/inari_hyprland.nix ];
+        "tbsl@izanagi" = mkHome [ ./nixos/hyprland/inari_hyprland.nix ];
+        "tbsl@inari" = mkHome [ ];
         "tbsl" = mkHome [ ];
       };
 
