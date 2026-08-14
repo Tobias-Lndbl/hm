@@ -28,6 +28,13 @@
       ------------------------------------------------------
       hl.env("LIBVA_DRIVER_NAME", "nvidia")
       hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
+
+      ------------------------------------------------------
+      -- XWAYLAND PRIMARY
+      ------------------------------------------------------
+      hl.on("hyprland.start", function() 
+        hl.exec_cmd("xrandr --output DP-3 --primary")
+      end)
     '';
   };
 }

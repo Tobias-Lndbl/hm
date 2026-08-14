@@ -23,7 +23,6 @@
       local browser = "zen"
       local browserNewWindow = "zen --blank-window"
       local browserPrivateWindow = "zen --private-window"
-      local nextcloud = "firefox https://nextcloud.lndbl.de --new-window"
       local matrix = "https://matrix.tum.de/#/home"
       local music = "feishin"
       local calendar = "https://nextcloud.home/apps/calendar"
@@ -185,7 +184,6 @@
       hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(browserPrivateWindow))
       hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd(xournalpp))
       hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(trilium))
-      hl.bind(mainMod .. " + CTRL + K", hl.dsp.exec_cmd(nextcloud))
       hl.bind(mainMod .. " + CTRL + S", hl.dsp.exec_cmd("grimblast save area ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"))
 
       -- Resize
