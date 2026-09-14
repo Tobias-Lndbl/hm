@@ -6,14 +6,15 @@
       ------------------------------------------------------
       -- MACHINE-SPECIFIC MONITORS
       ------------------------------------------------------
-      hl.monitor({ output = "DP-3", mode = "1920x1080@144", position = "0x1440", scale = 1 })
-      hl.monitor({ output = "DP-6", mode = "1920x1080@144", position = "0x1440", scale = 1 })
+      hl.monitor({ output = "DP-3", mode = "1920x1080@144", position = "0x0", scale = 1 })
+      hl.monitor({ output = "DP-6", mode = "1920x1080@144", position = "0x0", scale = 1 })
 
-      hl.monitor({ output = "DP-2", mode = "3840x2160@60", position = "0x-1440", scale = 1.5 })
-      hl.monitor({ output = "DP-5", mode = "3840x2160@60", position = "0x-1440", scale = 1.5 })
+      hl.monitor({ output = "DP-2", mode = "3840x2160@60", position = "0x-1080", scale = 2 })
+      hl.monitor({ output = "DP-5", mode = "3840x2160@60", position = "0x-1080", scale = 2 })
+      -- hl.monitor({ output = "DP-5", mode = "1920x1080@143.95", position = "0x-1080", scale = 1 })
 
-      hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@60", position = "1920x1440", scale = 1, transform = 1 })
-      hl.monitor({ output = "HDMI-A-2", mode = "1920x1080@60", position = "1920x1440", scale = 1, transform = 1 })
+      hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@60", position = "1920x-360", scale = 1, transform = 1 })
+      hl.monitor({ output = "HDMI-A-2", mode = "1920x1080@60", position = "1920x-360", scale = 1, transform = 1 })
 
       ------------------------------------------------------
       -- MACHINE-SPECIFIC WORKSPACES
