@@ -49,6 +49,8 @@
   wayland.windowManager.hyprland.configType = "lua";
   wayland.windowManager.hyprland.systemd.enable = false;
 
+  services.gnome-keyring.enable = true;
+
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   };
