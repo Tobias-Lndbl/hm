@@ -183,7 +183,8 @@
     brightnessctl
     ddcutil
 
-    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # zen is installed by home-manager now (programs/zen.nix), so that the
+    # declarative profile config and the binary stay in sync.
     sddm-astronaut
 
     man-pages

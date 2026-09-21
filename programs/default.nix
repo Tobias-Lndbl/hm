@@ -4,6 +4,7 @@
 #    ./anki.nix
     ./bash.nix
     ./blueman.nix
+    ./claude.nix
     ./discord.nix
     ./easyeffects.nix
     ./element.nix
@@ -33,6 +34,7 @@
     ./wireguard.nix
     ./wmctrl.nix
     ./xournalpp.nix
+    ./zen.nix
     ./zip.nix
   ];
 

@@ -5,9 +5,27 @@
 { config, pkgs, ... }:
 
 {
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  ##BOOTLOADER##
+  # The ESP on this machine is the 100M partition Windows created, shared with
+  # Windows Boot Manager. systemd-boot needs kernel+initrd (~55M per generation)
+  # to live there, which does not fit. GRUB reads ext4, so kernels stay on the
+  # root filesystem and only grubx64.efi goes on the ESP.
+  boot.loader = {
+    systemd-boot.enable = false;
+
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot/efi";
+    };
+
+    grub = {
+      enable = true;
+      device = "nodev";
+      efiSupport = true;
+      useOSProber = true;
+      configurationLimit = 10;
+    };
+  };
 
   networking.hostName = "izanagi"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
