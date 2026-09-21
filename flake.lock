@@ -47,6 +47,28 @@
         "type": "github"
       }
     },
+    "firefox-addons": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "pkgs/firefox-addons",
+        "lastModified": 1789972051,
+        "narHash": "sha256-VFc9vf3BZLme6yLisNtBNG5iTOGOAQSj9MiVIUcjpbg=",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "rev": "66f315df78845e2d6c741d9c531c09a77ac9ca6d",
+        "type": "gitlab"
+      },
+      "original": {
+        "dir": "pkgs/firefox-addons",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "type": "gitlab"
+      }
+    },
     "hm": {
       "inputs": {
         "nixpkgs": [
@@ -145,6 +167,7 @@
     "root": {
       "inputs": {
         "caelestia-shell": "caelestia-shell",
+        "firefox-addons": "firefox-addons",
         "hm": "hm",
         "nixpkgs": "nixpkgs",
         "zen-browser": "zen-browser"

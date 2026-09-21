@@ -8,9 +8,10 @@ a device that is already set up the way you like can be turned into config
 instead of being re-clicked on the next machine.
 
 Usage:
-    zen-export-spaces.py --spaces     # spaces + pins block
-    zen-export-spaces.py --prefs      # settings block (prefs you changed)
-    zen-export-spaces.py --mods       # installed mod UUIDs
+    zen-export-spaces.py --spaces      # spaces + pins block
+    zen-export-spaces.py --prefs       # settings block (prefs you changed)
+    zen-export-spaces.py --containers  # user-created containers
+    zen-export-spaces.py --mods        # installed mod UUIDs
     zen-export-spaces.py --all
 
     # non-default profile / another machine's copied profile dir
@@ -85,6 +86,13 @@ def nix_attr_name(s):
     return nix_str(s)
 
 
+def nix_float(v):
+    """`opacity`/`texture` are `nullOr float` in the module -- a bare 0 or 1
+    would be an int literal in nix and fail the type check."""
+    out = f"{float(v):.6g}"
+    return out if "." in out or "e" in out else out + ".0"
+
+
 def tab_title(tab):
     entries = tab.get("entries") or []
     if entries:
@@ -146,28 +154,39 @@ def export_spaces(profile):
             out.append("            colors = [")
             for c in colors:
                 out.append("              {")
-                for key in ("red", "green", "blue", "lightness"):
-                    if c.get(key) is not None:
-                        out.append(f"                {key} = {c[key]};")
+                # Zen stores the RGB triple as a 3-element list under "c";
+                # the nix module takes it as separate red/green/blue ints and
+                # reassembles it. Reading "red"/"green"/"blue" here silently
+                # yields black gradients, so always go through "c".
+                rgb = c.get("c")
+                if not (isinstance(rgb, (list, tuple)) and len(rgb) == 3):
+                    rgb = [0, 0, 0]
+                for key, val in zip(("red", "green", "blue"), rgb):
+                    out.append(f"                {key} = {int(val)};")
+                if c.get("lightness") is not None:
+                    out.append(f"                lightness = {c['lightness']};")
                 for key in ("algorithm", "type"):
                     if c.get(key):
                         out.append(f"                {key} = {nix_str(c[key])};")
                 if isinstance(c.get("position"), dict):
                     pos = c["position"]
                     if pos.get("x") is not None:
-                        out.append(f"                position.x = {pos['x']};")
+                        out.append(f"                position.x = {int(pos['x'])};")
                     if pos.get("y") is not None:
-                        out.append(f"                position.y = {pos['y']};")
-                if c.get("primary") is not None:
-                    out.append(f"                primary = {str(c['primary']).lower()};")
+                        out.append(f"                position.y = {int(pos['y'])};")
+                # isCustom/isPrimary in the session file, custom/primary in nix.
+                if c.get("isCustom") is not None:
+                    out.append(f"                custom = {str(bool(c['isCustom'])).lower()};")
+                if c.get("isPrimary") is not None:
+                    out.append(f"                primary = {str(bool(c['isPrimary'])).lower()};")
                 out.append("              }")
             out.append("            ];")
             if theme.get("opacity") is not None:
-                out.append(f"            opacity = {theme['opacity']};")
+                out.append(f"            opacity = {nix_float(theme['opacity'])};")
             if theme.get("texture") is not None:
-                out.append(f"            texture = {theme['texture']};")
+                out.append(f"            texture = {nix_float(theme['texture'])};")
             if theme.get("rotation") is not None:
-                out.append(f"            rotation = {theme['rotation']};")
+                out.append(f"            rotation = {int(theme['rotation'])};")
             out.append("          };")
 
         pins = by_space.get(raw_uuid) or by_space.get(bare) or []
@@ -322,6 +341,37 @@ def export_prefs(profile):
     return "\n".join(out)
 
 
+def export_containers(profile):
+    """Containers live in containers.json. Spaces bind to one by numeric
+    userContextId, so a space exported with `container = 6` is dangling unless
+    container 6 is declared too -- IDs are per-profile and are NOT recreated
+    on a fresh device."""
+    path = os.path.join(profile, "containers.json")
+    if not os.path.exists(path):
+        return "      containers = { };"
+    with open(path, encoding="utf-8") as fh:
+        data = json.load(fh)
+    lines = ["      containers = {"]
+    found = 0
+    for ident in data.get("identities") or []:
+        # Built-ins carry an l10nId and exist everywhere; internal ones aren't
+        # public. Only user-created containers need declaring.
+        if not ident.get("public") or ident.get("l10nId") or not ident.get("name"):
+            continue
+        found += 1
+        lines.append(f"        {nix_attr_name(ident['name'])} = {{")
+        lines.append(f"          id = {ident['userContextId']};")
+        if ident.get("icon"):
+            lines.append(f"          icon = {nix_str(ident['icon'])};")
+        if ident.get("color"):
+            lines.append(f"          color = {nix_str(ident['color'])};")
+        lines.append("        };")
+    lines.append("      };")
+    if not found:
+        return "      containers = { }; # no user-created containers in this profile"
+    return "\n".join(lines)
+
+
 def export_mods(profile):
     path = os.path.join(profile, "zen-themes.json")
     if not os.path.exists(path):
@@ -347,18 +397,21 @@ def main():
     ap.add_argument("--profile", help="profile directory (default: the default profile)")
     ap.add_argument("--spaces", action="store_true")
     ap.add_argument("--prefs", action="store_true")
+    ap.add_argument("--containers", action="store_true")
     ap.add_argument("--mods", action="store_true")
     ap.add_argument("--all", action="store_true")
     args = ap.parse_args()
 
-    if not (args.spaces or args.prefs or args.mods or args.all):
-        ap.error("pick at least one of --spaces / --prefs / --mods / --all")
+    if not (args.spaces or args.prefs or args.mods or args.containers or args.all):
+        ap.error("pick at least one of --spaces / --prefs / --containers / --mods / --all")
 
     profile = os.path.expanduser(args.profile) if args.profile else find_default_profile()
     if not os.path.isdir(profile):
         sys.exit(f"{profile} is not a directory")
     print(f"# exported from {profile}", file=sys.stderr)
 
+    if args.containers or args.all:
+        print(export_containers(profile))
     if args.spaces or args.all:
         print(export_spaces(profile))
     if args.prefs or args.all:

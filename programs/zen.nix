@@ -17,7 +17,14 @@
 # To lift the spaces/prefs you already built on another device into this file:
 #   python3 ~/.config/hm/scripts/zen-export-spaces.py --spaces
 #   python3 ~/.config/hm/scripts/zen-export-spaces.py --prefs
-{ ... }:
+{
+  inputs,
+  pkgs,
+  ...
+}:
+let
+  addons = inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system};
+in
 {
   programs.zen-browser = {
     enable = true;
@@ -69,41 +76,171 @@
         "browser.newtabpage.activity-stream.telemetry" = false;
       };
 
+      # Add-ons come from rycee's packaged set (see the firefox-addons flake
+      # input). `settings` below already places both browser-action buttons in
+      # the toolbar, so they land where they did on inari.
+      #
+      # To add one: look it up with
+      #   nix search gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons <name>
+      extensions.packages = with addons; [
+        ublock-origin
+        bitwarden
+      ];
+
       # WARNING: leave this false until every space below is declared.
       # When true, any space that is NOT listed here gets deleted on switch --
       # flipping it on with an incomplete list wipes the spaces on amaterasu.
       spacesForce = true;
 
-      # exported from /home/tbsl/.config/zen/isxcisqw.default_zen
+      # Containers are referenced by numeric id from `spaces.*.container` and
+      # from each pin. The ids are per-profile and are NOT recreated on a fresh
+      # device, so they have to be declared alongside the spaces or the
+      # bindings dangle (which is what remapped "cloud" to 1 on izanagi).
+      #
+      # 1-4 are Zen's built-ins, redeclared here because containersForce
+      # rewrites containers.json wholesale and would otherwise drop them.
+      containersForce = true;
+      containers = {
+        "Personal" = { id = 1; icon = "fingerprint"; color = "blue"; };
+        "Work" = { id = 2; icon = "briefcase"; color = "orange"; };
+        "Banking" = { id = 3; icon = "dollar"; color = "green"; };
+        "Shopping" = { id = 4; icon = "cart"; color = "pink"; };
+
+        # One per space, ids matching what the spaces/pins already reference.
+        "home" = { id = 6; icon = "tree"; color = "pink"; };
+        "uni" = { id = 7; icon = "briefcase"; color = "green"; };
+        "cloud" = { id = 8; icon = "circle"; color = "purple"; };
+      };
+
       spaces = {
+        "cloud" = {
+          id = "8f24ebd1-2391-4084-9dd1-7e323a0b6f13";
+          position = 1000;
+          icon = "chrome://browser/skin/zen-icons/selectable/cloud.svg";
+          container = 8;
+          theme = {
+            type = "gradient";
+            colors = [
+              {
+                red = 238;
+                green = 119;
+                blue = 154;
+                lightness = 70;
+                algorithm = "analogous";
+                type = "explicit-lightness";
+                position.x = 221;
+                position.y = 167;
+                custom = false;
+                primary = true;
+              }
+              {
+                red = 238;
+                green = 186;
+                blue = 119;
+                lightness = 70;
+                algorithm = "analogous";
+                type = "explicit-lightness";
+                position.x = 215;
+                position.y = 203;
+                custom = false;
+                primary = true;
+              }
+              {
+                red = 223;
+                green = 119;
+                blue = 238;
+                lightness = 70;
+                algorithm = "analogous";
+                type = "explicit-lightness";
+                position.x = 197;
+                position.y = 139;
+                custom = false;
+                primary = true;
+              }
+            ];
+            opacity = 0.581;
+            texture = 0.5;
+          };
+          pins = {
+            "Sign in - Claude" = {
+              id = "bbc62752-c9cf-5e4a-8f08-c19e9a6dd419";
+              url = "https://claude.ai/login?from=logout&reauth=1&returnTo=%2Fchat%2F89a3aefc-7067-40d4-921b-3d307b432199%3F";
+              position = 100;
+              isEssential = true;
+              container = 8;
+            };
+            "Google Gemini" = {
+              id = "b88400b1-4751-58a9-a07c-992bfbd2312d";
+              url = "https://gemini.google.com/app";
+              position = 200;
+              isEssential = true;
+              container = 8;
+            };
+            "Gmail" = {
+              id = "a6f56980-d81a-5a74-8bcc-6ab22cd39935";
+              url = "https://accounts.google.com/v3/signin/identifier?continue=https://mail.google.com/mail/u/0/&emr=1&followup=https://mail.google.com/mail/u/0/&osid=1&passive=1209600&service=mail&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-198808794:1790001259347406#inbox";
+              position = 300;
+              isEssential = true;
+              container = 8;
+            };
+            "Netflix Germany - Watch TV Shows Online, Watch Movies Online" = {
+              id = "37d1cbe8-28b0-5fe3-8f9a-12038f37fee3";
+              url = "https://www.netflix.com/de-en/";
+              position = 400;
+              isEssential = true;
+              container = 8;
+            };
+            "Sumo Ring (Eiche/Damast) | Holzkern" = {
+              id = "2f72e8e5-1efb-53e6-ad0a-e8a5737eb75a";
+              url = "https://holzkern.com/products/sumoring-eiche-damast?variant=54207995609427";
+              position = 500;
+              container = 8;
+            };
+          };
+        };
         "home" = {
           id = "91a1461f-3d5c-45d0-b541-95a7e3aa0a33";
-          position = 1000;
+          position = 2000;
           icon = "chrome://browser/skin/zen-icons/selectable/code.svg";
           container = 6;
           theme = {
             type = "gradient";
             colors = [
               {
+                red = 233;
+                green = 124;
+                blue = 212;
                 lightness = 70;
                 algorithm = "analogous";
                 type = "explicit-lightness";
-                position.x = 208;
-                position.y = 149;
-              }
-              {
-                lightness = 70;
-                algorithm = "analogous";
-                type = "explicit-lightness";
-                position.x = 220;
-                position.y = 182;
-              }
-              {
-                lightness = 70;
-                algorithm = "analogous";
-                type = "explicit-lightness";
-                position.x = 175;
+                position.x = 217;
                 position.y = 138;
+                custom = false;
+                primary = true;
+              }
+              {
+                red = 233;
+                green = 127;
+                blue = 124;
+                lightness = 70;
+                algorithm = "analogous";
+                type = "explicit-lightness";
+                position.x = 235;
+                position.y = 182;
+                custom = false;
+                primary = true;
+              }
+              {
+                red = 164;
+                green = 124;
+                blue = 233;
+                lightness = 70;
+                algorithm = "analogous";
+                type = "explicit-lightness";
+                position.x = 172;
+                position.y = 124;
+                custom = false;
+                primary = true;
               }
             ];
             opacity = 0.5;
@@ -111,20 +248,20 @@
           };
           pins = {
             "authentik" = {
-              id = "10442bcb-a6d3-5d6d-9a89-35bb812ee424";
+              id = "780447cf-d5c0-5424-ac5f-2aec27d5ba44";
               url = "https://authentik.lndbl.de/if/user/#/library";
               position = 100;
               isEssential = true;
               container = 6;
             };
             "Mail - Nextcloud" = {
-              id = "a9eda7a3-a009-573f-834f-edda29b037db";
+              id = "97b927f9-ddcd-51ce-abc0-46f33bf61b55";
               url = "https://nextcloud.lndbl.de/apps/mail/box/20#";
               position = 200;
               container = 6;
             };
             "Week 39 of 2026 - Calendar - Nextcloud" = {
-              id = "454ea678-aa43-53e2-a344-e781dd1f2946";
+              id = "fcc4fda8-20fa-51e5-86e1-e5fc0fff3a0d";
               url = "https://nextcloud.lndbl.de/apps/calendar/timeGridWeek/now";
               position = 300;
               container = 6;
@@ -133,32 +270,47 @@
         };
         "uni" = {
           id = "591c5411-c7b3-4ff6-9c17-d94e86c5e4ef";
-          position = 2000;
+          position = 3000;
           icon = "chrome://browser/skin/zen-icons/selectable/school.svg";
           container = 7;
           theme = {
             type = "gradient";
             colors = [
               {
+                red = 70;
+                green = 236;
+                blue = 168;
                 lightness = 60;
                 algorithm = "analogous";
                 type = "explicit-lightness";
-                position.x = 148;
-                position.y = 153;
+                position.x = 147;
+                position.y = 195;
+                custom = false;
+                primary = true;
               }
               {
+                red = 70;
+                green = 169;
+                blue = 236;
                 lightness = 60;
                 algorithm = "analogous";
                 type = "explicit-lightness";
-                position.x = 179;
-                position.y = 138;
+                position.x = 146;
+                position.y = 165;
+                custom = false;
+                primary = true;
               }
               {
+                red = 110;
+                green = 237;
+                blue = 69;
                 lightness = 60;
                 algorithm = "analogous";
                 type = "explicit-lightness";
-                position.x = 140;
-                position.y = 187;
+                position.x = 171;
+                position.y = 214;
+                custom = false;
+                primary = true;
               }
             ];
             opacity = 0.404;
@@ -166,102 +318,32 @@
           };
           pins = {
             "Log in | Zulip" = {
-              id = "e8c8e173-79ce-5947-a753-147b388e192c";
+              id = "1504977c-31e2-5652-bf3d-9e9e8592c51e";
               url = "https://zulip.in.tum.de/login/";
               position = 100;
               isEssential = true;
               container = 7;
             };
-            "Kurs: Lineare Algebra für Informatik [MA0901] | TUM" = {
-              id = "8f851072-0948-55f8-817d-49e0101b36c2";
-              url = "https://www.moodle.tum.de/course/view.php?id=118090";
+            "Anmeldeseite | TUM" = {
+              id = "2b08df23-9ba3-5608-858f-f269ee223776";
+              url = "https://www.moodle.tum.de/login/index.php";
               position = 200;
               isEssential = true;
               container = 7;
             };
-            "Exercises" = {
-              id = "12e6e9a2-5eba-5a01-a890-247a297426a7";
+            "Artemis Maintenance" = {
+              id = "2098ec4c-9744-5bac-bfc3-e05ebbdd0d6c";
               url = "https://artemis.tum.de/courses/531/exercises/19152";
               position = 300;
               isEssential = true;
               container = 7;
             };
-            "Startseite - TUMonline - Technische Universität München" = {
-              id = "612d6610-34e2-53d6-9449-4aeb20e9a50c";
-              url = "https://campus.tum.de/tumonline/ee/ui/ca2/app/desktop/#/home?\$ctx=lang=DE";
+            "Home - TUMonline - Technische Universität München" = {
+              id = "851770b2-b8e6-5427-ac49-c013fa3257e4";
+              url = "https://campus.tum.de/tumonline/ee/ui/ca2/app/desktop/#/home?\$ctx=lang=EN";
               position = 400;
               isEssential = true;
               container = 7;
-            };
-          };
-        };
-        "cloud" = {
-          id = "8f24ebd1-2391-4084-9dd1-7e323a0b6f13";
-          position = 3000;
-          icon = "chrome://browser/skin/zen-icons/selectable/cloud.svg";
-          container = 8;
-          theme = {
-            type = "gradient";
-            colors = [
-              {
-                lightness = 80;
-                algorithm = "analogous";
-                type = "explicit-lightness";
-                position.x = 236;
-                position.y = 111;
-              }
-              {
-                lightness = 80;
-                algorithm = "analogous";
-                type = "explicit-lightness";
-                position.x = 268;
-                position.y = 179;
-              }
-              {
-                lightness = 80;
-                algorithm = "analogous";
-                type = "explicit-lightness";
-                position.x = 164;
-                position.y = 92;
-              }
-            ];
-            opacity = 0.493;
-            texture = 0.5;
-          };
-          pins = {
-            "Google Gemini" = {
-              id = "e690cbfe-f1e5-5934-942b-1d04cc0fdfd9";
-              url = "https://gemini.google.com/app";
-              position = 100;
-              isEssential = true;
-              container = 8;
-            };
-            "Posteingang (562) - phoenixt20000@gmail.com - Gmail" = {
-              id = "861217da-7b6e-5320-95ee-bebd03162f10";
-              url = "https://mail.google.com/mail/u/0/#inbox";
-              position = 200;
-              isEssential = true;
-              container = 8;
-            };
-            "Netflix Germany - Watch TV Shows Online, Watch Movies Online" = {
-              id = "3d6a3cb2-33af-5158-861b-d4e7acb39dd6";
-              url = "https://www.netflix.com/de-en/";
-              position = 300;
-              isEssential = true;
-              container = 8;
-            };
-            "Sumo Ring (Eiche/Damast) | Holzkern" = {
-              id = "9f744572-34d4-585d-8379-a3967cac7b57";
-              url = "https://holzkern.com/products/sumoring-eiche-damast?variant=54207995609427";
-              position = 400;
-              container = 8;
-            };
-            "Lernplan für Klausur in zwei Wochen - Claude" = {
-              id = "0b13d344-0de3-54ef-b100-52635356c554";
-              url = "https://claude.ai/chat/89a3aefc-7067-40d4-921b-3d307b432199";
-              position = 500;
-              isEssential = true;
-              container = 8;
             };
           };
         };

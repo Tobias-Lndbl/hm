@@ -15,6 +15,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Packaged Firefox/Zen add-ons (rycee's set). This is the standalone flake
+    # rather than all of NUR, which would pull in a very large eval for two
+    # extensions. Used by programs/zen.nix.
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     caelestia-shell = {
       url = "github:caelestia-dots/shell";
       inputs.nixpkgs.follows = "nixpkgs";

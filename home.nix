@@ -97,8 +97,9 @@
       bswitch = lib.mkDefault "home-manager switch -b backup --flake ~/.config/hm#tbsl@\$(hostname)";
       nswitch = lib.mkDefault "sudo nixos-rebuild switch --flake ~/.config/hm#\$(hostname)";
       "sdn" = "shutdown now";
-      clstat = "firefox localhost:11987 &";
-      ccl = "firefox localhost:11987 &";
+      # The zen-browser flake installs the binary as `zen-beta`, not `zen`.
+      clstat = "zen-beta localhost:11987 &";
+      ccl = "zen-beta localhost:11987 &";
       please = "sudo";
       nixreb_boot = "nixos-rebuild boot";
       nixreb_switch = "nixos-rebuild switch";
