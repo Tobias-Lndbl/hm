@@ -7,69 +7,11 @@
 
 {
   imports = [
-    ./wofi.nix
-    ./stylix.nix
-    ./grim.nix
+    ./caelestia/caelestia.nix
+    ./hyprland.nix
   ];
 
   programs.hyprlock.enable = true;
-
-  programs.hyprpanel = {
-    enable = true;
-
-    settings = {
-      scalingPriority = "both";
-      wallpaper.enable = false;
-
-    menus = {
-        clock.weather.unit = "metric";
-        clock.weather.enable = true;
-        clock.weather.location = "Germering";
-
-        clock.time.military = true;
-        clock.time.hideSeconds = false;
-
-    };
-
-      bar = {
-        launcher.autoDetectIcon = true;
-        clock.format = "%H:%M:%S";
-
-        workspaces.show_numbered = true;
-        workspaces.numbered_active_indicator = "highlight";
-
-
-
-        layouts."*" = {
-          left = [
-            "dashboard"
-            "workspaces"
-            "windowtitle"
-          ];
-          middle = [
-            "media"
-          ];
-          right = [
-            "volume"
-            "battery"
-            "bluetooth"
-            #(if config.appearance.hasBattery then "battery" else "")
-            "network"
-            "clock"
-            "systray"
-            "notifications"
-          ];
-        };
-      };
-
-      theme = {
-        #font.size = config.appearance.fontSize;
-        font.size = 12;
-        bar.transparent = true;
-        bar.location = "bottom";
-      };
-    };
-  };
 
   home.packages = with pkgs; [
     wl-clipboard
@@ -95,21 +37,12 @@
     GDK_BACKEND = "wayland";
   };
 
-  services.hyprpaper = {
+  home.pointerCursor = {
     enable = true;
-    settings = {
-      ipc = "on";
-      splash = false;
-      preload = [ "${config.stylix.image}" ];
-      wallpaper = [
-        ", ${config.stylix.image}"
-      ];
-    };
-  };
-
-  stylix.cursor = {
     name = "phinger-cursors-light";
     package = pkgs.phinger-cursors;
     size = 28;
+    gtk.enable = true;
+    x11.enable = true;
   };
 }

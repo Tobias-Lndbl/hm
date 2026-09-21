@@ -1,0 +1,24 @@
+{
+    "theme": {
+      "enableTerm": true,
+      "enableHypr": true,
+      "enableNvim": true,
+      "enableDiscord": true,
+      "enableSpicetify": true,
+      "enablePandora": true,
+      "enableFuzzel": true,
+      "enableBtop": true,
+      "enableNvtop": true,
+      "enableHtop": true,
+      "enableGtk": true,
+      "enableQt": true,
+      "enableWarp": true,
+      "enableChromium": false,
+      "enableZed": true,
+      "enableCava": true,
+      "iconTheme": "Papirus-Dark",
+      "iconThemeLight": "Papirus-Light",
+      "iconThemeDark": "Papirus-Dark",
+      "postHook": "pkill -USR1 kitty; hyprctl reload || true"
+    }
+  }

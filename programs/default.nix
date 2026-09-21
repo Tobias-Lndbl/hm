@@ -1,32 +1,36 @@
 { ... }:
 {
   imports = [
-    ./anki.nix
+#    ./anki.nix
     ./bash.nix
     ./blueman.nix
     ./discord.nix
+    ./easyeffects.nix
+    ./element.nix
     ./eww.nix
+    ./fastfetch.nix
+    ./feishin.nix
     ./git.nix
-#    ./fcitx5.nix
     ./jetbrains.nix
     ./libresprite.nix
     ./nautilus.nix
+    ./gnucash.nix
+    ./gnumake.nix
+    ./nextcloud-client.nix
     ./nvim
-    ./fastfetch.nix
-    ./feishin.nix
-    ./nvim
+    ./obs.nix
     ./pamixer.nix
     ./pandoc.nix
     ./pavucontrol.nix
     ./qview.nix
     ./rustup.nix
-#    ./screenshot.nix
     ./solaar.nix
     ./tor.nix
-    ./trilium.nix
+#    ./trilium.nix
     ./TUM
     ./unity.nix
     ./vscode.nix
+    ./wireguard.nix
     ./wmctrl.nix
     ./xournalpp.nix
     ./zip.nix

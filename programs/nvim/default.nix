@@ -31,11 +31,12 @@
     '';
 
     extraPackages = with pkgs; [
-      nodePackages.bash-language-server
+      bash-language-server
       nixd
       pkgs.nixfmt
       lua-language-server
       texlab
+      clang-tools
     ];
   };
 
@@ -43,7 +44,7 @@
     name = "Neovim";
     genericName = "Text Editor";
     comment = "Edit text files";
-    exec = "alacritty --command nvim %F";
+    exec = "kitty nvim %F";
     mimeType = [
       "text/english"
       "text/plain"

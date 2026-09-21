@@ -1,0 +1,137 @@
+{
+    "appearance": {
+        "transparency": {
+            "enabled": true
+        }
+    },
+    "bar": {
+        "activeWindow": {
+            "compact": true,
+            "inverted": false,
+            "showOnHover": true
+        },
+        "clock": {
+            "background": false,
+            "showDate": true,
+            "showIcon": false
+        },
+        "persistent": true,
+        "popouts": {
+            "activeWindow": false,
+            "statusIcons": true,
+            "tray": true
+        },
+        "scrollActions": {
+            "brightness": false,
+            "workspaces": false
+        },
+        "showOnHover": false,
+        "statusIcons": [
+            {
+                "enabled": true,
+                "id": "audio"
+            },
+            {
+                "enabled": true,
+                "id": "network"
+            },
+            {
+                "enabled": true,
+                "id": "bluetooth"
+            },
+            {
+                "enabled": true,
+                "id": "battery"
+            }
+        ],
+        "tray": {
+            "background": true,
+            "compact": true,
+            "hiddenIcons": [
+            ],
+            "recolour": true
+        },
+        "workspaces": {
+            "activeTrail": false,
+            "occupiedBg": false,
+            "perMonitorWorkspaces": true,
+            "showWindows": true
+        }
+    },
+    "border": {
+        "rounding": 15,
+        "smoothing": 20,
+        "thickness": 10
+    },
+    "dashboard": {
+        "dragThreshold": 50
+    },
+    "general": {
+        "apps": {
+            "explorer": [
+                "nautilus",
+                "--new-window"
+            ],
+            "terminal": [
+                "kitty"
+            ]
+        },
+        "idle": {
+            "inhibitWhenAudio": true,
+            "inhibitWhenCharging": false,
+            "lockBeforeSleep": true,
+            "timeouts": [
+                {
+                    "idleAction": "lock",
+                    "inhibitWhenAudio": false,
+                    "inhibitWhenCharging": false,
+                    "respectInhibitors": true,
+                    "timeout": 180
+                },
+                {
+                    "idleAction": "dpms off",
+                    "returnAction": "dpms on",
+                    "timeout": 300
+                },
+                {
+                    "idleAction": [
+                        "suspendThenHibernate"
+                    ],
+                    "timeout": 600
+                }
+            ]
+        }
+    },
+    "launcher": {
+        "enableDangerousActions": false,
+        "useFuzzy": {
+            "apps": true,
+            "schemes": false,
+            "variants": false,
+            "wallpapers": false
+        },
+        "vimKeybinds": true
+    },
+    "paths": {
+        "wallpaperDir": "~/Nextcloud/.caelestia"
+    },
+    "services": {
+        "audioIncrement": 0.05,
+        "brightnessIncrement": 0.05,
+        "defaultPlayer": "Feishin",
+        "gpuType": "",
+        "maxVolume": 1,
+        "smartScheme": true,
+        "visualiserBars": 64
+    },
+    "sidebar": {
+        "dragThreshold": 45,
+        "enabled": true
+    },
+    "utilities": {
+        "toasts": {
+            "nowPlaying": false,
+            "vpnChanged": false
+        }
+    }
+}

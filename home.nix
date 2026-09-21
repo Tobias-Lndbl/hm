@@ -13,6 +13,7 @@
     ./programs
     ./games
     ./nixos/hyprland
+    ./desktop
   ];
 
   home.username = "tbsl";
@@ -46,18 +47,35 @@
     ];
   };
 
-
-  programs.kitty.enable = true;
+  programs.kitty = {
+    enable = true;
+    extraConfig = ''
+      include ~/.local/state/caelestia/theme/kitty.conf
+    '';
+  };
 
   xdg.enable = true;
 
-  #home.enableNixpkgsReleaseCheck = false;
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+    setSessionVariables = false;
+  };
+
+  wayland.windowManager.hyprland.configType = "lua";
+  wayland.windowManager.hyprland.systemd.enable = false;
+
+  services.gnome-keyring.enable = true;
+
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   };
 
   home.packages = with pkgs; [
     xdg-utils
+
+    grimblast
+
     swaybg
     sops
     python3
@@ -72,13 +90,12 @@
       "..." = ".. && ..";
       "...." = "... && ..";
       "cfg" = "cd ~/.config/hm";
-      "cdhypr" = "cd ~/.config/hypr";
-      "cdhyprhm" = "cd ~/.config/hm/nixos/hyprland";
+      "cdhypr" = "cd ~/.config/hm/nixos/hyprland";
       "ivm" = "vim";
       c = "clear";
-      switch = lib.mkDefault "home-manager switch --flake ~/.config/hm";
-      nswitch = lib.mkDefault "sudo nixos-rebuild switch --flake ~/.config/hm";
-      wa = "firefox https://web.whatsapp.com &";
+      switch = lib.mkDefault "home-manager switch --flake ~/.config/hm#tbsl@\$(hostname)";
+      bswitch = lib.mkDefault "home-manager switch -b backup --flake ~/.config/hm#tbsl@\$(hostname)";
+      nswitch = lib.mkDefault "sudo nixos-rebuild switch --flake ~/.config/hm#\$(hostname)";
       "sdn" = "shutdown now";
       clstat = "firefox localhost:11987 &";
       ccl = "firefox localhost:11987 &";
@@ -86,15 +103,14 @@
       nixreb_boot = "nixos-rebuild boot";
       nixreb_switch = "nixos-rebuild switch";
       element = "element-desktop";
-      google = "google-chrome-stable";
-      chrome = "google-chrome-stable";
-      trilium-web = "google-chrome-stable 10.0.10.10 --new-window";
       ff = "fastfetch";
       "hrel" = "hyprctl reload";
       "tv_disable" = "hyprctl keyword monitor 'DP-6,disable'";
+      "pu" = "nmcli connection up pyroeis";
+      "pd" = "nmcli connection down pyroeis";
     };
   };
-  
+
   programs.direnv.enable = true;
 
   i18n.inputMethod.fcitx5.settings.inputMethod = {
@@ -106,7 +122,7 @@
     };
     "Groups/0/Items/0".Name = "keyboard-jp";
     "Groups/0/Items/1".Name = "mozc";
-  }; 
+  };
 
-  home.file = {};
+  home.file = { };
 }

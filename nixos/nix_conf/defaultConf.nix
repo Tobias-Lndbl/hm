@@ -2,16 +2,15 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   nixpkgs.config.allowUnfree = true;
-
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -21,6 +20,9 @@
   ];
 
   security.rtkit.enable = true;
+
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -56,11 +58,17 @@
     ];
   };
 
-
   # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = false;
 
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "sddm-astronaut-theme";
+    extraPackages = [ pkgs.sddm-astronaut ];
+  };
+
+  services.displayManager.plasma-login-manager.enable = false;
+  services.desktopManager.gnome.enable = false;
+  services.displayManager.gdm.enable = false;
 
   services.pulseaudio.enable = false;
 
@@ -70,23 +78,49 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+  # If you want to use JACK applications, uncomment this
+  #jack.enable = true;
 
   services.logind.settings.Login.HandlePowerKey = "suspend";
 
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+  services.power-profiles-daemon.enable = true;
+  services.tlp.enable = false;
+  services.auto-cpufreq.enable = false;
+
+  # use the example session manager (no others are packaged yet so this is enabled by default,
+  # no need to redefine it in your config for now)
+  #media-session.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
+  ##NETWORKING##
+  networking.firewall = {
+    enable = true;
+    logReversePathDrops = true;
+    checkReversePath = false;
+    allowedUDPPorts = [ 52193 ];
+  };
+
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  services.resolved.enable = false;
+
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.rp_filter" = 0;
+    "net.ipv4.conf.default.rp_filter" = 2;
+  };
+  ##
+
+  ##PROGRAMS##
   programs = {
-    
-    hyprland.enable = true;
+    hyprland = {
+      enable = true;
+      withUWSM = true;
+    };
+
     firefox.enable = true;
 
     nix-ld = {
@@ -98,41 +132,48 @@
         # here, NOT in environment.systemPackages
       ];
     };
-
-    steam = {
-      enable = true;
-      remotePlay.openFirewall = true;
-      dedicatedServer.openFirewall = true;
-      localNetworkGameTransfers.openFirewall = true;
-    };
-
-
   };
 
   hardware.logitech.wireless.enable = true;
 
   hardware.i2c.enable = true;
 
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      cups-filters
+      cups-browsed
+    ];
+  };
+
+  services.ipp-usb.enable = true;
+
   users.users.tbsl = {
     isNormalUser = true;
     description = "tobias lindbuechl";
-    extraGroups = [ 
+    extraGroups = [
       "networkmanager"
-      "wheel" 
+      "wheel"
       "audio"
       "scanner"
       "networkmanager"
       "docker"
       "dialout"
-      ];
-    packages = with pkgs; [
     ];
+    #packages = with pkgs; [
+    #];
   };
-
 
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     pulseaudio
+    dnsutils
 
     #hyprlock
     hyprpaper
@@ -141,10 +182,15 @@
 
     brightnessctl
     ddcutil
+
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    sddm-astronaut
+
+    man-pages
+    man-pages-posix
   ];
 
-
-  fonts = { 
+  fonts = {
     packages = with pkgs; [
       dejavu_fonts
       noto-fonts
@@ -155,7 +201,7 @@
       fira-code-symbols
       mplus-outline-fonts.githubRelease
       dina-font
-      proggyfonts 
+      proggyfonts
       font-awesome
       roboto-mono
       roboto
@@ -164,10 +210,9 @@
     ];
 
     fontDir.enable = true;
-  }; 
+  };
 
-
-  console =  {
+  console = {
     enable = true;
     packages = with pkgs; [
       roboto-mono
@@ -177,6 +222,9 @@
       font-awesome
     ];
   };
+
+  documentation.dev.enable = true;
+  documentation.man.enable = true;
 
   nix.settings = {
     experimental-features = "nix-command flakes";
