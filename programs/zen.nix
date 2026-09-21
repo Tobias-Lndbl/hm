@@ -52,7 +52,7 @@
       #   mv *.Default\ Profile default
       #   cd ~ && home-manager switch --flake ~/.config/hm#tbsl@$(hostname)
       #
-      # Devices already migrated: (none yet -- tick off as you go)
+      # Devices already migrated: inari, izanagi, (none yet -- tick off as you go)
       path = "default";
 
       # Prefs that otherwise have to be re-clicked on every new device.
