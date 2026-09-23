@@ -12,8 +12,6 @@
 {
   nixpkgs.config.allowUnfree = true;
 
-
-
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
@@ -137,6 +135,8 @@
     };
   };
 ##
+
+  programs.dconf.enable = true;
 
   hardware.logitech.wireless.enable = true;
 

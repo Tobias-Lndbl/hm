@@ -99,6 +99,7 @@
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
+    settings.General.Enable = "Source,Sink,Media,Socket";
   };
 
   #lg steering wheel:
@@ -110,6 +111,7 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+    gamescopeSession.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -130,6 +132,21 @@
   };
 
   hardware.alsa.enablePersistence = true;
+
+
+
+  ##GAMES
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    glib
+    gtk3
+    webkitgtk_4_1
+    libsoup_3
+  ];
+
+  
+  security.unprivilegedUsernsClone = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

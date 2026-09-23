@@ -9,6 +9,7 @@
   imports = [
     ./caelestia/caelestia.nix
     ./hyprland.nix
+    ./gtk.nix
   ];
 
   programs.hyprlock.enable = true;
