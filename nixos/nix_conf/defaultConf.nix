@@ -96,7 +96,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
-##NETWORKING##
+  ##NETWORKING##
   networking.firewall = {
     enable = true;
     logReversePathDrops = true;
@@ -112,10 +112,9 @@
     "net.ipv4.conf.all.rp_filter" = 0;
     "net.ipv4.conf.default.rp_filter" = 2;
   };
-##
+  ##
 
-
-##PROGRAMS##
+  ##PROGRAMS##
   programs = {
     hyprland = {
       enable = true;
@@ -134,7 +133,6 @@
       ];
     };
   };
-##
 
   programs.dconf.enable = true;
 
@@ -187,7 +185,8 @@
     brightnessctl
     ddcutil
 
-    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # zen is installed by home-manager now (programs/zen.nix), so that the
+    # declarative profile config and the binary stay in sync.
     sddm-astronaut
 
     man-pages

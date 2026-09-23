@@ -8,8 +8,18 @@
     hm.url = "github:nix-community/home-manager";
     hm.inputs.nixpkgs.follows = "nixpkgs";
 
+    # Provides a home-manager module (programs.zen-browser) that can declare
+    # spaces, pins, mods, shortcuts and prefs -- see programs/zen.nix.
     zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Packaged Firefox/Zen add-ons (rycee's set). This is the standalone flake
+    # rather than all of NUR, which would pull in a very large eval for two
+    # extensions. Used by programs/zen.nix.
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -42,6 +52,7 @@
           modules = [
             ./home.nix
             caelestia-shell.homeManagerModules.default
+            inputs.zen-browser.homeModules.beta
           ]
           ++ (import ./modules/hm)
           ++ extraModules;

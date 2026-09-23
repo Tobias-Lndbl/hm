@@ -106,6 +106,16 @@
   hardware.new-lg4ff.enable = true;
   services.udev.packages = with pkgs; [ oversteer ];
 
+  services.pipewire.extraConfig.pipewire."99-force-surround" = {
+    "context.modules" = [
+      {
+        name = "libpipewire-module-spa-device-factory";
+        args = { };
+
+      }
+    ];
+  };
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -160,7 +170,6 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

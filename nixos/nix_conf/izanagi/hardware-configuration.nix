@@ -31,7 +31,10 @@
     fsType = "ext4";
   };
 
-  fileSystems."/boot" = {
+  # Mounted at /boot/efi, not /boot: /boot is now a plain directory on the ext4
+  # root so GRUB can keep kernels there. See the bootloader block in
+  # configuration.nix.
+  fileSystems."/boot/efi" = {
     device = "/dev/disk/by-uuid/BC24-482B";
     fsType = "vfat";
     options = [
@@ -88,7 +91,11 @@
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # This machine has a GTX 1060 3GB (Pascal, GP106 / PCI 10de:1c02). As of the
+    # 26.11 bump, nvidiaPackages.stable is 595.84, which dropped Pascal:
+    #   NVRM: ... supported through the NVIDIA 580.xx Legacy drivers.
+    #   NVRM: The 595.84 NVIDIA driver will ignore this GPU.
+    # Pascal now lives on the 580 legacy branch, so pin it explicitly.
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
   };
 }

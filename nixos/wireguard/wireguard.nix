@@ -18,6 +18,7 @@
         "/gateway.lndbl.de/8.8.8.8"
         "/matrix.lndbl.de/8.8.8.8"
         "/mail.lndbl.de/8.8.8.8"
+        "/minecraft.lndbl.de/8.8.8.8"
         "/push.lndbl.de/8.8.8.8"
         "/www.lndbl.de/8.8.8.8"
 
