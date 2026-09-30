@@ -20,7 +20,6 @@
       ------------------------------------------------------
       local terminal = "kitty"
       local fileManager = "nautilus"
-      -- The zen-browser flake installs the binary as `zen-beta`, not `zen`.
       local browser = "zen-beta"
       local browserNewWindow = "zen-beta --blank-window"
       local browserPrivateWindow = "zen-beta --private-window"
