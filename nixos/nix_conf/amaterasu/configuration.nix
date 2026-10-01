@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
 
   # Bootloader.
@@ -55,12 +60,51 @@
       "nvidia.NVreg_UsePageAttributeTable=1"
       "nvidia_modeset.disable_vrr_memclk_switch=1"
       # for suspend/wakeup issues, recommended by https://wiki.hyprland.org/Nvidia/
+      # (redundant since powerManagement.enable also sets this, kept for intent)
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
       # for wayland issues, but breaks tty
       # see https://github.com/NixOS/nixpkgs/issues/343774#issuecomment-2370293678
       # "initcall_blacklist=simpledrm_platform_driver_init"
+
+      # Physical block offset of the first extent of /var/lib/swapfile.
+      # Required to resume from hibernation off a swapfile on ext4.
+      # Regenerate with scripts/hibernate-swapfile.sh if the swapfile is ever
+      # recreated, resized or moved -- a stale value silently means "no resume".
+      "resume_offset=63727616"
     ];
   };
+
+  # ---------------------------------------------------------------------
+  # HIBERNATION
+  # ---------------------------------------------------------------------
+  # 34 GiB swapfile on the ext4 root -- has to be >= RAM in use (32 GiB
+  # installed), and the hibernation image is compressed, so this is roomy.
+  # NixOS creates it with dd, so it is fully allocated and its physical offset
+  # stays put, which is what resume_offset above relies on.
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 34816; # MiB
+    }
+  ];
+
+  # The filesystem holding the swapfile. Offset comes from resume_offset above.
+  boot.resumeDevice = "/dev/disk/by-uuid/76639061-d51f-4ad9-9427-9ddce654d149";
+
+  # The MT7922's PCIe WiFi half times out on the resume side of a hibernation
+  # cycle, leaving wlp13s0 dead until the module is reloaded:
+  #   mt7921e 0000:0d:00.0: Message 00020007 (seq 10) timeout
+  #   mt7921e 0000:0d:00.0: PM: dpm_run_callback(): pci_pm_restore returns -110
+  #   mt7921e 0000:0d:00.0: PM: failed to restore async: error -110
+  # wlp13s0 is down and unused here (wired enp12s0 + wireguard), and the card's
+  # Bluetooth half is a separate USB device on btusb, so dropping the module
+  # around sleep costs nothing and keeps BT working.
+  powerManagement.powerDownCommands = ''
+    ${pkgs.kmod}/bin/modprobe -r mt7921e || true
+  '';
+  powerManagement.resumeCommands = ''
+    ${pkgs.kmod}/bin/modprobe mt7921e || true
+  '';
 
   hardware.nvidia = {
     open = true;
@@ -69,6 +113,14 @@
     nvidiaSettings = true;
     powerManagement.enable = true;
     powerManagement.finegrained = false;
+    # Driver 595 + open modules defaults this to true, which hands suspend/resume
+    # VRAM save/restore to an in-kernel PM notifier. On this box that notifier
+    # stalled between "PM: suspend entry" and "Freezing user space processes" for
+    # 19s (2026-09-10), 6min14s (2026-09-27) and indefinitely (2026-08-23, had to
+    # be hard-reset). Forcing it off goes back to the long-standing
+    # nvidia-suspend/-hibernate/-resume systemd services instead.
+    # Flip back to true to A/B it once hibernation is otherwise healthy.
+    powerManagement.kernelSuspendNotifier = false;
     #    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
     #      version = "570.124.04";
     #      sha256_64bit = "sha256-G3hqS3Ei18QhbFiuQAdoik93jBlsFI2RkWOBXuENU8Q=";
@@ -86,6 +138,14 @@
   };
 
   #services.logind.powerKey = "suspend";
+
+  # Override defaultConf.nix's HandlePowerKey = "suspend" for amaterasu only.
+  # While sleep is unreliable here a power-button press is actively harmful: it
+  # registers as a wakeup event that rolls back an in-progress hibernation (even
+  # after the image is fully written), and it routes into the broken S3 path.
+  # A clean shutdown is the useful behaviour on a desktop in that state.
+  # Set back to "suspend" once hibernation and S3 are both trustworthy.
+  services.logind.settings.Login.HandlePowerKey = lib.mkForce "poweroff";
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
@@ -105,6 +165,25 @@
   #lg steering wheel:
   hardware.new-lg4ff.enable = true;
   services.udev.packages = with pkgs; [ oversteer ];
+
+  # The box used to come straight back out of S3 within ~1s of entering it, with
+  # "pcieport 0000:00:02.1: PME: Spurious native interrupt!" on resume. The
+  # Realtek NIC is not PCI-wakeup-enabled, so this is not Wake-on-LAN; the only
+  # wake-enabled devices left are USB.
+  #
+  # 046d:c547 is the Lightspeed receiver for the PRO X Wireless headset. A
+  # headset is never a wake source, and its receiver chattering is a prime
+  # suspect, so drop remote wakeup on it.
+  #
+  # Deliberately NOT touched: 046d:c548 (Bolt receiver -> MX Keys Mini + Logi POP
+  # Mouse) and 32e3:00f2 (wired Mizar keyboard). Wakeup is per-receiver, so
+  # silencing the Bolt one would also cost wake-by-keyboard. If S3 still wakes
+  # instantly, the POP Mouse sharing that receiver is the next suspect -- add
+  # c548 here and accept power-button-only wake. Moot for hibernation, where the
+  # machine is off and only the power button can wake it anyway.
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="046d", ATTR{idProduct}=="c547", ATTR{power/wakeup}="disabled"
+  '';
 
   services.pipewire.extraConfig.pipewire."99-force-surround" = {
     "context.modules" = [

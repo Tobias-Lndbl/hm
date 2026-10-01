@@ -77,27 +77,27 @@
             ]
         },
         "idle": {
-            "inhibitWhenAudio": true,
+            "inhibitWhenAudio": false,
             "inhibitWhenCharging": false,
             "lockBeforeSleep": true,
             "timeouts": [
                 {
                     "idleAction": "lock",
-                    "inhibitWhenAudio": false,
-                    "inhibitWhenCharging": false,
                     "respectInhibitors": true,
-                    "timeout": 180
+                    "timeout": 600
                 },
                 {
                     "idleAction": "dpms off",
+                    "inhibitWhenAudio": true,
                     "returnAction": "dpms on",
-                    "timeout": 300
+                    "timeout": 900
                 },
                 {
                     "idleAction": [
-                        "suspendThenHibernate"
+                        "hibernate"
                     ],
-                    "timeout": 600
+                    "inhibitWhenAudio": true,
+                    "timeout": 1800
                 }
             ]
         }
