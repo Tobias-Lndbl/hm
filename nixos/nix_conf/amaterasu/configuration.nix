@@ -183,6 +183,16 @@
   # machine is off and only the power button can wake it anyway.
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="046d", ATTR{idProduct}=="c547", ATTR{power/wakeup}="disabled"
+
+    # Per-card ALSA state restore. Replaces the rule that
+    # hardware.alsa.enablePersistence would install (see below); the only
+    # difference is -L/--no-lock.
+    ACTION=="add", SUBSYSTEM=="sound", KERNEL=="controlC*", KERNELS!="card*", GOTO="alsa_restore_nolock_go"
+    GOTO="alsa_restore_nolock_end"
+
+    LABEL="alsa_restore_nolock_go"
+    RUN+="${pkgs.alsa-utils}/bin/alsactl restore -gUL $attr{device/number}"
+    LABEL="alsa_restore_nolock_end"
   '';
 
   services.pipewire.extraConfig.pipewire."99-force-surround" = {
@@ -220,7 +230,48 @@
     '';
   };
 
-  hardware.alsa.enablePersistence = true;
+  # ALSA state persistence, hand-rolled instead of hardware.alsa.enablePersistence.
+  #
+  # The upstream option's udev rule runs `alsactl restore -gU` *with* locking. At
+  # coldplug, systemd-tmpfiles has not yet created /run/lock (the target of the
+  # /var/lock symlink), so alsactl cannot create its lock file and aborts with
+  # ENOENT before reading any state -- every card failed on every boot:
+  #   controlC0..C6: Process '.../alsactl restore -gU <N>' failed with exit code 2
+  # The global restore in alsa-store.service papered over this, since it is ordered
+  # after sysinit.target and therefore after tmpfiles. But a card that registers
+  # after that service has already run got no state restored at all until the next
+  # boot, and the USB cards here finish enumerating only ~200ms before it.
+  #
+  # So: option off, udev rule reinstated above with -L/--no-lock (which skips
+  # locking entirely and works during coldplug), and the store/restore service
+  # copied from nixos/modules/services/audio/alsa.nix unchanged -- it runs late
+  # enough that /run/lock exists, so it keeps its locking.
+  hardware.alsa.enablePersistence = false;
+
+  systemd.services.alsa-store = {
+    description = "Store Sound Card State";
+    wantedBy = [ "multi-user.target" ];
+    restartIfChanged = false;
+    unitConfig = {
+      RequiresMountsFor = "/var/lib/alsa";
+      ConditionVirtualization = "!systemd-nspawn";
+    };
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      StateDirectory = "alsa";
+      # Note: the service should never be restarted, otherwise any setting
+      # changed between the last `store` and now will be lost. To prevent NixOS
+      # from starting it in case it has failed we expand the exit codes
+      # considered successful.
+      SuccessExitStatus = [
+        0
+        99
+      ];
+      ExecStart = "${pkgs.alsa-utils}/bin/alsactl restore -gU";
+      ExecStop = "${pkgs.alsa-utils}/bin/alsactl store -gU";
+    };
+  };
 
 
 
