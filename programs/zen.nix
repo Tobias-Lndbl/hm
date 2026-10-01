@@ -452,7 +452,7 @@ in
         "zen.tabs.vertical.right-side" = true;
         "zen.urlbar.suggestions-learner" =
           "{\"Browser:ReloadSkipCache\":-5,\"cmd_zenWorkspaceForward\":-5,\"Browser:NextTab\":-5,\"zen:global-action-settings\":-2,\"cmd_zenNewEmptySplit\":-2,\"zen:global-action-new-boost\":-2,\"zen:extension-{446900e4-71c2-419f-a6a7-df9c091e268b}\":-1,\"cmd_zenOpenSpaceRoutingSettings\":-1,\"cmd_zenToggleTabsOnRight\":-5,\"cmd_find\":-1}";
-        "zen.view.compact.enable-at-startup" = true;
+        "zen.view.compact.enable-at-startup" = false;
         "zen.view.compact.hide-toolbar" = true;
         "zen.view.show-newtab-button-top" = false;
         "zen.view.sidebar-expanded" = false;
