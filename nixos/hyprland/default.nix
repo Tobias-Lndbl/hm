@@ -9,6 +9,7 @@
   imports = [
     ./caelestia/caelestia.nix
     ./hyprland.nix
+    ./hyprland-log.nix
     ./gtk.nix
   ];
 

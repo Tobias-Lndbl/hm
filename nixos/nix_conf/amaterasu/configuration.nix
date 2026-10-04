@@ -62,6 +62,15 @@
       # for suspend/wakeup issues, recommended by https://wiki.hyprland.org/Nvidia/
       # (redundant since powerManagement.enable also sets this, kept for intent)
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+      # Where the above dumps VRAM on sleep. Unset means the driver default,
+      # /tmp -- which here is the 85%-full ext4 root, shared with Chromium and
+      # game-launcher scratch files and swept by systemd-tmpfiles on a 10d age.
+      # Worst case for this card is a 12 GiB dump, so give it somewhere nothing
+      # else writes to. Not a proven cause of the 2026-10-04 black screen, but
+      # it was an uncontrolled variable in exactly the path that misbehaved:
+      # nvidia-resume read back 48.2 MB that time versus 1 GB after the 26min
+      # cycle that worked.
+      "nvidia.NVreg_TemporaryFilePath=/var/lib/nvidia-vram"
       # for wayland issues, but breaks tty
       # see https://github.com/NixOS/nixpkgs/issues/343774#issuecomment-2370293678
       # "initcall_blacklist=simpledrm_platform_driver_init"
@@ -90,6 +99,12 @@
 
   # The filesystem holding the swapfile. Offset comes from resume_offset above.
   boot.resumeDevice = "/dev/disk/by-uuid/76639061-d51f-4ad9-9427-9ddce654d149";
+
+  # Target of NVreg_TemporaryFilePath above. Created at boot so it is always
+  # there before nvidia-hibernate.service can need it.
+  systemd.tmpfiles.rules = [
+    "d /var/lib/nvidia-vram 0700 root root -"
+  ];
 
   # The MT7922's PCIe WiFi half times out on the resume side of a hibernation
   # cycle, leaving wlp13s0 dead until the module is reloaded:
