@@ -172,9 +172,9 @@ in
             texture = 0.5;
           };
           pins = {
-            "Sign in - Claude" = {
+            "Claude" = {
               id = "bbc62752-c9cf-5e4a-8f08-c19e9a6dd419";
-              url = "https://claude.ai/login?from=logout&reauth=1&returnTo=%2Fchat%2F89a3aefc-7067-40d4-921b-3d307b432199%3F";
+              url = "https://claude.ai/new";
               position = 100;
               isEssential = true;
               container = 8;
@@ -343,7 +343,7 @@ in
             };
             "Artemis Maintenance" = {
               id = "2098ec4c-9744-5bac-bfc3-e05ebbdd0d6c";
-              url = "https://artemis.tum.de/courses/531/exercises/19152";
+              url = "https://artemis.tum.de/courses";
               position = 300;
               isEssential = true;
               container = 7;
