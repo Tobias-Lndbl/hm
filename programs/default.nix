@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-#    ./anki.nix
+    ./anki.nix
     ./bash.nix
     ./blueman.nix
     ./claude.nix
@@ -27,7 +27,7 @@
     ./rustup.nix
     ./solaar.nix
     ./tor.nix
-#    ./trilium.nix
+    ./trilium.nix
     ./TUM
     ./unity.nix
     ./vscode.nix

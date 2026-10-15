@@ -40,6 +40,16 @@ in
       # Uncomment to hard-disable Mozilla account sign-in entirely. Left on so
       # you can still opt into Zen's native Spaces sync later if you want it.
       # DisableFirefoxAccounts = true;
+
+      # The profile clears cookies on shutdown (privacy.sanitize.sanitizeOnShutdown
+      # below). Sites with an "Allow" cookie exception are exempt from that, so
+      # these stay logged in across restarts.
+      Cookies.Allow = [
+        "https://claude.ai"
+        "https://claude.com"
+        "https://nextcloud.lndbl.de"
+        "https://authentik.lndbl.de"
+      ];
     };
 
     profiles.default = {
