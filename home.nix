@@ -45,6 +45,10 @@
 
   programs.kitty = {
     enable = true;
+    settings = {
+      # don't restore the last window's size/maximized state (made new windows open maximized in Hyprland)
+      remember_window_size = "no";
+    };
     extraConfig = ''
       include ~/.local/state/caelestia/theme/kitty.conf
     '';

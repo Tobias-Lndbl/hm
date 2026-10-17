@@ -19,10 +19,13 @@
       ------------------------------------------------------
       -- MACHINE-SPECIFIC WORKSPACES
       ------------------------------------------------------
-      hl.workspace_rule({ workspace = "2", monitor = "DP-3", default = true })
-      hl.workspace_rule({ workspace = "3", monitor = "DP-3", default = true })
-      hl.workspace_rule({ workspace = "0", monitor = "DP-2", default = true })
-      hl.workspace_rule({ workspace = "1", monitor = "HDMI-A-1", default = true })
+      -- Bound by EDID description (prefix match), since the connector names
+      -- shift between boots (DP-3/DP-6, DP-2/DP-5, HDMI-A-1/HDMI-A-2).
+      hl.workspace_rule({ workspace = "2", monitor = "desc:ASUSTek COMPUTER INC ASUS VG249", default = true })
+      hl.workspace_rule({ workspace = "3", monitor = "desc:ASUSTek COMPUTER INC ASUS VG249" })
+      hl.workspace_rule({ workspace = "1", monitor = "desc:Acer Technologies Acer G245H", default = true })
+      -- SUPER+0 targets workspace 10 (see the bind loop in hyprland.nix)
+      hl.workspace_rule({ workspace = "10", monitor = "desc:Samsung Electric Company", default = true })
 
       ------------------------------------------------------
       -- NVIDIA ENV VARS

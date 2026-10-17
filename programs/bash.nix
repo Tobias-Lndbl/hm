@@ -32,7 +32,6 @@
 
       # Hyprland
       hrel = "hyprctl reload";
-      tv_disable = "hyprctl keyword monitor 'DP-6,disable'";
 
       # Pyroeis VPN
       pu = "nmcli connection up pyroeis";
@@ -42,6 +41,9 @@
       # The zen-browser flake installs the binary as `zen-beta`, not `zen`.
       clstat = "zen-beta localhost:11987 &";
       ccl = "zen-beta localhost:11987 &";
+
+      #TUM
+      lxhalle = "kitten ssh lxhalle";
     };
   };
 }
