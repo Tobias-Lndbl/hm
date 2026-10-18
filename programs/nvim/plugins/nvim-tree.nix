@@ -6,7 +6,8 @@
     type = "lua";
     config = ''
       local treeapi = require "nvim-tree.api"
-      vim.keymap.set('n', '<leader>t', treeapi.tree.toggle)
+      -- look toggle up at keypress: setup() replaces the api functions
+      vim.keymap.set('n', '<leader>t', function() treeapi.tree.toggle() end)
       local function my_on_attach(bufnr)
         local function opts(desc)
           return {
