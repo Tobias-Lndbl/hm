@@ -41,6 +41,10 @@
   programs = {
     home-manager.enable = true;
 
-    direnv.enable = true;
+    direnv = {
+      enable = true;
+      # caches `use flake` shells instead of re-evaluating on every cd
+      nix-direnv.enable = true;
+    };
   };
 }

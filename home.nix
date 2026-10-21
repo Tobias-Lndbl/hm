@@ -21,9 +21,6 @@
     config = {
       allowUnfree = true;
       allowUnfreePredicate = (_: true);
-      permittedInsecurePackages = [
-        "electron-37.10.3"
-      ];
     };
     overlays = [
       outputs.overlays.additions

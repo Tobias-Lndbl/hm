@@ -25,7 +25,8 @@
       set undoreload=1000
 
       set spelllang=en,de,cjk
-      set spell
+      " spellcheck prose only, not code identifiers
+      autocmd FileType markdown,tex,text,gitcommit setlocal spell
 
       " Only works for lua config due to order HomeManager appends text
       let mapleader = ","

@@ -230,6 +230,15 @@
   documentation.man.enable = true;
 
   nix.settings = {
-    experimental-features = "nix-command flakes";
+    experimental-features = [ "nix-command" "flakes" ];
+    # hard-link identical files in the store
+    auto-optimise-store = true;
+  };
+
+  # drop old generations so the store doesn't grow forever
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
   };
 }

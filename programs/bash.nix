@@ -1,12 +1,8 @@
 { lib, ... }:
 let
     semester = "w26";
-    course0 = "itsec";
-    course1 = "ds";
-    course2 = "ana";
-    course3 = "gbs";
-    course4 = "gdb";
-    course5 = "med";
+    courses = [ "itsec" "ds" "ana" "gbs" "gdb" "med" ];
+    uniDir = "~/Nextcloud/uni/${semester}";
 in
 {
 
@@ -14,9 +10,10 @@ in
 
     enable = true;
 
-    bashrcExtra = ''
-      export EDITOR='vim'
-    '';
+    historySize = 10000;
+    historyFileSize = 100000;
+    historyControl = [ "ignoredups" "erasedups" ];
+    shellOptions = [ "histappend" "checkwinsize" "globstar" ];
 
     shellAliases = {
       ".." = "cd ..";
@@ -34,13 +31,7 @@ in
       # Config navigation
       cfg = "cd ~/.config/hm";
       cdhypr = "cd ~/.config/hm/nixos/hyprland";
-      cu = "cd ~/Nextcloud/uni/${semester}";
-      "cu${course0}" = "cd ~/Nextcloud/uni/${semester}/${course0}/";
-      "cu${course1}" = "cd ~/Nextcloud/uni/${semester}/${course1}/";
-      "cu${course2}" = "cd ~/Nextcloud/uni/${semester}/${course2}/";
-      "cu${course3}" = "cd ~/Nextcloud/uni/${semester}/${course3}/";
-      "cu${course4}" = "cd ~/Nextcloud/uni/${semester}/${course4}/";
-      "cu${course5}" = "cd ~/Nextcloud/uni/${semester}/${course5}/";
+      cu = "cd ${uniDir}";
 
       # Rebuilds. mkDefault so a host module can override them.
       switch = lib.mkDefault "home-manager switch --flake ~/.config/hm#tbsl@\$(hostname)";
@@ -63,6 +54,14 @@ in
 
       #TUM
       lxhalle = "kitten ssh lxhalle";
-    };
+    }
+    # cu<course> = cd into that course's folder
+    // lib.listToAttrs (map (c: lib.nameValuePair "cu${c}" "cd ${uniDir}/${c}/") courses);
   };
+
+  # Ctrl-R fuzzy history, Ctrl-T file picker, Alt-C cd
+  programs.fzf.enable = true;
+
+  # `z gbs` jumps to the most used matching dir
+  programs.zoxide.enable = true;
 }

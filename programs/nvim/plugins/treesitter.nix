@@ -17,6 +17,12 @@
         lua
         make
         markdown
+        markdown_inline
+        latex
+        sql
+        ocaml
+        gitcommit
+        diff
         r
         rust
         scss
