@@ -105,11 +105,7 @@
             vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
             vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
             vim.keymap.set('n', '<space>f', function()
-              if vim.bo.filetype == "python" then
-                vim.cmd("!black %")
-              else
-                vim.lsp.buf.format { async = true }
-              end
+              vim.lsp.buf.format { async = true }
             end, bufopts)
 
           end
@@ -119,6 +115,32 @@
           vim.lsp.enable('pyright')
           vim.lsp.config('pyright', {
             on_attach = on_attach,
+            flags = lsp_flags,
+            capabilities = capabilities,
+            settings = {
+              -- ruff handles imports
+              pyright = { disableOrganizeImports = true },
+              python = { analysis = { typeCheckingMode = "standard" } },
+            },
+            -- Use $VIRTUAL_ENV or the project's .venv so third-party imports resolve
+            before_init = function(_, config)
+              local venv = os.getenv('VIRTUAL_ENV')
+              local root = config.root_dir
+              if not venv and root and vim.fn.isdirectory(root .. '/.venv') == 1 then
+                venv = root .. '/.venv'
+              end
+              if venv then
+                config.settings.python.pythonPath = venv .. '/bin/python'
+              end
+            end,
+          })
+          vim.lsp.enable('ruff')
+          vim.lsp.config('ruff', {
+            on_attach = function(client, bufnr)
+              -- leave hover to pyright
+              client.server_capabilities.hoverProvider = false
+              on_attach(client, bufnr)
+            end,
             flags = lsp_flags,
             capabilities = capabilities,
           })

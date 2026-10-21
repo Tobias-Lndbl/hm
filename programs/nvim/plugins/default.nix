@@ -9,6 +9,7 @@
     ./undotree.nix
     ./telescope.nix
     ./jdtls-nvim.nix
+    ./python.nix
   ];
 
   programs.neovim = {

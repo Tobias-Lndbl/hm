@@ -24,6 +24,7 @@
         vimdoc
         yaml
         nix
+        python
       ]
     ))
   ];
