@@ -12,6 +12,18 @@
 {
   nixpkgs.config.allowUnfree = true;
 
+  # TODO: remove once nixpkgs fixes mozc for Qt >= 6.12
+  # Qt 6.12's uic rejects class names with a leading "::" in mozc's .ui files.
+  nixpkgs.overlays = [
+    (final: prev: {
+      mozc = prev.mozc.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          find src/gui -name '*.ui' -exec sed -i 's|<class>::|<class>|; s|class="::|class="|' {} +
+        '';
+      });
+    })
+  ];
+
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 

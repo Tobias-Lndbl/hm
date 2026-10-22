@@ -19,11 +19,22 @@
   ##BOOTLOADER##
   boot.loader = {
     efi.canTouchEfiVariables = true;
+    # ESP is only 200M: keep /boot on the root fs so kernels aren't copied to it
+    efi.efiSysMountPoint = "/boot/efi";
     grub = {
       enable = true;
       device = "nodev";
       efiSupport = true;
-      useOSProber = true;
+      # static entry instead of os-prober (Windows lives on the ESP)
+      extraEntries = ''
+        menuentry "Windows" {
+          insmod part_gpt
+          insmod fat
+          insmod chain
+          search --no-floppy --fs-uuid --set=root E410-F81A
+          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        }
+      '';
       configurationLimit = 3;
     };
   };
