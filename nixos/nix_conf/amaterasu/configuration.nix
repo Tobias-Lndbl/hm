@@ -47,7 +47,22 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest.extend (
+    self: super: {
+      # nixpkgs bug: kernelModuleMakeFlags is spliced unescaped into a bash array,
+      # so `cmd_sign=...$(space)$@` runs as command substitution. Remove once fixed upstream.
+      new-lg4ff = super.new-lg4ff.overrideAttrs (old: {
+        preConfigure = ''
+          makeFlagsArray+=(
+            KVERSION="${self.kernel.modDirVersion}"
+            KDIR="${self.kernel.dev}/lib/modules/${self.kernel.modDirVersion}/build"
+            KCFLAGS="-DCONFIG_LOGIWHEELS_FF -DCONFIG_LEDS_CLASS"
+            ${lib.escapeShellArgs self.kernelModuleMakeFlags}
+          )
+        '';
+      });
+    }
+  );
   boot.extraModulePackages = with config.boot.kernelPackages; [
     nct6687d
   ];
