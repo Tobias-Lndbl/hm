@@ -54,7 +54,8 @@
         "workspaces": {
             "activeTrail": false,
             "occupiedBg": false,
-            "perMonitorWorkspaces": true,
+            "perMonitor": true,
+            "showUnoccupied": false,
             "showWindows": true
         }
     },

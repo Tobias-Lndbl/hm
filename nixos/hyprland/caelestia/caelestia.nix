@@ -108,16 +108,20 @@
                     }'
 
             substituteInPlace modules/session/Content.qml \
-              --replace-fail '    AnimatedImage {
-                    width: Tokens.sizes.session.button
-                    height: Tokens.sizes.session.button
-                    sourceSize.width: width * ((QsWindow.window as QsWindow)?.devicePixelRatio ?? 1)
+              --replace-fail '    Loader {
+                    active: Config.paths.sessionGif.trim() !== ""
 
-                    playing: visible
-                    asynchronous: true
-                    speed: Config.general.sessionGifSpeed
-                    source: Paths.absolutePath(Config.paths.sessionGif)
-                    fillMode: AnimatedImage.PreserveAspectFit
+                    sourceComponent: AnimatedImage {
+                        width: Tokens.sizes.session.button
+                        height: Tokens.sizes.session.button
+                        sourceSize.width: width * ((QsWindow.window as QsWindow)?.devicePixelRatio ?? 1)
+
+                        playing: visible
+                        asynchronous: true
+                        speed: Config.general.sessionGifSpeed
+                        source: Paths.absolutePath(Config.paths.sessionGif)
+                        fillMode: AnimatedImage.PreserveAspectFit
+                    }
                 }' '    Item {}' \
               --replace-fail '    SessionButton {
                     id: logout
@@ -145,12 +149,6 @@
 
             substituteInPlace modules/sidebar/NotifActionList.qml \
               --replace-fail 'action.modelData.invoke();' 'action.modelData.invoke(); Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", "class:^(?i)" + root.notif.appName + "$"]);'
-
-            substituteInPlace modules/bar/components/workspaces/Workspace.qml \
-              --replace-fail '    Layout.alignment: Qt.AlignHCenter
-                Layout.preferredHeight: size' '    visible: root.isOccupied || root.activeWsId === root.ws
-                Layout.alignment: Qt.AlignHCenter
-                Layout.preferredHeight: size'
 
             substituteInPlace modules/dashboard/dash/DateTime.qml \
               --replace-fail '            text: Time.minuteStr
@@ -210,8 +208,14 @@
       enable = true;
       settings = builtins.fromJSON (builtins.readFile ./caelestia_cli.json);
       package =
-        inputs.caelestia-shell.inputs.caelestia-cli.packages.${pkgs.system}.default.overrideAttrs
+        inputs.caelestia-shell.inputs.caelestia-cli.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
           (old: {
+            # Upstream sets SETUPTOOLS_SCM_PRETEND_VERSION as a top-level attr, which isn't
+            # exported under __structuredAttrs, so hatch-vcs can't find a version. Remove once fixed upstream.
+            preBuild = ''
+              export SETUPTOOLS_SCM_PRETEND_VERSION=1
+            ''
+            + (old.preBuild or "");
             postFixup = (old.postFixup or "") + ''
               schemedir=$(find $out -type d -path '*/caelestia/data/schemes' -print -quit)
               if [ -z "$schemedir" ]; then
