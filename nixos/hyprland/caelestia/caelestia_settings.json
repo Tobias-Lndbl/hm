@@ -120,7 +120,7 @@
         "audioIncrement": 0.05,
         "brightnessIncrement": 0.05,
         "defaultPlayer": "Feishin",
-        "gpuType": "",
+        "gpuType": "Auto",
         "maxVolume": 1,
         "smartScheme": true,
         "visualiserBars": 64

@@ -201,7 +201,9 @@
     systemd = {
       enable = true;
       target = "graphical-session.target";
-      environment = [ ];
+      # QT_QPA_PLATFORMTHEME=qt6ct is set but qt6ct isn't installed, so Qt
+      # never learns the icon theme; quickshell reads this override instead.
+      environment = [ "QS_ICON_THEME=Papirus-Dark" ];
     };
 
     cli = {
