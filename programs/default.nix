@@ -14,6 +14,7 @@
     ./git.nix
     ./jetbrains.nix
     ./libresprite.nix
+    ./lunarclient.nix
     ./nautilus.nix
     ./gnucash.nix
     ./gnumake.nix
