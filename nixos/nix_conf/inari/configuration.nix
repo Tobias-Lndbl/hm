@@ -71,5 +71,10 @@
   hardware.sensor.iio.enable = true;
   services.upower.enable = true;
 
+  # tiny_power_button sends SIGRTMIN+4 straight to PID 1 on every ACPI power
+  # button event, bypassing logind's HandlePowerKey=suspend; waking from
+  # suspend with the power button powered the machine off
+  boot.blacklistedKernelModules = [ "tiny_power_button" ];
+
   system.stateVersion = "25.05"; # Did you read the comment?
 }
