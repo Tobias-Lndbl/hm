@@ -469,6 +469,26 @@ in
         "zen.view.use-single-toolbar" = false;
       };
 
+      # Only the listed fields are overridden; everything else keeps Zen's
+      # defaults. Ids are in <profile>/zen-keyboard-shortcuts.json.
+      keyboardShortcuts = [
+        # Ctrl+O opens a local file, like in Firefox...
+        {
+          id = "openFileKb";
+          key = "o";
+          modifiers.accel = true;
+        }
+        # ...so Glance expand moves off Ctrl+O to Ctrl+Alt+O.
+        {
+          id = "zen-glance-expand";
+          key = "o";
+          modifiers = {
+            accel = true;
+            alt = true;
+          };
+        }
+      ];
+
       mods = [
         "72f8f48d-86b9-4487-acea-eb4977b18f21" # Better CtrlTab Panel
         "f7c71d9a-bce2-420f-ae44-a64bd92975ab" # Better Unloaded Tabs
